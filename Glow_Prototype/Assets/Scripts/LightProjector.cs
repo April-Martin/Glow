@@ -28,9 +28,6 @@ public class LightProjector : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		rt_light = new RenderTexture (screenWidth, screenHeight, 16);
-		screenWidth = Screen.width;
-		screenHeight = Screen.height;
 	}
 
 }

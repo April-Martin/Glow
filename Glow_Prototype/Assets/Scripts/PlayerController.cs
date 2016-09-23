@@ -22,6 +22,12 @@ public class PlayerController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            DropGoo();
+            KillPlayer();
+        }
+
         Vector3 velocity = _controller.velocity;
         velocity.x = 0;
 
@@ -44,9 +50,13 @@ public class PlayerController : MonoBehaviour {
 
 	}
 
+    private void DropGoo()
+    {
+        Instantiate(gooPrefab, transform.position, Quaternion.identity);
+    }
+
 	public void KillPlayer()
 	{
-		Instantiate (gooPrefab, transform.position, Quaternion.identity);
 		transform.position = startPos.position;
 	}
 }
