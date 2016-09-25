@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 5b29e6dd0062e53429cf0b59bb05b5d3
-timeCreated: 1474573005
+timeCreated: 1474822714
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -58,46 +58,46 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 110
+        width: 119.333336
         height: 88
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -55, y: 44}
-        - {x: -55, y: -44}
-        - {x: 55, y: -44}
-        - {x: 55, y: 44}
+      - - {x: -60, y: 44}
+        - {x: -60, y: -44}
+        - {x: 60, y: -44}
+        - {x: 60, y: 44}
     - name: platformblue_placeholder(doublesize)_1
       rect:
         serializedVersion: 2
-        x: 226
+        x: 119
         y: 0
-        width: 132
+        width: 119.333336
         height: 88
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -66, y: 44}
-        - {x: -66, y: -44}
-        - {x: 66, y: -44}
-        - {x: 66, y: 44}
+      - - {x: -60, y: 44}
+        - {x: -60, y: -44}
+        - {x: 60, y: -44}
+        - {x: 60, y: 44}
     - name: platformblue_placeholder(doublesize)_2
       rect:
         serializedVersion: 2
-        x: 111
+        x: 238
         y: 0
-        width: 114
+        width: 119.333336
         height: 88
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -57, y: 44}
-        - {x: -57, y: -44}
-        - {x: 57, y: -44}
-        - {x: 57, y: 44}
+      - - {x: -60, y: 44}
+        - {x: -60, y: -44}
+        - {x: 60, y: -44}
+        - {x: 60, y: 44}
     outline: []
   spritePackingTag: 
   userData: 
