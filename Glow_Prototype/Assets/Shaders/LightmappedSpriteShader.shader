@@ -88,15 +88,23 @@
 					
 			float4 screenCoords = IN.vertex;
 				float4 uvCoords;
+
 				uvCoords[0] = (screenCoords[0]/_ScreenWidth);
 				uvCoords[1] = (screenCoords[1]/_ScreenHeight);
 				uvCoords[2] = 0;
 				uvCoords[3] = 1;
 
+				// CORRECT FOR DIFFERING DIRECT3D / OPENGL CONVENTIONS
+				if (_ProjectionParams.x >= 0)
+					uvCoords[1] = 1 - uvCoords[1];
+
 				fixed4 mainTex = tex2D(_MainTex, IN.texcoord);
 				fixed4 lightTex = tex2D (_LightTex, uvCoords);
 				fixed4 combined = mainTex * lightTex * mainTex.a;
+
+
 				return combined;
+
 
 
 			}

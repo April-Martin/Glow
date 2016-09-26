@@ -69,7 +69,6 @@
     <Compile Include="Assets\Scripts\GooBehavior.cs" />
     <Compile Include="Assets\Scripts\LightProjector.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
-    <Compile Include="Assets\Scripts\SetUpLightingCam.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Shaders\LightmappedSpriteShader.shader" />

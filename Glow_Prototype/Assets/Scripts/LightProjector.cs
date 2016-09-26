@@ -24,10 +24,13 @@ public class LightProjector : MonoBehaviour {
 
 		mat.SetFloat("_ScreenWidth", screenWidth);
         mat.SetFloat("_ScreenHeight", screenHeight);
+
 	}
-	
+
+
 	// Update is called once per frame
-	void Update () {
+	void Start () {
+
 	}
 
 }
