@@ -56,9 +56,10 @@
 			{
 				v2f OUT;
 				float4 adjVert = mul(UNITY_MATRIX_MVP, IN.vertex);
-				if (_ProjectionParams.x < 0)
+				//if (_ProjectionParams.x < 0)
 				{
-					adjVert.y = 1- adjVert.y;
+					//adjVert.y = 1- adjVert.y;
+					adjVert[0] = 0;
 				}
 				OUT.vertex = adjVert;
 				OUT.texcoord = IN.texcoord;

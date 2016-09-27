@@ -97,7 +97,7 @@
 				// CORRECT FOR DIFFERING DIRECT3D / OPENGL CONVENTIONS
 				if (UNITY_NEAR_CLIP_VALUE == 0) // Direct3D: i.e., PC, consoles
 				{
-					uvCoords[1] = 1 - uvCoords[1];
+				//	uvCoords[1] = 1 - uvCoords[1];
 				}
 
 				fixed4 mainTex = tex2D(_MainTex, IN.texcoord);
