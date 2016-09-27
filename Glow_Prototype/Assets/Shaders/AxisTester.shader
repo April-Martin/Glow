@@ -1,5 +1,4 @@
-﻿Shader "Custom/LightmappedSpriteMaterial" 
-{
+﻿Shader "Custom/AxisTester" {
 	Properties
 	{
 		[PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
@@ -94,10 +93,24 @@
 				uvCoords[2] = 0;
 				uvCoords[3] = 1;
 
+
+				fixed4 test;
+				test[0] = 1;
+				test[1] = 0;
+				test[2] = 0;
+				test[3] = 1;
 				// CORRECT FOR DIFFERING DIRECT3D / OPENGL CONVENTIONS
 				if (_ProjectionParams.x >= 0)
-					uvCoords[1] = 1 - uvCoords[1];
-
+				//	uvCoords[1] = 1 - uvCoords[1];
+				{
+					return test;
+				}
+				else
+				{
+					test[0] = 0;
+					test[1] = 1;
+					return test;
+				}
 
 				fixed4 mainTex = tex2D(_MainTex, IN.texcoord);
 				fixed4 lightTex = tex2D (_LightTex, uvCoords);
