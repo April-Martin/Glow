@@ -1,9 +1,10 @@
-﻿<Properties StartupItem="Assembly-CSharp.csproj">
+﻿<Properties StartupItem="Glow_Prototype.CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
   <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Shaders/LightmappedSpriteShader.shader">
     <Files>
-      <File FileName="Assets/Shaders/LightmappedSpriteShader.shader" Line="93" Column="21" />
-      <File FileName="Assets/Scripts/LightProjector.cs" Line="31" Column="64" />
+      <File FileName="Assets/Shaders/LightmappedSpriteShader.shader" Line="1" Column="1" />
+      <File FileName="Assets/Scripts/LightProjector.cs" Line="1" Column="1" />
+      <File FileName="Assets/Shaders/AxisTester.shader" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
