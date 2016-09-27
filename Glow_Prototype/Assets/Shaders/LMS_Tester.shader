@@ -1,4 +1,4 @@
-﻿Shader "Custom/LMS_Visible" 
+﻿Shader "Custom/LMS_Tester" 
 {
 	Properties
 	{
@@ -55,7 +55,12 @@
 			v2f vert(appdata_t IN)
 			{
 				v2f OUT;
-				OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
+				float4 adjVert = mul(UNITY_MATRIX_MVP, IN.vertex);
+				if (_ProjectionParams.x < 0)
+				{
+					adjVert.y = 1- adjVert.y;
+				}
+				OUT.vertex = adjVert;
 				OUT.texcoord = IN.texcoord;
 				OUT.color = IN.color * _Color;
 				#ifdef PIXELSNAP_ON
