@@ -100,6 +100,11 @@
 					uvCoords[1] = 1 - uvCoords[1];
 				}
 
+				// TEST IF IT'S UPSIDE DOWN
+				fixed4 test = uvCoords;
+				test[3] = 1;
+				return test;
+
 
 				fixed4 mainTex = tex2D(_MainTex, IN.texcoord);
 				fixed4 lightTex = tex2D (_LightTex, uvCoords);
