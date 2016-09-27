@@ -54,12 +54,20 @@
 			v2f vert(appdata_t IN)
 			{
 				v2f OUT;
-				OUT.vertex = mul(UNITY_MATRIX_MVP, IN.vertex);
+				float4 adjustedVertex = mul(UNITY_MATRIX_MVP, IN.vertex);
+				if (_ProjectionParams.x < 0)
+				{
+					adjustedVertex[1] = 1-adjustedVertex[1];
+				}
+				OUT.vertex = adjustedVertex;
 				OUT.texcoord = IN.texcoord;
 				OUT.color = IN.color * _Color;
 				#ifdef PIXELSNAP_ON
 				OUT.vertex = UnityPixelSnap (OUT.vertex);
 				#endif
+
+
+
 
 				return OUT;
 			}
@@ -95,22 +103,24 @@
 
 
 				fixed4 test;
-				test[0] = 1;
-				test[1] = 0;
+				test[0] = uvCoords[0];
+				test[1] = uvCoords[1];
 				test[2] = 0;
 				test[3] = 1;
-				// CORRECT FOR DIFFERING DIRECT3D / OPENGL CONVENTIONS
-				if (_ProjectionParams.x >= 0)
-				//	uvCoords[1] = 1 - uvCoords[1];
-				{
-					return test;
-				}
-				else
-				{
-					test[0] = 0;
-					test[1] = 1;
-					return test;
-				}
+
+				// IS IT ACTUALLY UPSIDE DOWN TEST
+				return test;
+
+				// CLIPPING PLANE TEST
+				//test[0] = UNITY_NEAR_CLIP_VALUE;
+				//return test;
+
+				// PROJECTIONPARAMS TEST
+				test[0] = (_ProjectionParams.x+1)/2;		// RED
+				test[1] = (_ProjectionParams.x+1)/2;
+				return test;
+
+
 
 				fixed4 mainTex = tex2D(_MainTex, IN.texcoord);
 				fixed4 lightTex = tex2D (_LightTex, uvCoords);
