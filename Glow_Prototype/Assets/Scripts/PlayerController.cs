@@ -9,14 +9,18 @@ public class PlayerController : MonoBehaviour {
     public float jumpHeight = 2;
     public float walkSpeed = 1;
     public float jumpsAllowed = 2;
+	public int totalHealth = 2;
 
     public float gravity = -35;
 	public Transform startPos;
 	public GameObject gooPrefab;
 
     private CharacterController2D _controller;
+	private Transform glow;
+
     private int jumpCounter = 0;
     private bool isHoldingDownJump = false;
+	private int currHealth;
 
 	// Use this for initialization
 	void Start () {
@@ -24,6 +28,9 @@ public class PlayerController : MonoBehaviour {
 		transform.position = startPos.position;
 
 		gameCamera.GetComponent<CameraFollow2D> ().startCameraFollow (this.gameObject);
+
+		currHealth = totalHealth;
+		glow = this.gameObject.GetComponentInChildren<Transform> ();
 	}
 	
 	// Update is called once per frame
@@ -74,13 +81,29 @@ public class PlayerController : MonoBehaviour {
         return velocity;
     }
 
-    private void DropGoo()
+    void DropGoo()
     {
         Instantiate(gooPrefab, transform.position, Quaternion.identity);
     }
+		
+	public void DamagePlayer(int dmg)
+	{
+		Debug.Log ("Damaging player");
+
+		currHealth -= dmg;
+		glow.localScale = new Vector3 (currHealth/totalHealth, currHealth/totalHealth, 1);
+
+		if (currHealth <= 0) {
+			DropGoo ();
+			KillPlayer ();
+		}
+
+	}
 
 	public void KillPlayer()
 	{
+		Debug.Log ("Killing player");
 		transform.position = startPos.position;
 	}
+		
 }
