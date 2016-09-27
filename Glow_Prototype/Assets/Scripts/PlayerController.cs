@@ -4,6 +4,8 @@ using Prime31;
 
 public class PlayerController : MonoBehaviour {
 
+	public GameObject gameCamera;
+
     public float jumpHeight = 2;
     public float walkSpeed = 1;
     public float jumpsAllowed = 2;
@@ -20,6 +22,8 @@ public class PlayerController : MonoBehaviour {
 	void Start () {
         _controller = gameObject.GetComponent<CharacterController2D>();
 		transform.position = startPos.position;
+
+		gameCamera.GetComponent<CameraFollow2D> ().startCameraFollow (this.gameObject);
 	}
 	
 	// Update is called once per frame
