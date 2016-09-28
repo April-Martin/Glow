@@ -10,8 +10,7 @@ public class PlayerController : MonoBehaviour {
     public float walkSpeed = 1;
     public float jumpsAllowed = 2;
 	public int totalHealth = 2;
-
-    public float gravity = -35;
+	public float gravity = -35;
 	public Transform startPos;
 	public GameObject gooPrefab;
 
@@ -42,6 +41,13 @@ public class PlayerController : MonoBehaviour {
 
         if (_controller.isGrounded)
             jumpCounter = 0;
+
+		if (_controller.isGrounded && _controller.ground != null && _controller.ground.tag == "MovingPlatform") {
+			this.transform.parent = _controller.ground.transform;
+		} else {
+			if (this.transform.parent != null)
+				transform.parent = null;
+		}
 
 	}
 
