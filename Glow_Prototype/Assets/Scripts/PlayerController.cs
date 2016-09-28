@@ -5,6 +5,7 @@ using Prime31;
 public class PlayerController : MonoBehaviour {
 
 	public GameObject gameCamera;
+	public GameObject gameOverPanel;
 
     public float jumpHeight = 2;
     public float walkSpeed = 1;
