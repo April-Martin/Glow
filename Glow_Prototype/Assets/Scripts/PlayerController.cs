@@ -10,13 +10,16 @@ public class PlayerController : MonoBehaviour {
     public float jumpHeight = 2;
     public float walkSpeed = 1;
     public float jumpsAllowed = 2;
-	public int totalHealth = 2;
+	public int maxHealth = 2;
+
 	public float gravity = -35;
 	public Transform startPos;
 	public GameObject gooPrefab;
 
     private CharacterController2D _controller;
 	private Transform glow;
+
+	private Vector3 maxLight;
 
     private int jumpCounter = 0;
     private bool isHoldingDownJump = false;
@@ -29,8 +32,9 @@ public class PlayerController : MonoBehaviour {
 
 		gameCamera.GetComponent<CameraFollow2D> ().startCameraFollow (this.gameObject);
 
-		currHealth = totalHealth;
-		glow = this.gameObject.GetComponentInChildren<Transform> ();
+		currHealth = maxHealth;
+		glow = gameObject.transform.GetChild (0);
+		maxLight = glow.localScale;
 	}
 	
 	// Update is called once per frame
@@ -49,68 +53,98 @@ public class PlayerController : MonoBehaviour {
 			if (this.transform.parent != null)
 				transform.parent = null;
 		}
-
 	}
 
-    Vector3 CalculateVelocity()
-    {
-        Vector3 velocity = _controller.velocity;
-        velocity.x = 0;
 
-        if (Input.GetKeyDown(KeyCode.K))
-        {
-            DropGoo();
-            KillPlayer();
-        }
-
-        if (Input.GetAxis("Horizontal") < 0)
-        {
-            velocity.x = walkSpeed * (-1);
-        }
-        else if (Input.GetAxis("Horizontal") > 0)
-        {
-            velocity.x = walkSpeed;
-        }
-
-        if (Input.GetAxis("Jump") > 0 && !isHoldingDownJump && (jumpCounter < jumpsAllowed))
-        {
-            velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
-            jumpCounter++;
-            isHoldingDownJump = true;
-
-        }
-
-        if (Input.GetAxis("Jump") <= 0)
-        {
-            isHoldingDownJump = false;
-        }
-
-        return velocity;
-    }
-
-    void DropGoo()
-    {
-        Instantiate(gooPrefab, transform.position, Quaternion.identity);
-    }
-		
-	public void DamagePlayer(int dmg)
+	void OnTriggerEnter2D(Collider2D col)
 	{
-		Debug.Log ("Damaging player");
+		if (col.tag == "Killer") {
+			KillPlayer ();
+		}
 
-		currHealth -= dmg;
-		glow.localScale = new Vector3 (currHealth/totalHealth, currHealth/totalHealth, 1);
+		if (col.tag == "Damager") {
+			SetHealth (currHealth - 1);
+		}
+	}
 
+
+	void SetHealth(int newHealth)
+	{
+		// Set health
+		currHealth = newHealth;
+
+		// Adjust glow
+		float healthPercent = (float) currHealth / maxHealth;
+		Vector3 newLight = maxLight;
+		newLight.Scale(new Vector3(healthPercent, healthPercent, 1));
+		glow.localScale = newLight;
+
+		// Adjust sprite brightness
+		Vector4 newTint = GetComponent<SpriteRenderer>().color;
+		newTint -= new Vector4 (.2f, .2f, .2f, 0);
+		GetComponent<SpriteRenderer> ().color = newTint;
+			
+		// Kill if necessary
 		if (currHealth <= 0) {
+			Debug.Log ("Health <= 0");
 			DropGoo ();
 			KillPlayer ();
 		}
 
 	}
 
-	public void KillPlayer()
+	void KillPlayer()
 	{
-		Debug.Log ("Killing player");
 		transform.position = startPos.position;
+		SetHealth (maxHealth);
+		GetComponent<SpriteRenderer> ().color = Color.white;
 	}
+
+
+
+    void DropGoo()
+    {
+        Instantiate(gooPrefab, transform.position, Quaternion.identity);
+    }
+
+		
+
+
+	Vector3 CalculateVelocity()
+	{
+		Vector3 velocity = _controller.velocity;
+		velocity.x = 0;
+
+		if (Input.GetKeyDown(KeyCode.K))
+		{
+			DropGoo();
+			KillPlayer();
+		}
+
+		if (Input.GetAxis("Horizontal") < 0)
+		{
+			velocity.x = walkSpeed * (-1);
+		}
+		else if (Input.GetAxis("Horizontal") > 0)
+		{
+			velocity.x = walkSpeed;
+		}
+
+		if (Input.GetAxis("Jump") > 0 && !isHoldingDownJump && (jumpCounter < jumpsAllowed))
+		{
+			velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
+			jumpCounter++;
+			isHoldingDownJump = true;
+
+		}
+
+		if (Input.GetAxis("Jump") <= 0)
+		{
+			isHoldingDownJump = false;
+		}
+
+		return velocity;
+	}
+
 		
 }

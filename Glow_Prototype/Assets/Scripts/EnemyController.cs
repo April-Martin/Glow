@@ -22,14 +22,4 @@ public class EnemyController : MonoBehaviour {
 		_controller.move (velocity * Time.deltaTime);
 	}
 
-	//void OnCollisionEnter2D(Collision2D col)
-	void OnTriggerEnter2D(Collider2D other)
-	{
-		Debug.Log ("Triggered");
-		if (other.GetComponent<Transform> () == player.GetComponent<Transform>()) {
-			player.DamagePlayer (1);
-		}
-
-	}
-
 }
