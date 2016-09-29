@@ -25,6 +25,10 @@ public class GooBehavior : MonoBehaviour {
 
     void OnCollisionEnter2D (Collision2D collision)
     {
+		if (collision.collider.tag == "MovingPlatform") {
+			this.transform.parent = collision.collider.transform;
+		}
+
         GetComponent<Rigidbody2D>().isKinematic = true;
         ContactPoint2D[] cps = collision.contacts;
         // If part of the sprite is hanging off the platform:
@@ -40,7 +44,9 @@ public class GooBehavior : MonoBehaviour {
 
             Vector3 offset = new Vector3(overlap / 2, 0, 0);
             newMask.transform.position += offset; // overlap is automatically the right sign for this
-            
+
+
+
         }
 
     }
