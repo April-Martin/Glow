@@ -6,7 +6,6 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
 
 	public GameObject gameCamera;
-	public GameObject gameOverPanel;
 
     public float walkSpeed = 1;
     public float hopHeight = 0.5f;
@@ -55,10 +54,12 @@ public class PlayerController : MonoBehaviour {
         _controller.move(velocity * Time.deltaTime);
 
         // Decrease brightness if necessary
+		/*
         if (glowDecreasing)
         {
             DecreaseGlow();
         }
+*/
 
         // Handle double jumps
         if (_controller.isGrounded)
@@ -92,6 +93,10 @@ public class PlayerController : MonoBehaviour {
 
 	void SetHealth(int newHealth)
 	{
+		if (newHealth > currHealth) {
+			glowDecreasing = true;
+		}
+
 		// Set health
 		currHealth = newHealth;
 
@@ -99,11 +104,12 @@ public class PlayerController : MonoBehaviour {
 		float healthPercent = (float) currHealth / maxHealth;
 		currGlowSize = maxGlowSize;
 		currGlowSize.Scale(new Vector3(healthPercent, healthPercent, 1));
-        glowDecreasing = true;
+		glow.transform.localScale = currGlowSize;
 
 		// Adjust sprite brightness
 		currSpriteBrightness = sprite.color;
 		currSpriteBrightness -= new Vector4 (.2f, .2f, .2f, 0);
+		sprite.color = currSpriteBrightness;
 			
 		// Kill if necessary
 		if (currHealth <= 0) {
@@ -134,7 +140,6 @@ public class PlayerController : MonoBehaviour {
 		transform.position = startPos.position;
 		SetHealth (maxHealth);
 		GetComponent<SpriteRenderer> ().color = Color.white;
-        gameOverPanel.SetActive(true);
 	}
 
 

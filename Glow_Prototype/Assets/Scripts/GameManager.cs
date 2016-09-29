@@ -3,6 +3,8 @@ using System.Collections;
 
 public class GameManager : MonoBehaviour {
 
+	public GameObject gameOverPanel;
+
 	// Use this for initialization
 	void Start () {
 	
@@ -10,7 +12,11 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	
+		if (Input.GetKeyDown(KeyCode.R))
+		{
+			gameOverPanel.SetActive(true);
+
+		}
 	}
 
 	public void RestartLevel(){
