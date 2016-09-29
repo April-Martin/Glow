@@ -18,9 +18,13 @@ public class PlayerController : MonoBehaviour {
 	public GameObject gooPrefab;
 
     private CharacterController2D _controller;
-	private Transform glow;
 
-	private Vector3 maxLight;
+	private Transform glow;
+    private SpriteRenderer sprite;
+	private Vector3 maxGlowSize;
+    private Vector3 currGlowSize;
+    private Vector4 currSpriteBrightness;
+    private bool glowDecreasing = false;
 
     private int jumpCounter = 0;
     private bool isHoldingDownJump = false;
@@ -35,19 +39,29 @@ public class PlayerController : MonoBehaviour {
 
 		currHealth = maxHealth;
 		glow = gameObject.transform.GetChild (0);
-		maxLight = glow.localScale;
+        sprite = GetComponent<SpriteRenderer>();
+		maxGlowSize = glow.localScale;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
+        // Move sprite
         Vector3 velocity = CalculateVelocity();
         velocity.y += gravity * Time.deltaTime;
         _controller.move(velocity * Time.deltaTime);
 
+        // Decrease brightness if necessary
+        if (glowDecreasing)
+        {
+            DecreaseGlow();
+        }
+
+        // Handle double jumps
         if (_controller.isGrounded)
             jumpCounter = 0;
 
+        // Handle moving platforms
 		if (_controller.isGrounded && _controller.ground != null && _controller.ground.tag == "MovingPlatform") {
 			this.transform.parent = _controller.ground.transform;
 		} else {
@@ -80,14 +94,13 @@ public class PlayerController : MonoBehaviour {
 
 		// Adjust glow
 		float healthPercent = (float) currHealth / maxHealth;
-		Vector3 newLight = maxLight;
-		newLight.Scale(new Vector3(healthPercent, healthPercent, 1));
-		glow.localScale = newLight;
+		currGlowSize = maxGlowSize;
+		currGlowSize.Scale(new Vector3(healthPercent, healthPercent, 1));
+        glowDecreasing = true;
 
 		// Adjust sprite brightness
-		Vector4 newTint = GetComponent<SpriteRenderer>().color;
-		newTint -= new Vector4 (.2f, .2f, .2f, 0);
-		GetComponent<SpriteRenderer> ().color = newTint;
+		currSpriteBrightness = sprite.color;
+		currSpriteBrightness -= new Vector4 (.2f, .2f, .2f, 0);
 			
 		// Kill if necessary
 		if (currHealth <= 0) {
@@ -97,6 +110,21 @@ public class PlayerController : MonoBehaviour {
 		}
 
 	}
+
+    void DecreaseGlow()
+    {
+        if (glow.localScale.x >= currGlowSize.x)
+        {
+            Vector3 newGlowSize = currGlowSize - new Vector3(.01f, .01f, .01f);
+            glow.localScale = newGlowSize;
+        }
+        if (sprite.color.r >= currSpriteBrightness[0])
+        {
+            Vector4 newSpriteBrightness = sprite.color;
+            newSpriteBrightness -= new Vector4(.01f, .01f, .01f, 0);
+            sprite.color = newSpriteBrightness;
+        }
+    }
 
 	void KillPlayer()
 	{
