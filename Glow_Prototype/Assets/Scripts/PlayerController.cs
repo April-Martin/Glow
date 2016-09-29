@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour {
     public float walkSpeed = 1;
     public float jumpsAllowed = 2;
 	public int maxHealth = 2;
+    public bool canStartJumpInMidair;
 
 	public float gravity = -35;
 	public Transform startPos;
@@ -166,10 +167,12 @@ public class PlayerController : MonoBehaviour {
 
 		if (Input.GetAxis("Jump") > 0 && !isHoldingDownJump && (jumpCounter < jumpsAllowed))
 		{
-			velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
-			jumpCounter++;
-			isHoldingDownJump = true;
-
+            if (canStartJumpInMidair || _controller.isGrounded || (jumpCounter > 0))
+            {
+		    	velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
+		    	jumpCounter++;
+		    	isHoldingDownJump = true;
+            }
 		}
 
 		if (Input.GetAxis("Jump") <= 0)
