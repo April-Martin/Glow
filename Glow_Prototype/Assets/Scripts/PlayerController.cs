@@ -61,7 +61,6 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (col.tag == "Killer") {
 			KillPlayer ();
-			gameOverPanel.SetActive (true);
 		}
 
 		if (col.tag == "Damager") {
@@ -104,7 +103,7 @@ public class PlayerController : MonoBehaviour {
 		transform.position = startPos.position;
 		SetHealth (maxHealth);
 		GetComponent<SpriteRenderer> ().color = Color.white;
-
+        gameOverPanel.SetActive(true);
 	}
 
 
