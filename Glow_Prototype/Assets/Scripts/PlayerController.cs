@@ -66,7 +66,7 @@ public class PlayerController : MonoBehaviour {
             jumpCounter = 0;
 
         // Handle moving platforms
-		if (_controller.isGrounded && _controller.ground != null && _controller.ground.tag == "MovingPlatform") {
+		if ((_controller.isGrounded || isHopping) && _controller.ground != null && _controller.ground.tag == "MovingPlatform") {
 			this.transform.parent = _controller.ground.transform;
 		} else {
 			if (this.transform.parent != null)
