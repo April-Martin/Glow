@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using Prime31;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
@@ -60,10 +61,15 @@ public class PlayerController : MonoBehaviour {
 	{
 		if (col.tag == "Killer") {
 			KillPlayer ();
+			gameOverPanel.SetActive (true);
 		}
 
 		if (col.tag == "Damager") {
 			SetHealth (currHealth - 1);
+		}
+
+	    if (col.tag == "endLevel") {
+			PlayerEndLevel ();
 		}
 	}
 
@@ -98,6 +104,7 @@ public class PlayerController : MonoBehaviour {
 		transform.position = startPos.position;
 		SetHealth (maxHealth);
 		GetComponent<SpriteRenderer> ().color = Color.white;
+
 	}
 
 
@@ -146,5 +153,8 @@ public class PlayerController : MonoBehaviour {
 		return velocity;
 	}
 
-		
-}
+	private void PlayerEndLevel () {
+		Application.LoadLevel ("mainMenu");
+	}
+
+}		
