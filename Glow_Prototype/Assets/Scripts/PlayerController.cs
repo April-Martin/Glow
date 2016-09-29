@@ -8,8 +8,9 @@ public class PlayerController : MonoBehaviour {
 	public GameObject gameCamera;
 	public GameObject gameOverPanel;
 
-    public float jumpHeight = 2;
     public float walkSpeed = 1;
+    public float hopHeight = 0.5f;
+    public float jumpHeight = 2;
     public float jumpsAllowed = 2;
 	public int maxHealth = 2;
     public bool canStartJumpInMidair;
@@ -29,6 +30,7 @@ public class PlayerController : MonoBehaviour {
 
     private int jumpCounter = 0;
     private bool isHoldingDownJump = false;
+    private bool isHopping = false;
 	private int currHealth;
 
 	// Use this for initialization
@@ -147,6 +149,7 @@ public class PlayerController : MonoBehaviour {
 
 	Vector3 CalculateVelocity()
 	{
+        isHopping = false;
 		Vector3 velocity = _controller.velocity;
 		velocity.x = 0;
 
@@ -156,18 +159,23 @@ public class PlayerController : MonoBehaviour {
 			KillPlayer();
 		}
 
-		if (Input.GetAxis("Horizontal") < 0)
+		if (Input.GetAxis("Horizontal") != 0)
 		{
-			velocity.x = walkSpeed * (-1);
+            if (Input.GetAxis("Horizontal") > 0)
+                velocity.x = walkSpeed;
+            else
+                velocity.x = walkSpeed * (-1);
+
+            if (_controller.isGrounded)
+                velocity.y = Mathf.Sqrt(2f * hopHeight * -gravity);
+
+            isHopping = true;
 		}
-		else if (Input.GetAxis("Horizontal") > 0)
-		{
-			velocity.x = walkSpeed;
-		}
+
 
 		if (Input.GetAxis("Jump") > 0 && !isHoldingDownJump && (jumpCounter < jumpsAllowed))
 		{
-            if (canStartJumpInMidair || _controller.isGrounded || (jumpCounter > 0))
+            if (canStartJumpInMidair || _controller.isGrounded || isHopping || (jumpCounter > 0))
             {
 		    	velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
 		    	jumpCounter++;
