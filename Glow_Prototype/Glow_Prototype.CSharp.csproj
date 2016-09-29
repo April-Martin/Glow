@@ -72,9 +72,10 @@
     <Compile Include="Assets\Scripts\CameraFollow2D.cs" />
     <Compile Include="Assets\Scripts\CharacterController2D.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
-    <Compile Include="Assets\Scripts\FallDetector.cs" />
     <Compile Include="Assets\Scripts\GooBehavior.cs" />
     <Compile Include="Assets\Scripts\LightProjector.cs" />
+    <Compile Include="Assets\Scripts\LoadLevelUtil.cs" />
+    <Compile Include="Assets\Scripts\MovingPlatform.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
   </ItemGroup>
   <ItemGroup>
