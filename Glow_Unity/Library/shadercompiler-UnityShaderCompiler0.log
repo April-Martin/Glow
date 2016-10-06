@@ -1,0 +1,14 @@
+Base path: /Applications/Unity/Unity.app/Contents
+Cmd: getPlatforms
+<<<<<<< Updated upstream:Glow_Prototype/Library/shadercompiler-UnityShaderCompiler0.log
+=======
+<<<<<<< Updated upstream
+Cmd: preprocess
+  insize=2376 outsize=696 ok=1
+Cmd: preprocess
+  insize=2506 outsize=695 ok=1
+Cmd: preprocess
+  insize=2389 outsize=709 ok=1
+=======
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes:Glow_Unity/Library/shadercompiler-UnityShaderCompiler0.log
