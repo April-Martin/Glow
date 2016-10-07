@@ -5,37 +5,55 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 
-	public GameObject gameCamera;
 
+    // Dependency variables
+	public GameObject gameCamera;
+    public Transform startPos;
+    public GameObject gooPrefab;
+    public GameObject aimingIconPrefab;
+
+    // Gameplay tuners
     public float walkSpeed = 1;
     public float hopHeight = 0.5f;
     public float jumpHeight = 2;
     public float jumpsAllowed = 2;
 	public int maxHealth = 2;
     public bool canStartJumpInMidair;
-
 	public float gravity = -35;
-	public Transform startPos;
-	public GameObject gooPrefab;
+    public float maxThrow = 6;
 
+    public float aimingIconInterval = 0.4f;
+    public float aimingSensitivity = .1f;
+
+    // General variables
     private CharacterController2D _controller;
-
-	private Transform glow;
     private SpriteRenderer sprite;
+    private GooBar gooBar;
+
+    // Brightness variables
+	private Transform glow;
 	private Vector3 maxGlowSize;
     private Vector3 currGlowSize;
     private Vector4 currSpriteBrightness;
     private bool glowDecreasing = false;
 
+    // Jump variables
     private int jumpCounter = 0;
     private bool isHoldingDownJump = false;
     private bool isHopping = false;
+
+    // Misc variables
 	private int currHealth;
+    private bool isThrowingBomb = false;
+    private bool isThrowingSpit = false;
+    private Vector3 aimingDirection;
+    private float aimingIconElapsed = 0;
 
 	// Use this for initialization
 	void Start () {
-        _controller = gameObject.GetComponent<CharacterController2D>();
+        _controller = GetComponent<CharacterController2D>();
 		transform.position = startPos.position;
+        gooBar = GetComponent<GooBar>();
 
 		gameCamera.GetComponent<CameraFollow2D> ().startCameraFollow (this.gameObject);
 
@@ -52,6 +70,9 @@ public class PlayerController : MonoBehaviour {
         Vector3 velocity = CalculateVelocity();
         velocity.y += gravity * Time.deltaTime;
         _controller.move(velocity * Time.deltaTime);
+
+        // Execute actions
+        HandleActions();
 
         // Decrease brightness if necessary
 		/*
@@ -114,7 +135,7 @@ public class PlayerController : MonoBehaviour {
 		// Kill if necessary
 		if (currHealth <= 0) {
 			Debug.Log ("Health <= 0");
-			DropGoo ();
+			LaunchGoo (Vector3.zero);
 			KillPlayer ();
 		}
 
@@ -144,9 +165,16 @@ public class PlayerController : MonoBehaviour {
 
 
 
-    void DropGoo()
+    void LaunchGoo(Vector3 velocity)
     {
-        Instantiate(gooPrefab, transform.position, Quaternion.identity);
+        GameObject goo = (GameObject) Instantiate(gooPrefab, transform.position, Quaternion.identity);
+        goo.GetComponent<Rigidbody2D>().velocity = velocity;
+    }
+
+    void LaunchAimingIcon(Vector3 velocity)
+    {
+        GameObject icon = (GameObject)Instantiate(aimingIconPrefab, transform.position, Quaternion.identity);
+        icon.GetComponent<Rigidbody2D>().velocity = velocity;
     }
 
 		
@@ -158,10 +186,16 @@ public class PlayerController : MonoBehaviour {
 		Vector3 velocity = _controller.velocity;
 		velocity.x = 0;
 
+        if (isThrowingBomb || isThrowingSpit)
+            return velocity;
+
 		if (Input.GetKeyDown(KeyCode.K))
 		{
-			DropGoo();
+			LaunchGoo(Vector3.zero);
 			KillPlayer();
+
+            //y size:0.385229
+            //y offset:0.3195446
 		}
 
 		if (Input.GetAxis("Horizontal") != 0)
@@ -195,6 +229,75 @@ public class PlayerController : MonoBehaviour {
 
 		return velocity;
 	}
+
+
+
+    void PreviewTrajectory()
+    {
+        // Launch the icon if enough time has elapsed
+        aimingIconElapsed += Time.deltaTime;
+        if (aimingIconElapsed >= aimingIconInterval)
+        {
+            aimingIconElapsed = 0;
+            LaunchAimingIcon(aimingDirection);
+        }
+
+        // Calculate new aiming vector
+        if (Input.GetAxis("Horizontal") != 0)
+        {
+            if (Input.GetAxis("Horizontal") > 0 && aimingDirection.x < maxThrow)
+                aimingDirection.x += aimingSensitivity;
+            else if (Input.GetAxis("Horizontal") < 0 && aimingDirection.x > (-1) * maxThrow)
+                aimingDirection.x -= aimingSensitivity;
+        }
+
+        if (Input.GetAxis("Vertical") != 0)
+        {
+            if (Input.GetAxis("Vertical") > 0 && aimingDirection.y < maxThrow)
+                aimingDirection.y += aimingSensitivity;
+            else if (Input.GetAxis("Vertical") < 0 && aimingDirection.y > (-1) * maxThrow)
+                aimingDirection.y -= aimingSensitivity;
+        }
+    }
+    void HandleActions()
+    {
+        // If the user JUST pressed an action button:
+        if (!(isThrowingBomb || isThrowingSpit) && (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2)))
+        {
+            if (Input.GetKeyDown(KeyCode.Alpha2))
+                isThrowingBomb = true;
+            else
+                isThrowingSpit = true;
+
+            aimingIconElapsed = 0;
+            aimingDirection = new Vector3(3, 3, 0);
+            LaunchAimingIcon(aimingDirection);
+        }
+
+        // If the user just released the spit button:
+        else if (isThrowingSpit && Input.GetKeyUp(KeyCode.Alpha1))
+        {
+            isThrowingSpit = false;
+            if (gooBar.updateGooBar(GooBar.Ammo.Spit))
+            {
+                LaunchGoo(aimingDirection);
+                Debug.Log("Threw spit. New goo level: " + gooBar.curr);
+            }
+        }
+
+        // If the user just released the bomb button:
+        else if (isThrowingBomb && Input.GetKeyUp(KeyCode.Alpha2))
+        {
+            isThrowingBomb = false;
+            if (gooBar.updateGooBar(GooBar.Ammo.Bomb))
+                Debug.Log("Threw bomb. New goo level: " + gooBar.curr);
+        }
+
+        if (isThrowingBomb || isThrowingSpit)
+        {
+            PreviewTrajectory();
+        }
+    }
 
 	private void PlayerEndLevel () {
 		Application.LoadLevel ("mainMenu");

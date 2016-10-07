@@ -47,11 +47,14 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 200
   alphaIsTransparency: 1
+  spriteTessellationDetail: -1
   textureType: 8
   buildTargetSettings: []
   spriteSheet:
+    serializedVersion: 2
     sprites:
-    - name: player_placeholder(doublesize)_0
+    - serializedVersion: 2
+      name: player_placeholder(doublesize)_0
       rect:
         serializedVersion: 2
         x: 2
@@ -61,22 +64,8 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline:
-      - - {x: -58, y: -97.5}
-        - {x: -59, y: -97.5}
-        - {x: -59, y: -113.5}
-        - {x: -54, y: -113.5}
-        - {x: -49, y: -111.5}
-        - {x: -49, y: -107.5}
-        - {x: -53, y: -101.5}
-      - - {x: -41, y: 113.5}
-        - {x: -59, y: 104.5}
-        - {x: -59, y: -90.5}
-        - {x: -47, y: -113.5}
-        - {x: 59, y: -113.5}
-        - {x: 59, y: 58.5}
-        - {x: 57, y: 78.5}
-        - {x: 27, y: 113.5}
+      outline: []
+      tessellationDetail: -1
     outline: []
   spritePackingTag: 
   userData: 
