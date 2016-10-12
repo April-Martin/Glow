@@ -49,6 +49,7 @@ public class PlayerController : MonoBehaviour {
     private bool isThrowingSpit = false;
     private Vector3 aimingDirection;
     private float aimingIconElapsed = 0;
+    private bool isFacingLeft = false;
 
 	// Use this for initialization
 	void Start () {
@@ -195,9 +196,15 @@ public class PlayerController : MonoBehaviour {
 		if (Input.GetAxis("Horizontal") != 0)
 		{
             if (Input.GetAxis("Horizontal") > 0)
+            {
                 velocity.x = walkSpeed;
+                isFacingLeft = false;
+            }
             else
+            {
                 velocity.x = walkSpeed * (-1);
+                isFacingLeft = true;
+            }
 
             if (_controller.isGrounded)
                 velocity.y = Mathf.Sqrt(2f * hopHeight * -gravity);
@@ -258,13 +265,17 @@ public class PlayerController : MonoBehaviour {
         // If the user JUST pressed an action button:
         if (!(isThrowingBomb || isThrowingSpit) && (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2)))
         {
-            if (Input.GetKeyDown(KeyCode.Alpha2))
+            if (Input.GetKeyDown(KeyCode.Alpha2) && gooBar.curr >= gooBar.bombCost)
                 isThrowingBomb = true;
-            else
+            else if (Input.GetKeyDown(KeyCode.Alpha1) && gooBar.curr >= gooBar.spitCost)
                 isThrowingSpit = true;
+            else
+                return;
+
 
             aimingIconElapsed = 0;
             aimingDirection = new Vector3(3, 3, 0);
+            if (isFacingLeft) aimingDirection.x *= (-1);
             Launch(aimingIconPrefab, aimingDirection);
         }
 
