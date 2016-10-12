@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour {
 	public GameObject gameCamera;
     public Transform startPos;
     public GameObject gooPrefab;
+    public GameObject bombPrefab;
     public GameObject aimingIconPrefab;
 
     // Gameplay tuners
@@ -135,7 +136,7 @@ public class PlayerController : MonoBehaviour {
 		// Kill if necessary
 		if (currHealth <= 0) {
 			Debug.Log ("Health <= 0");
-			LaunchGoo (Vector3.zero);
+			Launch (gooPrefab, Vector3.zero);
 			KillPlayer ();
 		}
 
@@ -163,21 +164,14 @@ public class PlayerController : MonoBehaviour {
 		GetComponent<SpriteRenderer> ().color = Color.white;
 	}
 
-
-
-    void LaunchGoo(Vector3 velocity)
+    void Launch (GameObject projectile, Vector3 velocity)
     {
-        GameObject goo = (GameObject) Instantiate(gooPrefab, transform.position, Quaternion.identity);
+        GameObject goo = (GameObject)Instantiate(projectile, transform.position, Quaternion.identity);
         goo.GetComponent<Rigidbody2D>().velocity = velocity;
+
     }
 
-    void LaunchAimingIcon(Vector3 velocity)
-    {
-        GameObject icon = (GameObject)Instantiate(aimingIconPrefab, transform.position, Quaternion.identity);
-        icon.GetComponent<Rigidbody2D>().velocity = velocity;
-    }
 
-		
 
 
 	Vector3 CalculateVelocity()
@@ -191,7 +185,7 @@ public class PlayerController : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.K))
 		{
-			LaunchGoo(Vector3.zero);
+			Launch(gooPrefab, Vector3.zero);
 			KillPlayer();
 
             //y size:0.385229
@@ -239,7 +233,7 @@ public class PlayerController : MonoBehaviour {
         if (aimingIconElapsed >= aimingIconInterval)
         {
             aimingIconElapsed = 0;
-            LaunchAimingIcon(aimingDirection);
+            Launch(aimingIconPrefab, aimingDirection);
         }
 
         // Calculate new aiming vector
@@ -271,7 +265,7 @@ public class PlayerController : MonoBehaviour {
 
             aimingIconElapsed = 0;
             aimingDirection = new Vector3(3, 3, 0);
-            LaunchAimingIcon(aimingDirection);
+            Launch(aimingIconPrefab, aimingDirection);
         }
 
         // If the user just released the spit button:
@@ -280,7 +274,7 @@ public class PlayerController : MonoBehaviour {
             isThrowingSpit = false;
             if (gooBar.updateGooBar(GooBar.Ammo.Spit))
             {
-                LaunchGoo(aimingDirection);
+                Launch(gooPrefab, aimingDirection);
                 Debug.Log("Threw spit. New goo level: " + gooBar.curr);
             }
         }
@@ -290,7 +284,10 @@ public class PlayerController : MonoBehaviour {
         {
             isThrowingBomb = false;
             if (gooBar.updateGooBar(GooBar.Ammo.Bomb))
+            {
+                Launch(bombPrefab, aimingDirection);
                 Debug.Log("Threw bomb. New goo level: " + gooBar.curr);
+            }
         }
 
         if (isThrowingBomb || isThrowingSpit)
