@@ -74,6 +74,12 @@ public class PlayerController : MonoBehaviour {
         velocity.y += gravity * Time.deltaTime;
         _controller.move(velocity * Time.deltaTime);
 
+		// Make sure sprite is facing right direction
+		if (velocity.x > 0)
+			transform.localRotation = Quaternion.Euler (0, 0, 0);
+		else if (velocity.x < 0)
+			transform.localRotation = Quaternion.Euler (0, 180, 0);
+		
         // Execute actions
         HandleActions();
 

@@ -4,14 +4,18 @@ using System.Collections;
 public class PatrollerController : EnemyController {
 
     public int speed = 1;
-    public bool isFacingRight = true;
-
+    
+	private bool isFacingRight;
 	private float floatSpeed;
 
 	protected override void Start ()
 	{
 		base.Start ();
 		floatSpeed = (float) speed / 2;
+		if (transform.localScale.x > 0)
+			isFacingRight = true;
+		else
+			isFacingRight = false;
 	}
 
     protected override void HandleMovement()
@@ -41,6 +45,8 @@ public class PatrollerController : EnemyController {
 		if (_controller.isOnEdgeOfPlatform || _controller.isAgainstWall) {
 			isFacingRight = !isFacingRight;
 			velocity.x *= (-1);
+			//transform.localRotation = Quaternion.Euler (0, 180, 0);
+			transform.Rotate(new Vector3(0, 180, 0));
 		}
 
 		// Move
