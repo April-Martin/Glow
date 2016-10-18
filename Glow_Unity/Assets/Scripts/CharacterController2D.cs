@@ -9,6 +9,8 @@ namespace Prime31 {
 	[RequireComponent( typeof( BoxCollider2D ), typeof( Rigidbody2D ) )]
 	public class CharacterController2D : MonoBehaviour
 	{
+		public bool DebugMode = false;
+
 		#region internal types
 
 		struct CharacterRaycastOrigins
@@ -148,6 +150,7 @@ namespace Prime31 {
 		public bool isGrounded { get { return collisionState.below; } }
 		public Collider2D ground;
 		public Vector2 landingPoint;
+		public bool isOnEdgeOfPlatform = false;
 
 		const float kSkinWidthFloatFudgeFactor = 0.001f;
 
@@ -405,6 +408,18 @@ namespace Prime31 {
 						break;
 				}
 			}
+
+			if (!DebugMode)
+				return;
+
+			var downRay = new Vector2 (initialRayOrigin.x, initialRayOrigin.y);
+			DrawRay (downRay, Vector2.down, Color.cyan);
+			_raycastHit = Physics2D.Raycast (downRay, Vector2.down, .1f, platformMask);
+			if (_raycastHit)
+				isOnEdgeOfPlatform = false;
+			else
+				isOnEdgeOfPlatform = true;
+
 		}
 
 
