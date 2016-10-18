@@ -9,8 +9,6 @@ namespace Prime31 {
 	[RequireComponent( typeof( BoxCollider2D ), typeof( Rigidbody2D ) )]
 	public class CharacterController2D : MonoBehaviour
 	{
-		public bool DebugMode = false;
-
 		#region internal types
 
 		struct CharacterRaycastOrigins
@@ -408,9 +406,6 @@ namespace Prime31 {
 						break;
 				}
 			}
-
-			if (!DebugMode)
-				return;
 
 			var downRay = new Vector2 (initialRayOrigin.x, initialRayOrigin.y);
 			DrawRay (downRay, Vector2.down, Color.cyan);
