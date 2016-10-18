@@ -7,10 +7,10 @@ public class EnemyController : MonoBehaviour {
 	public float gravity = -35;
     public int health = 1;
 
-	private CharacterController2D _controller;
-	private PlayerController player;
-    private int maxHealth;
-    private int currHealth;
+	protected CharacterController2D _controller;
+    protected PlayerController player;
+    protected int maxHealth;
+    protected int currHealth;
 
 	// Use this for initialization
 	void Start () {
@@ -22,24 +22,32 @@ public class EnemyController : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-
-		// Handle gravity
-		Vector3 velocity = _controller.velocity;
-		velocity.y += gravity * Time.deltaTime;
-
-		// Handle moving platforms
-		if (_controller.isGrounded && _controller.ground != null && _controller.ground.tag == "MovingPlatform") {
-			this.transform.parent = _controller.ground.transform;
-		} else {
-			if (this.transform.parent != null)
-				transform.parent = null;
-		}
-
-		// Apply velocity
-		_controller.move (velocity * Time.deltaTime);
-
-
+        HandleMovement();
 	}
+
+    protected virtual void HandleMovement()
+    {
+        Vector3 velocity = _controller.velocity;
+
+        // Handle moving platforms
+        if (_controller.isGrounded && _controller.ground != null && _controller.ground.tag == "MovingPlatform")
+        {
+            this.transform.parent = _controller.ground.transform;
+        }
+        else
+        {
+            if (this.transform.parent != null)
+                transform.parent = null;
+        }
+
+        // Handle gravity
+        velocity.y += gravity * Time.deltaTime;
+
+        // Apply velocity
+        _controller.move(velocity * Time.deltaTime);
+
+
+    }
 
     void OnTriggerEnter2D(Collider2D other)
     {

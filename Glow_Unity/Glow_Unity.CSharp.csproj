@@ -74,6 +74,7 @@
     <Compile Include="Assets\Scripts\LightProjector.cs" />
     <Compile Include="Assets\Scripts\LoadLevelUtil.cs" />
     <Compile Include="Assets\Scripts\MovingPlatform.cs" />
+    <Compile Include="Assets\Scripts\Patroller.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
   </ItemGroup>
   <ItemGroup>
