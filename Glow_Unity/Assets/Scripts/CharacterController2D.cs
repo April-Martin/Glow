@@ -149,6 +149,7 @@ namespace Prime31 {
 		public Collider2D ground;
 		public Vector2 landingPoint;
 		public bool isOnEdgeOfPlatform = false;
+		public bool isAgainstWall = false;
 
 		const float kSkinWidthFloatFudgeFactor = 0.001f;
 
@@ -407,6 +408,7 @@ namespace Prime31 {
 				}
 			}
 
+			// Check for platform edge
 			var downRay = new Vector2 (initialRayOrigin.x, initialRayOrigin.y);
 			DrawRay (downRay, Vector2.down, Color.cyan);
 			_raycastHit = Physics2D.Raycast (downRay, Vector2.down, .1f, platformMask);
@@ -414,6 +416,12 @@ namespace Prime31 {
 				isOnEdgeOfPlatform = false;
 			else
 				isOnEdgeOfPlatform = true;
+
+			// Check for obstacles blocking path
+			if (Mathf.Abs(deltaMovement.x) > .001f) 
+				isAgainstWall = false ;
+			else
+				isAgainstWall = true;
 
 		}
 

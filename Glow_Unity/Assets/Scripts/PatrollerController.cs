@@ -1,11 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Patroller : EnemyController {
+public class PatrollerController : EnemyController {
 
     public int speed = 1;
     public bool isFacingRight = true;
 
+	private float floatSpeed;
+
+	protected override void Start ()
+	{
+		base.Start ();
+		floatSpeed = (float) speed / 2;
+	}
 
     protected override void HandleMovement()
     {
@@ -25,16 +32,18 @@ public class Patroller : EnemyController {
         velocity.y += gravity * Time.deltaTime;
 
         // Set direction-dependent variables
-        if (isFacingRight)
-            velocity.x = speed;
+		if (isFacingRight)
+			velocity.x = floatSpeed;
         else
-            velocity.x = (-1) * speed;
+            velocity.x = (-1) * floatSpeed;
 
-		if (_controller.isOnEdgeOfPlatform) {
+		// Switch direction if it's at the edge of a platform
+		if (_controller.isOnEdgeOfPlatform || _controller.isAgainstWall) {
 			isFacingRight = !isFacingRight;
 			velocity.x *= (-1);
 		}
 
+		// Move
 		_controller.move (velocity * Time.deltaTime);
 
     }

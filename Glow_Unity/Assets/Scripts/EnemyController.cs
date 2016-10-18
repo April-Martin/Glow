@@ -13,7 +13,7 @@ public class EnemyController : MonoBehaviour {
     protected int currHealth;
 
 	// Use this for initialization
-	void Start () {
+	protected virtual void Start () {
 		_controller = GetComponent<CharacterController2D> ();
 		player = FindObjectOfType<PlayerController> ();
         maxHealth = health;
@@ -51,7 +51,7 @@ public class EnemyController : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-       if (other.tag == "Damager")
+       if (other.tag == "EnemyDamager")
        {
            DamageEnemy(1);
        }

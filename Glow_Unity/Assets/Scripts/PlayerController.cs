@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
 
 
     // Dependency variables
+	public GameManager gm;
 	public GameObject gameCamera;
     public Transform startPos;
     public GameObject gooPrefab;
@@ -36,7 +37,7 @@ public class PlayerController : MonoBehaviour {
 	private Vector3 maxGlowSize;
     private Vector3 currGlowSize;
     private Vector4 currSpriteBrightness;
-    private bool glowDecreasing = false;
+   // private bool glowDecreasing = false;
 
     // Jump variables
     private int jumpCounter = 0;
@@ -104,21 +105,23 @@ public class PlayerController : MonoBehaviour {
 			KillPlayer ();
 		}
 
-		if (col.tag == "Damager") {
+		if (col.tag == "PlayerDamager") {
 			SetHealth (currHealth - 1);
 		}
 
 	    if (col.tag == "endLevel") {
-			PlayerEndLevel ();
+			gm.ExitLevel ();
 		}
 	}
 
 
 	void SetHealth(int newHealth)
 	{
+		/*
 		if (newHealth > currHealth) {
 			glowDecreasing = true;
 		}
+		*/
 
 		// Set health
 		currHealth = newHealth;
@@ -307,8 +310,5 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-	private void PlayerEndLevel () {
-		Application.LoadLevel ("mainMenu");
-	}
 
 }		
