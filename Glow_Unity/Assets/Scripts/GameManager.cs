@@ -13,14 +13,16 @@ public class GameManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (Input.GetKeyDown(KeyCode.R))
+		if (Input.GetKeyDown(KeyCode.P))
 		{
+			Time.timeScale = 0;
 			gameOverPanel.SetActive(true);
 
 		}
 	}
 
 	public void RestartLevel(){
+		Time.timeScale = 1;
 		SceneManager.LoadScene (SceneManager.GetActiveScene ().name);
 	}
 
@@ -28,7 +30,13 @@ public class GameManager : MonoBehaviour {
 		SceneManager.LoadScene ("mainMenu");
 	}
 
+	public void ContinueLevel(){
+		Time.timeScale = 1;
+		gameOverPanel.SetActive (false);
+	}
+
 	public void Play(){
+		Time.timeScale = 1;
 		SceneManager.LoadScene (1);
 	}
 
