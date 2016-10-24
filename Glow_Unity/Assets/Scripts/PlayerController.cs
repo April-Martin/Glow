@@ -1,14 +1,16 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using Prime31;
 using UnityEngine.UI;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
 
     // Dependency variables
-	public GameManager gm;
-	public GameObject gameCamera;
+    public GameManager gm;
+    public GameObject gameCamera;
     public Transform startPos;
     public GameObject gooPrefab;
     public GameObject bombPrefab;
@@ -19,9 +21,9 @@ public class PlayerController : MonoBehaviour {
     public float hopHeight = 0.5f;
     public float jumpHeight = 2;
     public float jumpsAllowed = 2;
-	public int maxHealth = 2;
+    public int maxHealth = 2;
     public bool canStartJumpInMidair;
-	public float gravity = -35;
+    public float gravity = -35;
     public float maxThrow = 6;
 
     public float aimingIconInterval = 0.4f;
@@ -33,125 +35,140 @@ public class PlayerController : MonoBehaviour {
     private GooBar gooBar;
 
     // Brightness variables
-	private Transform glow;
-	private Vector3 maxGlowSize;
+    private Transform glow;
+    private Vector3 maxGlowSize;
     private Vector3 currGlowSize;
     private Vector4 currSpriteBrightness;
-   // private bool glowDecreasing = false;
+    // private bool glowDecreasing = false;
 
     // Jump variables
     private int jumpCounter = 0;
     private bool isHoldingDownJump = false;
     private bool isHopping = false;
+    private bool isJumping = false;
+
+    // Animation variables
+    Animator animator;
+    enum animState { idle, hopStart, hopEnd, jumpStart, jumpEnd, death };
 
     // Misc variables
-	private int currHealth;
+    private int currHealth;
     private bool isThrowingBomb = false;
     private bool isThrowingSpit = false;
     private Vector3 aimingDirection;
     private float aimingIconElapsed = 0;
     private bool isFacingLeft = false;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start()
+    {
         _controller = GetComponent<CharacterController2D>();
-		transform.position = startPos.position;
+        transform.position = startPos.position;
         gooBar = GetComponent<GooBar>();
+        animator = GetComponent<Animator>();
 
-		gameCamera.GetComponent<CameraFollow2D> ().startCameraFollow (this.gameObject);
+        gameCamera.GetComponent<CameraFollow2D>().startCameraFollow(this.gameObject);
 
-		currHealth = maxHealth;
-		glow = gameObject.transform.GetChild (0);
+        currHealth = maxHealth;
+        glow = gameObject.transform.GetChild(0);
         sprite = GetComponent<SpriteRenderer>();
-		maxGlowSize = glow.localScale;
-	}
-	
-	// Update is called once per frame
-	void Update () {
+        maxGlowSize = glow.localScale;
+    }
 
+    // Update is called once per frame
+    void Update()
+    {
         // Move sprite
-        Vector3 velocity = CalculateVelocity();
-        velocity.y += gravity * Time.deltaTime;
-        _controller.move(velocity * Time.deltaTime);
-
-		// Make sure sprite is facing right direction
-		if (velocity.x > 0)
-			transform.localRotation = Quaternion.Euler (0, 0, 0);
-		else if (velocity.x < 0)
-			transform.localRotation = Quaternion.Euler (0, 180, 0);
-		
+        HandleMotion();
         // Execute actions
         HandleActions();
 
         // Decrease brightness if necessary
-		/*
+        /*
         if (glowDecreasing)
         {
             DecreaseGlow();
         }
 */
 
-        // Handle double jumps
-        if (_controller.isGrounded)
-            jumpCounter = 0;
+
 
         // Handle moving platforms
-		if ((_controller.isGrounded || isHopping) && _controller.ground != null && _controller.ground.tag == "MovingPlatform") {
-			this.transform.parent = _controller.ground.transform;
-		} else {
-			if (this.transform.parent != null)
-				transform.parent = null;
-		}
-	}
+        if ((_controller.isGrounded || isHopping) && _controller.ground != null && _controller.ground.tag == "MovingPlatform")
+        {
+            this.transform.parent = _controller.ground.transform;
+        }
+        else
+        {
+            if (this.transform.parent != null)
+                transform.parent = null;
+        }
+    }
 
 
-	void OnTriggerEnter2D(Collider2D col)
-	{
-		if (col.tag == "Killer") {
-			KillPlayer ();
-		}
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.tag == "Killer")
+        {
+            KillPlayer();
+        }
 
-		if (col.tag == "PlayerDamager") {
-			SetHealth (currHealth - 1);
-		}
+        if (col.tag == "PlayerDamager")
+        {
+            SetHealth(currHealth - 1);
+        }
 
-	    if (col.tag == "endLevel") {
-			gm.ExitLevel ();
-		}
-	}
+        if (col.tag == "endLevel")
+        {
+            gm.ExitLevel();
+        }
+    }
 
 
-	void SetHealth(int newHealth)
-	{
-		/*
-		if (newHealth > currHealth) {
-			glowDecreasing = true;
-		}
-		*/
+    void SetHealth(int newHealth)
+    {
+        /*
+        if (newHealth > currHealth) {
+            glowDecreasing = true;
+        }
+        */
 
-		// Set health
-		currHealth = newHealth;
+        // Set health
+        currHealth = newHealth;
 
-		// Adjust glow
-		float healthPercent = (float) currHealth / maxHealth;
-		currGlowSize = maxGlowSize;
-		currGlowSize.Scale(new Vector3(healthPercent, healthPercent, 1));
-		glow.transform.localScale = currGlowSize;
+        // Adjust glow
+        float healthPercent = (float)currHealth / maxHealth;
+        currGlowSize = maxGlowSize;
+        currGlowSize.Scale(new Vector3(healthPercent, healthPercent, 1));
+        glow.transform.localScale = currGlowSize;
 
-		// Adjust sprite brightness
-		currSpriteBrightness = sprite.color;
-		currSpriteBrightness -= new Vector4 (.2f, .2f, .2f, 0);
-		sprite.color = currSpriteBrightness;
-			
-		// Kill if necessary
-		if (currHealth <= 0) {
-			Debug.Log ("Health <= 0");
-			Launch (gooPrefab, Vector3.zero);
-			KillPlayer ();
-		}
+        // Adjust sprite brightness
+        currSpriteBrightness = sprite.color;
+        currSpriteBrightness -= new Vector4(.2f, .2f, .2f, 0);
+        sprite.color = currSpriteBrightness;
 
-	}
+        // Kill if necessary
+        if (currHealth <= 0)
+        {
 
+            // SetAnimationState(animState.death);
+            // DelayedDeath(1);
+
+            Launch(gooPrefab, Vector3.zero);
+            KillPlayer();
+        }
+
+    }
+
+    /*
+    IEnumerator DelayedDeath(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        Launch(gooPrefab, Vector3.zero);
+        KillPlayer();
+    }
+
+     * */
     void DecreaseGlow()
     {
         if (glow.localScale.x >= currGlowSize.x)
@@ -167,43 +184,53 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-	void KillPlayer()
-	{
-		transform.position = startPos.position;
-		SetHealth (maxHealth);
-		GetComponent<SpriteRenderer> ().color = Color.white;
-	}
 
-    void Launch (GameObject projectile, Vector3 velocity)
+    void KillPlayer()
+    {
+        transform.position = startPos.position;
+        SetHealth(maxHealth);
+        GetComponent<SpriteRenderer>().color = Color.white;
+    }
+
+    void Launch(GameObject projectile, Vector3 velocity)
     {
         GameObject goo = (GameObject)Instantiate(projectile, transform.position, Quaternion.identity);
         goo.GetComponent<Rigidbody2D>().velocity = velocity;
-
     }
 
 
 
 
-	Vector3 CalculateVelocity()
-	{
-        isHopping = false;
-		Vector3 velocity = _controller.velocity;
-		velocity.x = 0;
+    void HandleMotion()
+    {
+        Vector3 velocity = _controller.velocity;
+        velocity.x = 0;
 
         if (isThrowingBomb || isThrowingSpit)
-            return velocity;
+        {
+            // Apply gravity
+            velocity.y += gravity * Time.deltaTime;
+            _controller.move(velocity * Time.deltaTime);
+            return;
+        }
 
-		if (Input.GetKeyDown(KeyCode.K))
-		{
-			Launch(gooPrefab, Vector3.zero);
-			KillPlayer();
+        // Handle horizontal input
 
-            //y size:0.385229
-            //y offset:0.3195446
-		}
+        if (Input.GetAxis("Horizontal") != 0)
+        {
+            if (!isJumping && !isHopping)
+            {
+                isHopping = true;
+                SetAnimationState(animState.hopStart);
+            }
 
-		if (Input.GetAxis("Horizontal") != 0)
-		{
+            if (_controller.isGrounded)
+            {
+                velocity.y = Mathf.Sqrt(2f * hopHeight * -gravity);
+                SetAnimationState(animState.hopEnd);
+            }
+
+
             if (Input.GetAxis("Horizontal") > 0)
             {
                 velocity.x = walkSpeed;
@@ -215,31 +242,95 @@ public class PlayerController : MonoBehaviour {
                 isFacingLeft = true;
             }
 
-            if (_controller.isGrounded)
-                velocity.y = Mathf.Sqrt(2f * hopHeight * -gravity);
 
-            isHopping = true;
-		}
+        }
 
 
-		if (Input.GetAxis("Jump") > 0 && !isHoldingDownJump && (jumpCounter < jumpsAllowed))
-		{
+        // Check if the player just hit the ground after a jump
+        if (_controller.isGrounded && isJumping)
+        {
+            jumpCounter = 0;
+            isJumping = false;
+            SetAnimationState(animState.jumpEnd);
+        }
+
+
+        // If the user just pushed jump
+        if (Input.GetAxis("Jump") > 0 && !isHoldingDownJump && (jumpCounter < jumpsAllowed))
+        {
             if (canStartJumpInMidair || _controller.isGrounded || isHopping || (jumpCounter > 0))
             {
-		    	velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
-		    	jumpCounter++;
-		    	isHoldingDownJump = true;
+                velocity.y = Mathf.Sqrt(2f * jumpHeight * -gravity);
+                jumpCounter++;
+                isHoldingDownJump = true;
+                isJumping = true;
+                isHopping = false;
+                SetAnimationState(animState.jumpStart);
             }
-		}
+        }
 
-		if (Input.GetAxis("Jump") <= 0)
-		{
-			isHoldingDownJump = false;
-		}
+        if (Input.GetAxis("Jump") <= 0)
+        {
+            isHoldingDownJump = false;
+        }
 
-		return velocity;
-	}
+        // Check if we just stopped hopping
+        if (isHopping && (Math.Abs(velocity.x) < .01))
+        {
+            isHopping = false;
+            SetAnimationState(animState.idle);
+        }
 
+        // Apply motion
+        velocity.y += gravity * Time.deltaTime;
+        _controller.move(velocity * Time.deltaTime);
+
+
+        // Make sure sprite is facing right direction for motion
+        if (velocity.x > 0)
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        else if (velocity.x < 0)
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
+
+    }
+
+
+    void SetAnimationState(animState anim)
+    {
+        switch (anim)
+        {
+            case animState.idle:
+            {
+                 animator.SetTrigger("idle");
+                 break;
+            }
+            case animState.hopStart:
+            {
+                animator.SetTrigger("hopStart");
+                break;
+            }
+            case animState.hopEnd:
+            {
+                animator.SetTrigger("hopEnd");
+                break;
+            }
+            case animState.jumpStart:
+            {
+                animator.SetTrigger("jumpStart");
+                break;
+            }
+            case animState.jumpEnd:
+            {
+                animator.SetTrigger("jumpEnd");
+                break;
+            }
+            case animState.death:
+            {
+                animator.SetTrigger("death");
+                break;
+            }
+        }
+    }
 
 
     void PreviewTrajectory()
@@ -317,4 +408,4 @@ public class PlayerController : MonoBehaviour {
     }
 
 
-}		
+}
