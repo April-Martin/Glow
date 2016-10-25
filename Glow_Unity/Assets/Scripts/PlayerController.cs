@@ -25,6 +25,7 @@ public class PlayerController : MonoBehaviour
     public bool canStartJumpInMidair;
     public float gravity = -35;
     public float maxThrow = 6;
+    public float glowPenalty = .1f;
 
     public float aimingIconInterval = 0.4f;
     public float aimingSensitivity = .1f;
@@ -58,6 +59,15 @@ public class PlayerController : MonoBehaviour
     private Vector3 aimingDirection;
     private float aimingIconElapsed = 0;
     private bool isFacingLeft = false;
+    private bool isDying = false;
+
+    // Delay variables
+    public float delay = 0.1f;
+    private bool isDelayed = false;
+    private bool DelayShouldFinish = false;
+    private Vector3 delayedVelocity;
+    private float delayedTime;
+
 
     // Use this for initialization
     void Start()
@@ -82,14 +92,7 @@ public class PlayerController : MonoBehaviour
         HandleMotion();
         // Execute actions
         HandleActions();
-
         // Decrease brightness if necessary
-        /*
-        if (glowDecreasing)
-        {
-            DecreaseGlow();
-        }
-*/
 
 
 
@@ -108,6 +111,9 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        if (isDying)
+            return;
+
         if (col.tag == "Killer")
         {
             KillPlayer();
@@ -136,39 +142,43 @@ public class PlayerController : MonoBehaviour
         // Set health
         currHealth = newHealth;
 
+        Vector3 diff = maxGlowSize;
+        diff.x *= glowPenalty;
+        diff.y *= glowPenalty;
+        currGlowSize -= diff;
+        /*
         // Adjust glow
         float healthPercent = (float)currHealth / maxHealth;
         currGlowSize = maxGlowSize;
         currGlowSize.Scale(new Vector3(healthPercent, healthPercent, 1));
         glow.transform.localScale = currGlowSize;
+       */
 
         // Adjust sprite brightness
         currSpriteBrightness = sprite.color;
         currSpriteBrightness -= new Vector4(.2f, .2f, .2f, 0);
         sprite.color = currSpriteBrightness;
 
+
         // Kill if necessary
         if (currHealth <= 0)
         {
-
-            // SetAnimationState(animState.death);
-            // DelayedDeath(1);
-
-            Launch(gooPrefab, Vector3.zero);
-            KillPlayer();
+            isDying = true;
+            SetAnimationState(animState.death);
+            StartCoroutine("delayedDeath");
         }
 
     }
-
-    /*
-    IEnumerator DelayedDeath(float seconds)
+    IEnumerator delayedDeath()
     {
-        yield return new WaitForSeconds(seconds);
+        yield return new WaitForSeconds(1);
         Launch(gooPrefab, Vector3.zero);
         KillPlayer();
+        isDying = false;
+        yield break;
     }
 
-     * */
+
     void DecreaseGlow()
     {
         if (glow.localScale.x >= currGlowSize.x)
@@ -176,6 +186,7 @@ public class PlayerController : MonoBehaviour
             Vector3 newGlowSize = currGlowSize - new Vector3(.01f, .01f, .01f);
             glow.localScale = newGlowSize;
         }
+
         if (sprite.color.r >= currSpriteBrightness[0])
         {
             Vector4 newSpriteBrightness = sprite.color;
@@ -190,6 +201,7 @@ public class PlayerController : MonoBehaviour
         transform.position = startPos.position;
         SetHealth(maxHealth);
         GetComponent<SpriteRenderer>().color = Color.white;
+        SetAnimationState(animState.idle);
     }
 
     void Launch(GameObject projectile, Vector3 velocity)
@@ -198,15 +210,27 @@ public class PlayerController : MonoBehaviour
         goo.GetComponent<Rigidbody2D>().velocity = velocity;
     }
 
-
-
+    IEnumerator ForceDelay(float interval)
+    {
+        yield return new WaitForSeconds(interval);
+        DelayShouldFinish = true;
+        yield break;
+    }
 
     void HandleMotion()
     {
         Vector3 velocity = _controller.velocity;
         velocity.x = 0;
 
-        if (isThrowingBomb || isThrowingSpit)
+        if (DelayShouldFinish)
+        {
+            _controller.move(delayedVelocity * delayedTime);
+            DelayShouldFinish = false;
+            isDelayed = false;
+            return;
+        }
+
+        if (isThrowingBomb || isThrowingSpit || isDelayed || isDying)
         {
             // Apply gravity
             velocity.y += gravity * Time.deltaTime;
@@ -218,16 +242,21 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetAxis("Horizontal") != 0)
         {
+            bool firstHop = false;
+
             if (!isJumping && !isHopping)
             {
                 isHopping = true;
+                firstHop = true;
+                animator.SetBool("loopHop", true);
                 SetAnimationState(animState.hopStart);
             }
 
             if (_controller.isGrounded)
             {
+                isDelayed = true;
                 velocity.y = Mathf.Sqrt(2f * hopHeight * -gravity);
-                SetAnimationState(animState.hopEnd);
+                if (!firstHop) SetAnimationState(animState.hopEnd);
             }
 
 
@@ -241,10 +270,24 @@ public class PlayerController : MonoBehaviour
                 velocity.x = walkSpeed * (-1);
                 isFacingLeft = true;
             }
-
-
         }
 
+        // Check if we just released the arrow key
+        else if (isHopping)
+        {
+            // If the player's still in the air:
+            if (!_controller.isGrounded)
+            {
+                Debug.Log("Horizontal = 0 and isHopping");
+                animator.SetBool("loopHop", false);
+            }
+            // If the player just hit the ground after ending a hop sequence:
+            else
+            {
+                isHopping = false;
+                SetAnimationState(animState.hopEnd);
+            }
+        }
 
         // Check if the player just hit the ground after a jump
         if (_controller.isGrounded && isJumping)
@@ -265,6 +308,7 @@ public class PlayerController : MonoBehaviour
                 isHoldingDownJump = true;
                 isJumping = true;
                 isHopping = false;
+                isDelayed = true;
                 SetAnimationState(animState.jumpStart);
             }
         }
@@ -274,16 +318,7 @@ public class PlayerController : MonoBehaviour
             isHoldingDownJump = false;
         }
 
-        // Check if we just stopped hopping
-        if (isHopping && (Math.Abs(velocity.x) < .01))
-        {
-            isHopping = false;
-            SetAnimationState(animState.idle);
-        }
 
-        // Apply motion
-        velocity.y += gravity * Time.deltaTime;
-        _controller.move(velocity * Time.deltaTime);
 
 
         // Make sure sprite is facing right direction for motion
@@ -291,6 +326,20 @@ public class PlayerController : MonoBehaviour
             transform.localRotation = Quaternion.Euler(0, 0, 0);
         else if (velocity.x < 0)
             transform.localRotation = Quaternion.Euler(0, 180, 0);
+
+        velocity.y += gravity * Time.deltaTime;
+
+
+        if (!isDelayed)
+        {
+            _controller.move(velocity * Time.deltaTime);
+            return;
+        }
+
+        delayedVelocity = velocity;
+        delayedTime = Time.deltaTime;
+        IEnumerator coroutine = ForceDelay(delay);
+        StartCoroutine(coroutine);
 
     }
 
@@ -300,35 +349,37 @@ public class PlayerController : MonoBehaviour
         switch (anim)
         {
             case animState.idle:
-            {
-                 animator.SetTrigger("idle");
-                 break;
-            }
+                {
+                    animator.SetTrigger("idle");
+                    break;
+
+                }
             case animState.hopStart:
-            {
-                animator.SetTrigger("hopStart");
-                break;
-            }
+                {
+                    animator.SetTrigger("hopStart");
+                    break;
+                }
             case animState.hopEnd:
-            {
-                animator.SetTrigger("hopEnd");
-                break;
-            }
+                {
+                    animator.SetTrigger("hopEnd");
+                    break;
+                }
             case animState.jumpStart:
-            {
-                animator.SetTrigger("jumpStart");
-                break;
-            }
+                {
+                    animator.SetTrigger("jumpStart");
+
+                    break;
+                }
             case animState.jumpEnd:
-            {
-                animator.SetTrigger("jumpEnd");
-                break;
-            }
+                {
+                    animator.SetTrigger("jumpEnd");
+                    break;
+                }
             case animState.death:
-            {
-                animator.SetTrigger("death");
-                break;
-            }
+                {
+                    animator.SetTrigger("death");
+                    break;
+                }
         }
     }
 
