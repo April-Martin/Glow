@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 749a4bca1c7584dad8947e8a2e3304f7
-timeCreated: 1476982776
+guid: 7343ccf8232b24ca78ea47afd3791e0b
+timeCreated: 1477421002
 licenseType: Free
 TrueTypeFontImporter:
   serializedVersion: 4
@@ -10,7 +10,7 @@ TrueTypeFontImporter:
   characterPadding: 1
   includeFontData: 1
   fontNames:
-  - Gooey
+  - Nasal Drip
   fallbackFontReferences: []
   customCharacters: 
   fontRenderingMode: 0
