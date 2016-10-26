@@ -14,7 +14,10 @@ public class GooBar : MonoBehaviour
 
     [HideInInspector]
     public int curr;
+
     private float maxHeight;
+    private Vector3 bombOffset;
+    private Vector3 spitOffset;
 
     // Use this for initialization
     void Start()
@@ -22,10 +25,11 @@ public class GooBar : MonoBehaviour
         curr = maxLevel;
         maxHeight = GetComponent<SpriteRenderer>().bounds.size.y;
 
-        float bombPercent = (float)bombCost / maxLevel;
-        float spitPercent = (float)spitCost / maxLevel;
-        bombMarker.localPosition += new Vector3(0, -maxHeight / 2 + bombPercent * maxHeight);
-        spitMarker.localPosition += new Vector3(0, -maxHeight / 2 + spitPercent * maxHeight);
+        bombOffset = new Vector3(0, (float)bombCost / maxLevel * maxHeight);
+        spitOffset = new Vector3(0, (float)spitCost / maxLevel * maxHeight);
+
+        bombMarker.transform.localPosition += new Vector3(0, (maxHeight / 2) - bombOffset.y);
+        spitMarker.transform.localPosition += new Vector3(0, (maxHeight / 2) - spitOffset.y);
 
     }
 
@@ -39,7 +43,7 @@ public class GooBar : MonoBehaviour
     {
         if (updateData(ammo))
         {
-            updateGUI();
+            updateGUI(ammo);
             return true;
         }
         else
@@ -66,14 +70,43 @@ public class GooBar : MonoBehaviour
     }
 
 
-    private void updateGUI()
+    private void updateGUI(Ammo ammo)
     {
+        // Change level of goo bar
         float currPercent = (float)curr / maxLevel;
         transform.localScale = new Vector3(1, currPercent, 1);
-        float currHeight = currPercent * maxHeight;
-        Vector3 offset = new Vector3(0, -(maxHeight - currHeight) / 2, 0);
-        //transform.position = offset;
-        transform.localPosition = offset;
+//        float currHeight = currPercent * maxHeight;
+ //       Vector3 offset = new Vector3(0, -(maxHeight - currHeight) / 2, 0);
+ //       transform.localPosition = offset;
+
+        if (ammo == Ammo.Bomb)
+        {
+            transform.localPosition -= (bombOffset / 2);
+            bombMarker.transform.localPosition -= (bombOffset);
+            spitMarker.transform.localPosition -= (bombOffset); 
+        }
+        else if (ammo == Ammo.Spit)
+        {
+            transform.localPosition -= (spitOffset / 2);
+            bombMarker.transform.localPosition -= (spitOffset);
+            spitMarker.transform.localPosition -= (spitOffset);
+        }
+
+        HideMarkers();
+        // Change position of indicators
+        //bombMarker.localPosition 
     }
 
+
+    void HideMarkers()
+    {
+        if (bombMarker.transform.localPosition.y < -(maxHeight / 2))
+        {
+            bombMarker.gameObject.SetActive(false);
+        }
+        if (spitMarker.transform.localPosition.y < -(maxHeight / 2))
+        {
+            spitMarker.gameObject.SetActive(false);
+        }
+    }
 }
