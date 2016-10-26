@@ -231,7 +231,7 @@ public class PlayerController : MonoBehaviour
     {
         Vector3 velocity = _controller.velocity;
         velocity.x = 0;
-
+/*
         if (DelayShouldFinish)
         {
             _controller.move(delayedVelocity * delayedTime);
@@ -239,8 +239,9 @@ public class PlayerController : MonoBehaviour
             isDelayed = false;
             return;
         }
-
-        if (isThrowingBomb || isThrowingSpit || isDelayed || isDying)
+*/
+        if (isThrowingBomb || isThrowingSpit || isDying)
+ //       if (isThrowingBomb || isThrowingSpit || isDelayed || isDying)
         {
             // Apply gravity
             velocity.y += gravity * Time.deltaTime;
@@ -264,9 +265,10 @@ public class PlayerController : MonoBehaviour
 
             if (!isJumping && _controller.isGrounded)
             {
-                isDelayed = true;
+//                isDelayed = true;
                 velocity.y = Mathf.Sqrt(2f * hopHeight * -gravity);
-                if (!firstHop) SetAnimationState(animState.hopEnd);
+                if (!firstHop) 
+                    SetAnimationState(animState.hopEnd);
             }
 
 
@@ -317,7 +319,7 @@ public class PlayerController : MonoBehaviour
                 isHoldingDownJump = true;
                 isJumping = true;
                 isHopping = false;
-                isDelayed = true;
+//                isDelayed = true;
                 SetAnimationState(animState.jumpStart);
             }
         }
@@ -339,12 +341,12 @@ public class PlayerController : MonoBehaviour
         velocity.y += gravity * Time.deltaTime;
 
 
-        if (!isDelayed)
+ //       if (!isDelayed)
         {
             _controller.move(velocity * Time.deltaTime);
             return;
         }
-
+        /*
         delayedVelocity = velocity;
         delayedTime = Time.deltaTime;
  //       IEnumerator coroutine = ForceDelay(delay);
@@ -352,7 +354,7 @@ public class PlayerController : MonoBehaviour
         delayer.Elapsed += delegate { ForceDelay(); };
         delayer.Start();
         //ForceDelay();
-
+        */
     }
 
 
