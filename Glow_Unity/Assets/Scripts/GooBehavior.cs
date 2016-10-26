@@ -45,6 +45,10 @@ public class GooBehavior : MonoBehaviour
         {
             this.transform.parent = collision.collider.transform;
         }
+        else
+        {
+            this.transform.parent = null;
+        }
 
         // Change to splatted form
         float oldGooWidth = goo.bounds.size.x;

@@ -98,7 +98,7 @@ public class PlayerController : MonoBehaviour
         HandleActions();
         // Decrease brightness if necessary
 
-
+        Debug.Log("player velocity.y: " + GetComponent<Rigidbody2D>().velocity.y);
 
         // Handle moving platforms
         if ((_controller.isGrounded || isHopping) && _controller.ground != null && _controller.ground.tag == "MovingPlatform")
@@ -211,7 +211,9 @@ public class PlayerController : MonoBehaviour
     void Launch(GameObject projectile, Vector3 velocity)
     {
         GameObject goo = (GameObject)Instantiate(projectile, transform.position, Quaternion.identity);
+        goo.transform.parent = transform;
         goo.GetComponent<Rigidbody2D>().velocity = velocity;
+        //goo.transform.parent = null;
         
     }
 
