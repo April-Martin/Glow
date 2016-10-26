@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     public GameManager gm;
     public GameObject gameCamera;
     public Transform startPos;
+    public GooBar gooBar;
     public GameObject gooPrefab;
     public GameObject bombPrefab;
     public GameObject aimingIconPrefab;
@@ -34,7 +35,6 @@ public class PlayerController : MonoBehaviour
     // General variables
     private CharacterController2D _controller;
     private SpriteRenderer sprite;
-    private GooBar gooBar;
 
     // Brightness variables
     private Transform glow;
@@ -75,7 +75,6 @@ public class PlayerController : MonoBehaviour
     {
         _controller = GetComponent<CharacterController2D>();
         transform.position = startPos.position;
-        gooBar = GetComponent<GooBar>();
         animator = GetComponent<Animator>();
 
         gameCamera.GetComponent<CameraFollow2D>().startCameraFollow(this.gameObject);
@@ -213,6 +212,7 @@ public class PlayerController : MonoBehaviour
     {
         GameObject goo = (GameObject)Instantiate(projectile, transform.position, Quaternion.identity);
         goo.GetComponent<Rigidbody2D>().velocity = velocity;
+        
     }
 
     IEnumerator ForceDelay(float interval)
