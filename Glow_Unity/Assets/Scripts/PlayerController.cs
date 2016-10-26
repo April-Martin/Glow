@@ -270,6 +270,10 @@ public class PlayerController : MonoBehaviour
                 if (!firstHop) 
                     SetAnimationState(animState.hopEnd);
             }
+            else if (!isJumping)
+            {
+                animator.SetBool("loopHop", true);
+            }
 
 
             if (Input.GetAxis("Horizontal") > 0)
@@ -329,6 +333,10 @@ public class PlayerController : MonoBehaviour
             isHoldingDownJump = false;
         }
 
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            Debug.Log("Break!");
+        }
 
 
 
