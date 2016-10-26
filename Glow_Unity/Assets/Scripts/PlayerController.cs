@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Timers;
 using Prime31;
 using UnityEngine.UI;
 
@@ -67,7 +68,7 @@ public class PlayerController : MonoBehaviour
     private bool DelayShouldFinish = false;
     private Vector3 delayedVelocity;
     private float delayedTime;
-
+    private Timer delayer;
 
     // Use this for initialization
     void Start()
@@ -83,6 +84,10 @@ public class PlayerController : MonoBehaviour
         glow = gameObject.transform.GetChild(0);
         sprite = GetComponent<SpriteRenderer>();
         maxGlowSize = glow.localScale;
+
+        delayer = new Timer(delay);
+        delayer.Enabled = false;
+        delayer.AutoReset = false;
     }
 
     // Update is called once per frame
@@ -217,6 +222,11 @@ public class PlayerController : MonoBehaviour
         yield break;
     }
 
+    void ForceDelay()
+    {
+        DelayShouldFinish = true;
+    }
+
     void HandleMotion()
     {
         Vector3 velocity = _controller.velocity;
@@ -252,7 +262,7 @@ public class PlayerController : MonoBehaviour
                 SetAnimationState(animState.hopStart);
             }
 
-            if (_controller.isGrounded)
+            if (!isJumping && _controller.isGrounded)
             {
                 isDelayed = true;
                 velocity.y = Mathf.Sqrt(2f * hopHeight * -gravity);
@@ -278,7 +288,6 @@ public class PlayerController : MonoBehaviour
             // If the player's still in the air:
             if (!_controller.isGrounded)
             {
-                Debug.Log("Horizontal = 0 and isHopping");
                 animator.SetBool("loopHop", false);
             }
             // If the player just hit the ground after ending a hop sequence:
@@ -338,8 +347,11 @@ public class PlayerController : MonoBehaviour
 
         delayedVelocity = velocity;
         delayedTime = Time.deltaTime;
-        IEnumerator coroutine = ForceDelay(delay);
-        StartCoroutine(coroutine);
+ //       IEnumerator coroutine = ForceDelay(delay);
+ //       StartCoroutine(coroutine);
+        delayer.Elapsed += delegate { ForceDelay(); };
+        delayer.Start();
+        //ForceDelay();
 
     }
 
