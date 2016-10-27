@@ -139,22 +139,27 @@ public class GooBehavior : MonoBehaviour
             Debug.Log("MaxSP = (" + maxCP.x + ", " + maxCP.y + ")");
 
             float overlapPercentage = (maxCP.y - minCP.y) / goo.bounds.size.y;
+            Debug.Log("width: " + splattedGoo.texture.width);
+            Debug.Log("height: " + splattedGoo.texture.height);
+
 
             if (overlapPercentage < 1)
             {
                 // If there's a projection:
                 Sprite croppedSprite = Sprite.Create(splattedGoo.texture, 
-                    new Rect(0, 0, splattedGoo.texture.width, splattedGoo.texture.height*overlapPercentage), 
+                    new Rect(0, 0, splattedGoo.texture.width*overlapPercentage, splattedGoo.texture.height), 
                     new Vector2(.5f, .5f), 200);
                 goo.sprite = croppedSprite;
 
                 float projection = goo.bounds.size.x - (maxCP.x - minCP.x);
 
-                if (minSP.y < minCP.y)  // excess is above
+                // excess is above
+                if (minSP.y < minCP.y)  
                 {
                     transform.position += new Vector3(0, projection / 2, 0);
                 }
-                else // excess is below
+                     // excess is below
+                else
                 {
                     transform.position -= new Vector3(0, projection / 2, 0);
                 }
@@ -172,24 +177,33 @@ public class GooBehavior : MonoBehaviour
 
             float overlapPercentage = (maxCP.x - minCP.x) / goo.bounds.size.x;
 
+            // If there's a projection:
             if (overlapPercentage < 1)
             {
-                // If there's a projection:
-                Sprite croppedSprite = Sprite.Create(splattedGoo.texture,
-                    new Rect(0, 0, splattedGoo.texture.width * overlapPercentage, splattedGoo.texture.height),
-                    new Vector2(.5f, .5f), 200);
-                goo.sprite = croppedSprite;
-
                 float projection = goo.bounds.size.x - (maxCP.x - minCP.x);
+                float croppedWidth = splattedGoo.texture.width * overlapPercentage;
+                Sprite croppedSprite;
 
-                if (maxSP.x > maxCP.x)  // excess is to the right
+                // excess is to the right
+                if (maxSP.x > maxCP.x) 
                 {
+                    // Keep the left side of the goo sprite
+                    croppedSprite = Sprite.Create(splattedGoo.texture,
+                    new Rect(0, 0, croppedWidth, splattedGoo.texture.height),
+                    new Vector2(.5f, .5f), 200);
+                    transform.position -= new Vector3(projection / 2, 0, 0);
+
+                }
+                // excess is to the left
+                else 
+                {
+                    // Keep the right side of the goo sprite
+                    croppedSprite = Sprite.Create(splattedGoo.texture,
+                    new Rect(splattedGoo.texture.width-croppedWidth, 0, croppedWidth, splattedGoo.texture.height),
+                    new Vector2(.5f, .5f), 200);
                     transform.position += new Vector3(projection / 2, 0, 0);
                 }
-                else // excess is to the left
-                {
-                    transform.position -= new Vector3(projection / 2, 0, 0);
-                }
+                goo.sprite = croppedSprite;
 
             }
 
