@@ -39,62 +39,63 @@ public class GooBar : MonoBehaviour
 
     }
 
-    public bool updateGooBar(Ammo ammo)
+    public bool DepleteGooBar(Ammo ammo)
     {
-        if (updateData(ammo))
+        if (ammo.Equals(Ammo.Bomb))
         {
-            updateGUI(ammo);
+            return updateGooBar(-bombCost);
+        }
+        else if (ammo.Equals(Ammo.Spit))
+        {
+            return updateGooBar(-spitCost);
+        }
+        else
+            return false;
+    }
+
+    public void RecoverSpit()
+    {
+        updateGooBar(spitCost);
+    }
+
+    private bool updateGooBar(int diff)
+    {
+        if (updateData(diff))
+        {
+            updateGUI(diff);
             return true;
         }
         else
             return false;
     }
 
-    private bool updateData(Ammo ammo)
+    private bool updateData(int diff)
     {
-        if (ammo.Equals(Ammo.Bomb) && curr >= bombCost)
+        if (curr+diff >= 0 && curr+diff <= maxLevel)
         {
-            curr -= bombCost;
-            return true;
-        }
-        else if (ammo.Equals(Ammo.Spit) && curr >= spitCost)
-        {
-            curr -= spitCost;
+            curr += diff;
             return true;
         }
         else
         {
-            Debug.Log("Not enough goo");
+            Debug.Log("Ran off edge of bar");
             return false;
         }
     }
 
 
-    private void updateGUI(Ammo ammo)
+    private void updateGUI(int diff)
     {
         // Change level of goo bar
         float currPercent = (float)curr / maxLevel;
         transform.localScale = new Vector3(1, currPercent, 1);
-//        float currHeight = currPercent * maxHeight;
- //       Vector3 offset = new Vector3(0, -(maxHeight - currHeight) / 2, 0);
- //       transform.localPosition = offset;
+        Vector3 offset = new Vector3(0, (float)diff / maxLevel * maxHeight);
+        transform.localPosition += offset / 2;
 
-        if (ammo == Ammo.Bomb)
-        {
-            transform.localPosition -= (bombOffset / 2);
-            bombMarker.transform.localPosition -= (bombOffset);
-            spitMarker.transform.localPosition -= (bombOffset); 
-        }
-        else if (ammo == Ammo.Spit)
-        {
-            transform.localPosition -= (spitOffset / 2);
-            bombMarker.transform.localPosition -= (spitOffset);
-            spitMarker.transform.localPosition -= (spitOffset);
-        }
-
+        // Adjust markers
+        bombMarker.transform.localPosition += offset;
+        spitMarker.transform.localPosition += offset;
         HideMarkers();
-        // Change position of indicators
-        //bombMarker.localPosition 
     }
 
 
@@ -104,9 +105,15 @@ public class GooBar : MonoBehaviour
         {
             bombMarker.gameObject.SetActive(false);
         }
+        else
+            bombMarker.gameObject.SetActive(true);
+
         if (spitMarker.transform.localPosition.y < -(maxHeight / 2))
         {
             spitMarker.gameObject.SetActive(false);
         }
+        else
+            spitMarker.gameObject.SetActive(true);
+
     }
 }

@@ -46,11 +46,11 @@ public class GooBehavior : MonoBehaviour
         // Handle moving platforms
         if (collision.collider.tag == "MovingPlatform")
         {
-            this.transform.parent = collision.collider.transform;
+            this.transform.SetParent(collision.collider.transform);
         }
         else
         {
-            this.transform.parent = null;
+            this.transform.SetParent(null);
         }
 
         // Change to splatted form
@@ -110,18 +110,19 @@ public class GooBehavior : MonoBehaviour
     {
         if (hasSplatted) return;
 
-        rb.isKinematic = true;
         // Undo any changes since the previous frame
+        rb.isKinematic = true;
         transform.position = impactPos;
         transform.eulerAngles = impactRotation;
         hasSplatted = true;
 
+        // Set up variables for projection calculation
         RectMask2D mask = GetComponent<RectMask2D>();
         Collider2D platform = collision.collider;
-        Vector3 minSP;
-        Vector3 maxSP;
-        Vector3 minCP;
-        Vector3 maxCP;
+        Sprite croppedSprite;
+        Vector3 minSP, maxSP, minCP, maxCP;
+
+        // --- Vertical collisions ---
         if (isVerticalCollision)
         {
             // Use the midpoints of the goo's top and bottom boundaries as sample points.
@@ -130,23 +131,13 @@ public class GooBehavior : MonoBehaviour
             maxSP = new Vector3(transform.position.x, goo.bounds.max.y);
             minCP = platform.bounds.ClosestPoint(minSP);
             maxCP = platform.bounds.ClosestPoint(maxSP);
-            Debug.DrawLine(minSP, maxSP, Color.yellow, 60);
-          //  Debug.DrawLine(minCP, maxCP, Color.cyan, 60);
-
-            Debug.Log("MinSP = (" + minSP.x + ", " + minSP.y + ")");
-            Debug.Log("MaxSP = (" + maxSP.x + ", " + maxSP.y + ")");
-            Debug.Log("MinCP = (" + minCP.x + ", " + minCP.y + ")");
-            Debug.Log("MaxSP = (" + maxCP.x + ", " + maxCP.y + ")");
 
             float overlapPercentage = (maxCP.y - minCP.y) / goo.bounds.size.y;
-            Debug.Log("width: " + splattedGoo.texture.width);
-            Debug.Log("height: " + splattedGoo.texture.height);
-
 
             if (overlapPercentage < 1)
             {
                 // If there's a projection:
-                Sprite croppedSprite = Sprite.Create(splattedGoo.texture, 
+                croppedSprite = Sprite.Create(splattedGoo.texture, 
                     new Rect(0, 0, splattedGoo.texture.width*overlapPercentage, splattedGoo.texture.height), 
                     new Vector2(.5f, .5f), 200);
                 goo.sprite = croppedSprite;
@@ -167,6 +158,7 @@ public class GooBehavior : MonoBehaviour
             }
 
         }
+        // --- Horizontal collisions ---
         else
         {
             // Do the same with the side boundaries.
@@ -182,7 +174,6 @@ public class GooBehavior : MonoBehaviour
             {
                 float projection = goo.bounds.size.x - (maxCP.x - minCP.x);
                 float croppedWidth = splattedGoo.texture.width * overlapPercentage;
-                Sprite croppedSprite;
 
                 // excess is to the right
                 if (maxSP.x > maxCP.x) 
@@ -206,65 +197,7 @@ public class GooBehavior : MonoBehaviour
                 goo.sprite = croppedSprite;
 
             }
-
-
-            Debug.DrawLine(mask.rectTransform.anchorMin, mask.rectTransform.anchorMax, Color.yellow, 60);
-            Debug.DrawLine(minCP, maxCP, Color.cyan, 60);
         }
     }
     
-    /*
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        Debug.Log("CollisionStay");
-
-        if (hasSplatted) return;
-
-        rb.isKinematic = true;
-        transform.position = impactPos;
-        transform.eulerAngles = impactRotation;
-        hasSplatted = true;
-
-        // Set up variables for projection calculation
-        ContactPoint2D[] cps = collision.contacts;
-        float gooSize;
-        float overlap;
-        if (isVerticalCollision)
-        {
-            gooSize = goo.bounds.size.y;
-            overlap = cps[1].point.y - cps[0].point.y;
-        }
-        else
-        {
-            gooSize = goo.bounds.size.x;
-            overlap = cps[1].point.x - cps[0].point.x;
-        }
-
-        // If part of the sprite is hanging off the platform:
-        Debug.Log("gooSize: " + gooSize);
-        Debug.Log("overlap: " + overlap);
-        if (overlap < gooSize)
-        {
-            float protrusion = gooSize - Mathf.Abs(overlap);
-            Debug.Log("protrusion: " + protrusion);
-            SpriteRenderer newMask = (SpriteRenderer)Instantiate(mask, transform.position, Quaternion.identity);
-            newMask.transform.parent = this.transform;
-
-            Vector3 offset;
-            if (isVerticalCollision)
-            {
-                newMask.transform.localScale = new Vector3(1, protrusion / gooSize, 1);
-                offset = new Vector3(0, overlap / 2, 0);
-            }
-            else
-            {
-                newMask.transform.localScale = new Vector3(protrusion / gooSize, 1, 1);
-                offset = new Vector3(overlap / 2, 0, 0);
-            }
-            newMask.transform.position += offset;       // overlap is automatically the right sign for this
-
-        }
-   
-    }
-    */
 }
