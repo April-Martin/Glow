@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class GooBehavior : MonoBehaviour
@@ -28,7 +29,9 @@ public class GooBehavior : MonoBehaviour
     {
         goo = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-
+        RectMask2D test = GetComponent<RectMask2D>();
+        test.rectTransform.position = transform.position;
+        test.rectTransform.sizeDelta = new Vector2(.01f, 01f);
     }
 
     // Update is called once per frame
@@ -101,9 +104,106 @@ public class GooBehavior : MonoBehaviour
         impactPos = transform.position;
 
     }
-
+    
+    
     void OnCollisionStay2D(Collision2D collision)
     {
+        if (hasSplatted) return;
+
+        rb.isKinematic = true;
+        // Undo any changes since the previous frame
+        transform.position = impactPos;
+        transform.eulerAngles = impactRotation;
+        hasSplatted = true;
+
+        RectMask2D mask = GetComponent<RectMask2D>();
+        Collider2D platform = collision.collider;
+        Vector3 minSP;
+        Vector3 maxSP;
+        Vector3 minCP;
+        Vector3 maxCP;
+        if (isVerticalCollision)
+        {
+            // Use the midpoints of the goo's top and bottom boundaries as sample points.
+            // Find the closest points on the platform to those sample points.
+            minSP = new Vector3(transform.position.x, goo.bounds.min.y);
+            maxSP = new Vector3(transform.position.x, goo.bounds.max.y);
+            minCP = platform.bounds.ClosestPoint(minSP);
+            maxCP = platform.bounds.ClosestPoint(maxSP);
+            Debug.DrawLine(minSP, maxSP, Color.yellow, 60);
+          //  Debug.DrawLine(minCP, maxCP, Color.cyan, 60);
+
+            Debug.Log("MinSP = (" + minSP.x + ", " + minSP.y + ")");
+            Debug.Log("MaxSP = (" + maxSP.x + ", " + maxSP.y + ")");
+            Debug.Log("MinCP = (" + minCP.x + ", " + minCP.y + ")");
+            Debug.Log("MaxSP = (" + maxCP.x + ", " + maxCP.y + ")");
+
+            float overlapPercentage = (maxCP.y - minCP.y) / goo.bounds.size.y;
+
+            if (overlapPercentage < 1)
+            {
+                // If there's a projection:
+                Sprite croppedSprite = Sprite.Create(splattedGoo.texture, 
+                    new Rect(0, 0, splattedGoo.texture.width, splattedGoo.texture.height*overlapPercentage), 
+                    new Vector2(.5f, .5f), 200);
+                goo.sprite = croppedSprite;
+
+                float projection = goo.bounds.size.x - (maxCP.x - minCP.x);
+
+                if (minSP.y < minCP.y)  // excess is above
+                {
+                    transform.position += new Vector3(0, projection / 2, 0);
+                }
+                else // excess is below
+                {
+                    transform.position -= new Vector3(0, projection / 2, 0);
+                }
+                
+            }
+
+        }
+        else
+        {
+            // Do the same with the side boundaries.
+            minSP = new Vector3(goo.bounds.min.x, transform.position.x);
+            maxSP = new Vector3(goo.bounds.max.x, transform.position.x);
+            minCP = platform.bounds.ClosestPoint(minSP);
+            maxCP = platform.bounds.ClosestPoint(maxSP);
+
+            float overlapPercentage = (maxCP.x - minCP.x) / goo.bounds.size.x;
+
+            if (overlapPercentage < 1)
+            {
+                // If there's a projection:
+                Sprite croppedSprite = Sprite.Create(splattedGoo.texture,
+                    new Rect(0, 0, splattedGoo.texture.width * overlapPercentage, splattedGoo.texture.height),
+                    new Vector2(.5f, .5f), 200);
+                goo.sprite = croppedSprite;
+
+                float projection = goo.bounds.size.x - (maxCP.x - minCP.x);
+
+                if (maxSP.x > maxCP.x)  // excess is to the right
+                {
+                    transform.position += new Vector3(projection / 2, 0, 0);
+                }
+                else // excess is to the left
+                {
+                    transform.position -= new Vector3(projection / 2, 0, 0);
+                }
+
+            }
+
+
+            Debug.DrawLine(mask.rectTransform.anchorMin, mask.rectTransform.anchorMax, Color.yellow, 60);
+            Debug.DrawLine(minCP, maxCP, Color.cyan, 60);
+        }
+    }
+    
+    /*
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        Debug.Log("CollisionStay");
+
         if (hasSplatted) return;
 
         rb.isKinematic = true;
@@ -150,7 +250,7 @@ public class GooBehavior : MonoBehaviour
             newMask.transform.position += offset;       // overlap is automatically the right sign for this
 
         }
-
+   
     }
-
+    */
 }

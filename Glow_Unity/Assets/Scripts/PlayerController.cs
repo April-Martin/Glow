@@ -211,10 +211,9 @@ public class PlayerController : MonoBehaviour
     void Launch(GameObject projectile, Vector3 velocity)
     {
         GameObject goo = (GameObject)Instantiate(projectile, transform.position, Quaternion.identity);
-        goo.transform.parent = transform;
+        if (transform.parent != null)
+            goo.transform.parent = transform.parent;
         goo.GetComponent<Rigidbody2D>().velocity = velocity;
-        //goo.transform.parent = null;
-        
     }
 
     IEnumerator ForceDelay(float interval)
