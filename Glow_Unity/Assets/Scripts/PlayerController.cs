@@ -72,6 +72,9 @@ public class PlayerController : MonoBehaviour
     private float delayedTime;
     private Timer delayer;
 
+    [HideInInspector]
+    public bool isAiming = false;
+
     // Use this for initialization
     void Start()
     {
@@ -245,6 +248,7 @@ public class PlayerController : MonoBehaviour
         // If the user just released the spit button:
         else if (isThrowingSpit && Input.GetKeyUp(KeyCode.Alpha1))
         {
+            isAiming = false;
             isThrowingSpit = false;
             if (gooBar.DepleteGooBar(GooBar.Ammo.Spit))
             {
@@ -256,6 +260,7 @@ public class PlayerController : MonoBehaviour
         // If the user just released the bomb button:
         else if (isThrowingBomb && Input.GetKeyUp(KeyCode.Alpha2))
         {
+            isAiming = false;
             isThrowingBomb = false;
             if (gooBar.DepleteGooBar(GooBar.Ammo.Bomb))
             {
@@ -335,6 +340,8 @@ public class PlayerController : MonoBehaviour
 
     void PreviewTrajectory()
     {
+        isAiming = true;
+
         // Launch the icon if enough time has elapsed
         aimingIconElapsed += Time.deltaTime;
         if (aimingIconElapsed >= aimingIconInterval)
