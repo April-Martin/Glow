@@ -4,6 +4,7 @@ using System.Collections;
 using System.Timers;
 using Prime31;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -384,10 +385,15 @@ public class PlayerController : MonoBehaviour
             SetHealth(currHealth - 1);
         }
 
-        if (col.tag == "endLevel")
+        if (col.tag == "tutorialDoor")
         {
-            gm.ExitLevel();
+			SceneManager.LoadScene (2);
         }
+
+		if (col.tag == "Level01Door")
+		{
+			SceneManager.LoadScene (0);
+		}
     }
 
 
