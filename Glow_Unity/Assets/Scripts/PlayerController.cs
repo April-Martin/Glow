@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
 
     // Dependency variables
     public GameManager gm;
-    public GameObject gameCamera;
+    public Camera gameCamera;
     public Transform startPos;
     public GooBar gooBar;
     public GameObject gooPrefab;
@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     public float glowPenalty = .1f;
 
     public float aimingIconInterval = 0.4f;
-    public float aimingSensitivity = .1f;
+	public float aimingScaler = .1f;
 
     // General variables
     private CharacterController2D _controller;
@@ -57,24 +57,28 @@ public class PlayerController : MonoBehaviour
 
     // Misc variables
     private int currHealth;
-    private bool isThrowingBomb = false;
-    private bool isThrowingSpit = false;
+//    private bool isThrowingBomb = false;
+//    private bool isThrowingSpit = false;
+
+	private bool bombMode = false;
+	private bool spitMode = false;
+//	private bool isThrowing = false;
+
     private bool isPickingUpSpit = false;
     private Vector3 aimingDirection;
     private float aimingIconElapsed = 0;
-    private bool isFacingLeft = false;
     private bool isDying = false;
 
     // Delay variables
     public float delay = 0.1f;
-    private bool isDelayed = false;
-    private bool DelayShouldFinish = false;
+//    private bool isDelayed = false;
+//    private bool DelayShouldFinish = false;
     private Vector3 delayedVelocity;
     private float delayedTime;
     private Timer delayer;
 
     [HideInInspector]
-    public bool isAiming = false;
+    public bool isThrowing = false;
 
     // Use this for initialization
     void Start()
@@ -104,8 +108,6 @@ public class PlayerController : MonoBehaviour
         HandleActions();
         // Decrease brightness if necessary
 
-        Debug.Log("player velocity.y: " + GetComponent<Rigidbody2D>().velocity.y);
-
         // Handle moving platforms
         if ((_controller.isGrounded || isHopping) && _controller.ground != null && _controller.ground.tag == "MovingPlatform")
         {
@@ -123,7 +125,7 @@ public class PlayerController : MonoBehaviour
         Vector3 velocity = _controller.velocity;
         velocity.x = 0;
 
-        if (isThrowingBomb || isThrowingSpit || isDying)
+        if (isThrowing || isDying)
         {
             // Apply gravity
             velocity.y += gravity * Time.deltaTime;
@@ -159,12 +161,10 @@ public class PlayerController : MonoBehaviour
             if (Input.GetAxis("Horizontal") > 0)
             {
                 velocity.x = walkSpeed;
-                isFacingLeft = false;
             }
             else
             {
                 velocity.x = walkSpeed * (-1);
-                isFacingLeft = true;
             }
         }
 
@@ -229,6 +229,73 @@ public class PlayerController : MonoBehaviour
 
     void HandleActions()
     {
+		// PROCESS KEYBOARD INPUT
+
+		// If the user just entered bomb mode or spit mode:
+		if (!(isThrowing) && Input.GetKeyDown (KeyCode.Q) || Input.GetKeyDown (KeyCode.E)) {
+			if (Input.GetKeyDown (KeyCode.Q) && gooBar.curr >= gooBar.spitCost) {
+				spitMode = true;
+				bombMode = false;
+			} else if (Input.GetKeyDown (KeyCode.E) && gooBar.curr >= gooBar.bombCost) {
+				bombMode = true;
+				spitMode = false;
+			} else
+				return;
+		} 
+
+		// If the user just left bomb mode or spit mode:
+		else if (Input.GetKeyUp (KeyCode.Q)) {
+			spitMode = false;
+			isThrowing = false;
+		} 
+		else if (Input.GetKeyUp (KeyCode.E)) {
+			bombMode = false;
+			isThrowing = false;
+		}
+
+
+		// If the user just clicked the mouse:]
+		if (Input.GetMouseButtonDown (0)) {
+			
+			// Exit if they're not in bomb mode or spit mode
+			if (!(spitMode || bombMode))
+				return;
+			
+			isThrowing = true;
+			aimingIconElapsed = 0;
+			//aimingDirection = new Vector3(3, 3, 0);
+			//if (isFacingLeft) aimingDirection.x *= (-1);
+			UpdateAimingDirection();
+			Launch(aimingIconPrefab, aimingDirection);
+		} 
+
+		// If the user just released it:
+		else if (Input.GetMouseButtonUp (0)) {
+			
+			// Exit if they're not in bomb mode or spit mode
+			if (!(spitMode || bombMode))
+				return;
+			
+			isThrowing = false;
+			if (spitMode) {
+				if (gooBar.DepleteGooBar (GooBar.Ammo.Spit))
+					Launch (gooPrefab, aimingDirection);
+			} 
+			else {
+				if (gooBar.DepleteGooBar (GooBar.Ammo.Bomb))
+					Launch (bombPrefab, aimingDirection);
+			}
+		}
+
+
+
+		// IMPLEMENT ACTIONS
+		if (isThrowing) {
+			PreviewTrajectory ();
+		}
+
+
+		/*
         // If the user JUST pressed a throwing action button:
         if (!(isThrowingBomb || isThrowingSpit) && (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2)))
         {
@@ -274,7 +341,7 @@ public class PlayerController : MonoBehaviour
         {
             PreviewTrajectory();
         }
-
+		*/
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
             isPickingUpSpit = true;
@@ -341,7 +408,13 @@ public class PlayerController : MonoBehaviour
 
     void PreviewTrajectory()
     {
-        isAiming = true;
+		UpdateAimingDirection ();
+
+		// Make sure sprite is facing right direction for throw
+		if (aimingDirection.x > 0)
+			transform.localRotation = Quaternion.Euler(0, 0, 0);
+		else
+			transform.localRotation = Quaternion.Euler(0, 180, 0);
 
         // Launch the icon if enough time has elapsed
         aimingIconElapsed += Time.deltaTime;
@@ -351,6 +424,7 @@ public class PlayerController : MonoBehaviour
             Launch(aimingIconPrefab, aimingDirection);
         }
 
+		/*
         // Calculate new aiming vector
         if (Input.GetAxis("Horizontal") != 0)
         {
@@ -367,7 +441,25 @@ public class PlayerController : MonoBehaviour
             else if (Input.GetAxis("Vertical") < 0 && aimingDirection.y > (-1) * maxThrow)
                 aimingDirection.y -= aimingSensitivity;
         }
+		*/
+
     }
+
+	void UpdateAimingDirection()
+	{
+		// Get vector between player and mouse
+		Vector3 diff = Input.mousePosition - gameCamera.WorldToScreenPoint(transform.position);
+
+		// Scale by screen size
+		diff /= (Screen.width*aimingScaler);
+
+		if (diff.sqrMagnitude > maxThrow * maxThrow) {
+			diff.Normalize ();
+			diff *= maxThrow;
+		}
+
+		aimingDirection = diff;
+	}
 
 
     void OnTriggerEnter2D(Collider2D col)

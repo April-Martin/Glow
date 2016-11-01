@@ -15,7 +15,7 @@ public class AimingIconBehavior : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
     {
-        if (!rend.isVisible || !player.isAiming)
+        if (!rend.isVisible || !player.isThrowing)
         {
             Destroy(gameObject);
         }
