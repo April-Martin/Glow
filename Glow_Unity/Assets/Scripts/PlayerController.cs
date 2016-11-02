@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Timers;
 using Prime31;
 using UnityEngine.UI;
@@ -8,8 +9,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-
-
     // Dependency variables
     public GameManager gm;
     public Camera gameCamera;
@@ -31,8 +30,6 @@ public class PlayerController : MonoBehaviour
     public float maxThrow = 6;
     public float glowPenalty = .1f;
 
-    public float aimingIconInterval = 0.4f;
-	public float aimingScaler = .1f;
 
     // General variables
     private CharacterController2D _controller;
@@ -60,25 +57,23 @@ public class PlayerController : MonoBehaviour
 //    private bool isThrowingBomb = false;
 //    private bool isThrowingSpit = false;
 
+
+    // Throwing + aiming variables
 	private bool bombMode = false;
 	private bool spitMode = false;
-//	private bool isThrowing = false;
-
-    private bool isPickingUpSpit = false;
     private Vector3 aimingDirection;
-    private float aimingIconElapsed = 0;
-    private bool isDying = false;
-
-    // Delay variables
-    public float delay = 0.1f;
-//    private bool isDelayed = false;
-//    private bool DelayShouldFinish = false;
-    private Vector3 delayedVelocity;
-    private float delayedTime;
-    private Timer delayer;
-
+    public float aimingIconInterval = 0.4f;
+    public float aimingScaler = .1f;
     [HideInInspector]
     public bool isThrowing = false;
+    private LinkedList<GameObject> aimingIcons;
+ 
+
+    // Miscellaneous variables
+    private bool isPickingUpSpit = false;
+    private bool isDying = false;
+
+
 
     // Use this for initialization
     void Start()
@@ -93,10 +88,7 @@ public class PlayerController : MonoBehaviour
         glow = gameObject.transform.GetChild(0);
         sprite = GetComponent<SpriteRenderer>();
         maxGlowSize = glow.localScale;
-
-        delayer = new Timer(delay);
-        delayer.Enabled = false;
-        delayer.AutoReset = false;
+        aimingIcons = new LinkedList<GameObject>();
     }
 
     // Update is called once per frame
@@ -262,11 +254,7 @@ public class PlayerController : MonoBehaviour
 				return;
 			
 			isThrowing = true;
-			aimingIconElapsed = 0;
-			//aimingDirection = new Vector3(3, 3, 0);
-			//if (isFacingLeft) aimingDirection.x *= (-1);
-			UpdateAimingDirection();
-			Launch(aimingIconPrefab, aimingDirection);
+            PreviewTrajectory();
 		} 
 
 		// If the user just released it:
@@ -290,58 +278,10 @@ public class PlayerController : MonoBehaviour
 
 
 		// IMPLEMENT ACTIONS
-		if (isThrowing) {
+		if (isThrowing && ((Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0))) {
 			PreviewTrajectory ();
 		}
 
-
-		/*
-        // If the user JUST pressed a throwing action button:
-        if (!(isThrowingBomb || isThrowingSpit) && (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetKeyDown(KeyCode.Alpha2)))
-        {
-            if (Input.GetKeyDown(KeyCode.Alpha2) && gooBar.curr >= gooBar.bombCost)
-                isThrowingBomb = true;
-            else if (Input.GetKeyDown(KeyCode.Alpha1) && gooBar.curr >= gooBar.spitCost)
-                isThrowingSpit = true;
-            else
-                return;
-
-
-            aimingIconElapsed = 0;
-            aimingDirection = new Vector3(3, 3, 0);
-            if (isFacingLeft) aimingDirection.x *= (-1);
-            Launch(aimingIconPrefab, aimingDirection);
-        }
-
-        // If the user just released the spit button:
-        else if (isThrowingSpit && Input.GetKeyUp(KeyCode.Alpha1))
-        {
-            isAiming = false;
-            isThrowingSpit = false;
-            if (gooBar.DepleteGooBar(GooBar.Ammo.Spit))
-            {
-                Launch(gooPrefab, aimingDirection);
-                Debug.Log("Threw spit. New goo level: " + gooBar.curr);
-            }
-        }
-
-        // If the user just released the bomb button:
-        else if (isThrowingBomb && Input.GetKeyUp(KeyCode.Alpha2))
-        {
-            isAiming = false;
-            isThrowingBomb = false;
-            if (gooBar.DepleteGooBar(GooBar.Ammo.Bomb))
-            {
-                Launch(bombPrefab, aimingDirection);
-                Debug.Log("Threw bomb. New goo level: " + gooBar.curr);
-            }
-        }
-
-        if (isThrowingBomb || isThrowingSpit)
-        {
-            PreviewTrajectory();
-        }
-		*/
 
         if (Input.GetKeyDown(KeyCode.Alpha3))
             isPickingUpSpit = true;
@@ -397,10 +337,10 @@ public class PlayerController : MonoBehaviour
 
     void Launch(GameObject projectile, Vector3 velocity)
     {
-        GameObject goo = (GameObject)Instantiate(projectile, transform.position, Quaternion.identity);
+        GameObject obj = (GameObject)Instantiate(projectile, transform.position, Quaternion.identity);
         if (transform.parent != null)
-            goo.transform.parent = transform.parent;
-        goo.GetComponent<Rigidbody2D>().velocity = velocity;
+            obj.transform.parent = transform.parent;
+        obj.GetComponent<Rigidbody2D>().velocity = velocity;
     }
 
 
@@ -408,6 +348,15 @@ public class PlayerController : MonoBehaviour
 
     void PreviewTrajectory()
     {
+        // Wipe the current list of aiming icons
+        while (aimingIcons.Count > 0)
+        {
+            GameObject curr = aimingIcons.Last.Value;
+            aimingIcons.RemoveLast();
+            Destroy(curr.gameObject);
+        }
+
+        // Calculate new aiming vector
 		UpdateAimingDirection ();
 
 		// Make sure sprite is facing right direction for throw
@@ -416,32 +365,32 @@ public class PlayerController : MonoBehaviour
 		else
 			transform.localRotation = Quaternion.Euler(0, 180, 0);
 
-        // Launch the icon if enough time has elapsed
-        aimingIconElapsed += Time.deltaTime;
-        if (aimingIconElapsed >= aimingIconInterval)
-        {
-            aimingIconElapsed = 0;
-            Launch(aimingIconPrefab, aimingDirection);
-        }
 
-		/*
-        // Calculate new aiming vector
-        if (Input.GetAxis("Horizontal") != 0)
-        {
-            if (Input.GetAxis("Horizontal") > 0 && aimingDirection.x < maxThrow)
-                aimingDirection.x += aimingSensitivity;
-            else if (Input.GetAxis("Horizontal") < 0 && aimingDirection.x > (-1) * maxThrow)
-                aimingDirection.x -= aimingSensitivity;
-        }
+        // Draw a series of dots marking the trajectory
 
-        if (Input.GetAxis("Vertical") != 0)
+        Vector3 worldDrawLocation = transform.position;
+        Vector3 worldScreenLocation = gameCamera.WorldToScreenPoint(worldDrawLocation);
+        float timestep = .01f;
+        Vector3 currVelocity = aimingDirection;
+
+        while (worldScreenLocation.x >= 0 && worldScreenLocation.x <= Screen.width &&
+            worldScreenLocation.y >=0 && worldScreenLocation.y <= Screen.height)
         {
-            if (Input.GetAxis("Vertical") > 0 && aimingDirection.y < maxThrow)
-                aimingDirection.y += aimingSensitivity;
-            else if (Input.GetAxis("Vertical") < 0 && aimingDirection.y > (-1) * maxThrow)
-                aimingDirection.y -= aimingSensitivity;
+            // Move to next location
+            float elapsed = 0;
+            while (elapsed < aimingIconInterval)
+            {
+                currVelocity += Physics.gravity * timestep;
+                worldDrawLocation += currVelocity * timestep;
+                elapsed += timestep;
+            }
+            // Draw aiming icon and add it to the list
+            GameObject node = (GameObject) Instantiate(aimingIconPrefab, worldDrawLocation, Quaternion.identity);
+            aimingIcons.AddLast(node);
+            // Update worldScreenLocation
+            worldScreenLocation = gameCamera.WorldToScreenPoint(worldDrawLocation);
+
         }
-		*/
 
     }
 

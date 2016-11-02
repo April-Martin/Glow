@@ -64,6 +64,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Scripts\AimingIconBehavior.cs" />
+    <Compile Include="Assets\Scripts\AimingPreview.cs" />
     <Compile Include="Assets\Scripts\AnimationController2D.cs" />
     <Compile Include="Assets\Scripts\BombBehavior.cs" />
     <Compile Include="Assets\Scripts\CameraFollow2D.cs" />
