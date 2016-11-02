@@ -377,8 +377,9 @@ public class PlayerController : MonoBehaviour
             worldScreenLocation.y >=0 && worldScreenLocation.y <= Screen.height)
         {
             // Move to next location
+            Vector3 prevLocation = worldDrawLocation;
             float elapsed = 0;
-            while (elapsed < aimingIconInterval)
+            while ((worldDrawLocation-prevLocation).sqrMagnitude < aimingIconInterval)
             {
                 currVelocity += Physics.gravity * timestep;
                 worldDrawLocation += currVelocity * timestep;
