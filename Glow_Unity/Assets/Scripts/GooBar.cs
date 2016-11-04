@@ -11,6 +11,7 @@ public class GooBar : MonoBehaviour
 
     public Transform bombMarker;
     public Transform spitMarker;
+    public Camera cam;
 
     [HideInInspector]
     public int curr;
@@ -24,12 +25,27 @@ public class GooBar : MonoBehaviour
     {
         curr = maxLevel;
         maxHeight = GetComponent<SpriteRenderer>().bounds.size.y;
-
+        Debug.Log("maxheight: " + maxHeight);
         bombOffset = new Vector3(0, (float)bombCost / maxLevel * maxHeight);
         spitOffset = new Vector3(0, (float)spitCost / maxLevel * maxHeight);
 
         bombMarker.transform.localPosition += new Vector3(0, (maxHeight / 2) - bombOffset.y);
         spitMarker.transform.localPosition += new Vector3(0, (maxHeight / 2) - spitOffset.y);
+
+        // Set goo bar to current position depending on screen size
+        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+        float topMargin = 50;
+        float sideMargin = 100;
+        Debug.Log("Sprite size: " + sprite.bounds.size.x +" x " + sprite.bounds.size.y );
+
+        Vector3 worldOrigin = cam.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2));
+        Vector3 worldDest = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
+        worldDest.x -= (sprite.bounds.size.x / 2 * 3.5f);
+        worldDest.y -= (sprite.bounds.size.y / 2 * 1.3f);
+        Vector3 relativeWorldPos = worldDest - worldOrigin;
+       /// Vector3 relativeWorldPos = new Vector3(0, 0, 10);
+        relativeWorldPos.z = 10;
+        transform.parent.transform.localPosition = relativeWorldPos ;
 
     }
 

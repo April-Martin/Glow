@@ -1,7 +1,7 @@
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2008
-
-Project("{BA415790-7945-F435-D658-3D6F738FBCD7}") = "Glow_Unity", "Assembly-CSharp.csproj", "{2518F4AB-DFA1-C4CB-43E8-3BFF7F0183F4}"
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Glow_Unity.CSharp", "Glow_Unity.CSharp.csproj", "{0E12CF43-A01A-DD62-38FD-8EEB9BFD8072}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,15 +9,12 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{2518F4AB-DFA1-C4CB-43E8-3BFF7F0183F4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{2518F4AB-DFA1-C4CB-43E8-3BFF7F0183F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{2518F4AB-DFA1-C4CB-43E8-3BFF7F0183F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{2518F4AB-DFA1-C4CB-43E8-3BFF7F0183F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E12CF43-A01A-DD62-38FD-8EEB9BFD8072}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E12CF43-A01A-DD62-38FD-8EEB9BFD8072}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E12CF43-A01A-DD62-38FD-8EEB9BFD8072}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E12CF43-A01A-DD62-38FD-8EEB9BFD8072}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = Assembly-CSharp.csproj
 	EndGlobalSection
 EndGlobal
