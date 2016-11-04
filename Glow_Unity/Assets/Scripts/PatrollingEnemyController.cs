@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class PatrollerController : EnemyController {
+public class PatrollingEnemyController : EnemyController {
 
     public int speed = 1;
     
