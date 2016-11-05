@@ -52,12 +52,13 @@
      <Compile Include="Assets\Scripts\CameraFollow2D.cs" />
      <Compile Include="Assets\Scripts\CharacterController2D.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
+     <Compile Include="Assets\Scripts\FlyingEnemyController.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
      <Compile Include="Assets\Scripts\GooBar.cs" />
      <Compile Include="Assets\Scripts\GooBehavior.cs" />
      <Compile Include="Assets\Scripts\LightProjector.cs" />
      <Compile Include="Assets\Scripts\MovingPlatform.cs" />
-     <Compile Include="Assets\Scripts\PatrollerController.cs" />
+     <Compile Include="Assets\Scripts\PatrollingEnemyController.cs" />
      <Compile Include="Assets\Scripts\PlayerController.cs" />
      <None Include="Assets\Shaders\LMS_Visible.shader" />
      <None Include="Assets\Shaders\LMS_Tester.shader" />

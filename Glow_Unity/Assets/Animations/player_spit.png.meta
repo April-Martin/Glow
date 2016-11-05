@@ -1,0 +1,283 @@
+fileFormatVersion: 2
+guid: c4d44dc0fa253450ca6fc0c0f434d210
+timeCreated: 1478384267
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: player_spit_0
+    21300002: player_spit_1
+    21300004: player_spit_2
+    21300006: player_spit_3
+    21300008: player_spit_4
+    21300010: player_spit_5
+    21300012: player_spit_6
+    21300014: player_spit_7
+    21300016: player_spit_8
+    21300018: player_spit_9
+    21300020: player_spit_10
+    21300022: player_spit_11
+    21300024: player_spit_12
+    21300026: player_spit_13
+    21300028: player_spit_14
+    21300030: player_spit_15
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: player_spit_0
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 35
+        width: 128
+        height: 218
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_1
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 35
+        width: 128
+        height: 218
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_2
+      rect:
+        serializedVersion: 2
+        x: 470
+        y: 35
+        width: 135
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_3
+      rect:
+        serializedVersion: 2
+        x: 686
+        y: 35
+        width: 135
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_4
+      rect:
+        serializedVersion: 2
+        x: 897
+        y: 35
+        width: 140
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_5
+      rect:
+        serializedVersion: 2
+        x: 1113
+        y: 35
+        width: 140
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_6
+      rect:
+        serializedVersion: 2
+        x: 1327
+        y: 35
+        width: 142
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_7
+      rect:
+        serializedVersion: 2
+        x: 1543
+        y: 35
+        width: 142
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_8
+      rect:
+        serializedVersion: 2
+        x: 1766
+        y: 35
+        width: 135
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_9
+      rect:
+        serializedVersion: 2
+        x: 1982
+        y: 35
+        width: 135
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_10
+      rect:
+        serializedVersion: 2
+        x: 2203
+        y: 35
+        width: 130
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_11
+      rect:
+        serializedVersion: 2
+        x: 2419
+        y: 35
+        width: 130
+        height: 217
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_12
+      rect:
+        serializedVersion: 2
+        x: 2640
+        y: 35
+        width: 125
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_13
+      rect:
+        serializedVersion: 2
+        x: 2856
+        y: 35
+        width: 125
+        height: 216
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_14
+      rect:
+        serializedVersion: 2
+        x: 3087
+        y: 35
+        width: 113
+        height: 220
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: player_spit_15
+      rect:
+        serializedVersion: 2
+        x: 3303
+        y: 35
+        width: 113
+        height: 220
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
