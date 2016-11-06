@@ -50,7 +50,7 @@ public class PlayerController : MonoBehaviour
 
     // Animation variables
     Animator animator;
-    enum animState { idle, hopStart, hopEnd, jumpStart, jumpEnd, death };
+    enum animState { idle, hopStart, hopEnd, jumpStart, jumpEnd, death, spitStart, spitEnd };
 
     // Misc variables
     private int currHealth;
@@ -255,6 +255,7 @@ public class PlayerController : MonoBehaviour
 			
 			isThrowing = true;
             PreviewTrajectory();
+            SetAnimationState(animState.spitStart);
 		} 
 
 		// If the user just released it:
@@ -273,6 +274,7 @@ public class PlayerController : MonoBehaviour
 				if (gooBar.DepleteGooBar (GooBar.Ammo.Bomb))
 					Launch (bombPrefab, aimingDirection);
 			}
+            SetAnimationState(animState.spitEnd);
 		}
 
 
@@ -545,6 +547,16 @@ public class PlayerController : MonoBehaviour
             case animState.death:
                 {
                     animator.SetTrigger("death");
+                    break;
+                }
+            case animState.spitStart:
+                {
+                    animator.SetTrigger("spitStart");
+                    break;
+                }
+            case animState.spitEnd:
+                {
+                    animator.SetTrigger("spitEnd");
                     break;
                 }
         }
