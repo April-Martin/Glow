@@ -3,15 +3,12 @@ using System.Collections;
 
 public class PatrollingEnemyController : EnemyController {
 
-    public int speed = 1;
-    
+    public float speed = 1;
 	private bool isFacingRight;
-	private float floatSpeed;
 
 	protected override void Start ()
 	{
 		base.Start ();
-		floatSpeed = (float) speed / 2;
 		if (transform.localScale.x > 0)
 			isFacingRight = true;
 		else
@@ -37,9 +34,9 @@ public class PatrollingEnemyController : EnemyController {
 
         // Set direction-dependent variables
 		if (isFacingRight)
-			velocity.x = floatSpeed;
+			velocity.x = speed;
         else
-            velocity.x = (-1) * floatSpeed;
+            velocity.x = (-1) * speed;
 
 		// Switch direction if it's at the edge of a platform
 		if (_controller.isOnEdgeOfPlatform || _controller.isAgainstWall) {
