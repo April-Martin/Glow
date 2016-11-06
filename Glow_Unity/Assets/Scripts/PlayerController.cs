@@ -54,8 +54,7 @@ public class PlayerController : MonoBehaviour
 
     // Misc variables
     private int currHealth;
-//    private bool isThrowingBomb = false;
-//    private bool isThrowingSpit = false;
+    private Vector3 respawnPoint;
 
 
     // Throwing + aiming variables
@@ -80,6 +79,7 @@ public class PlayerController : MonoBehaviour
     {
         _controller = GetComponent<CharacterController2D>();
         transform.position = startPos.position;
+        respawnPoint = startPos.position;
         animator = GetComponent<Animator>();
 
         gameCamera.GetComponent<CameraFollow2D>().startCameraFollow(this.gameObject);
@@ -429,6 +429,11 @@ public class PlayerController : MonoBehaviour
             SetHealth(currHealth - 1);
         }
 
+        if (col.tag == "Checkpoint")
+        {
+            respawnPoint = col.transform.position;
+        }
+
         if (col.tag == "tutorialDoor")
         {
 			SceneManager.LoadScene (2);
@@ -491,7 +496,7 @@ public class PlayerController : MonoBehaviour
 
     void KillPlayer()
     {
-        transform.position = startPos.position;
+        transform.position = respawnPoint;
         SetHealth(maxHealth);
         GetComponent<SpriteRenderer>().color = Color.white;
         SetAnimationState(animState.idle);
