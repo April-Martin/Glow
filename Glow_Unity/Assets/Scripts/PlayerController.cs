@@ -249,8 +249,49 @@ public class PlayerController : MonoBehaviour
 			isThrowing = false;
 		}
 
+        // if the user just clicked a mouse button:
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        {
+            // If they're using the keyboard to determine spit mode / bomb mode, don't change that.
+            // But if they're not, infer it from the mouse button.
+            if (! (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E)) )
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    spitMode = true;
+                    bombMode = false;
+                }
+                else
+                {
+                    bombMode = true;
+                    spitMode = false;
+                }
+            }
 
-		// If the user just clicked the mouse:]
+            isThrowing = true;
+            isLocked = true;
+            PreviewTrajectory();
+            SetAnimationState(animState.spitStart);
+        }
+
+        // If the user just released a mouse button
+        else if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+        {
+            			isThrowing = false;
+            isLocked = false;
+			if (spitMode) {
+				if (gooBar.DepleteGooBar (GooBar.Ammo.Spit))
+					Launch (gooPrefab, aimingDirection);
+			} 
+			else {
+				if (gooBar.DepleteGooBar (GooBar.Ammo.Bomb))
+					Launch (bombPrefab, aimingDirection);
+			}
+            SetAnimationState(animState.spitEnd);
+        }
+
+        /*
+		// If the user just clicked the left mouse:]
 		if (Input.GetMouseButtonDown (0)) {
 			
 			// Exit if they're not in bomb mode or spit mode
@@ -283,7 +324,7 @@ public class PlayerController : MonoBehaviour
             SetAnimationState(animState.spitEnd);
 		}
 
-
+        */
 
 		// IMPLEMENT ACTIONS
 		if (isThrowing && ((Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0))) {
