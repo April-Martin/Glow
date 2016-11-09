@@ -29,6 +29,7 @@ public class PlayerController : MonoBehaviour
     public float gravity = -35;
     public float maxThrow = 6;
     public float glowPenalty = .1f;
+    public float invulnerabilityTime = 1.5f;
 
 
     // General variables
@@ -52,10 +53,6 @@ public class PlayerController : MonoBehaviour
     Animator animator;
     enum animState { idle, hopStart, hopEnd, jumpStart, jumpEnd, death, spitStart, spitEnd };
 
-    // Misc variables
-    private int currHealth;
-    private Vector3 respawnPoint;
-
 
     // Throwing + aiming variables
 	private bool bombMode = false;
@@ -66,11 +63,15 @@ public class PlayerController : MonoBehaviour
     [HideInInspector]
     public bool isThrowing = false;
     private LinkedList<GameObject> aimingIcons;
- 
 
-    // Miscellaneous variables
+
+    // Misc variables
+    private int currHealth;
+    private Vector3 respawnPoint;
     private bool isPickingUpSpit = false;
-    private bool isDying = false;
+    private bool isInvulnerable = false;
+    private bool isLocked = false;
+
 
 
 
@@ -115,15 +116,18 @@ public class PlayerController : MonoBehaviour
     void HandleMotion()
     {
         Vector3 velocity = _controller.velocity;
-        velocity.x = 0;
 
-        if (isThrowing || isDying)
+        if (isLocked)
         {
             // Apply gravity
             velocity.y += gravity * Time.deltaTime;
             _controller.move(velocity * Time.deltaTime);
             return;
         }
+
+        // Note: by putting this here, the recoil and the jump both work properly.
+        velocity.x = 0;
+
 
         // Handle horizontal input
         if (Input.GetAxis("Horizontal") != 0)
@@ -254,6 +258,7 @@ public class PlayerController : MonoBehaviour
 				return;
 			
 			isThrowing = true;
+            isLocked = true;
             PreviewTrajectory();
             SetAnimationState(animState.spitStart);
 		} 
@@ -266,6 +271,7 @@ public class PlayerController : MonoBehaviour
 				return;
 			
 			isThrowing = false;
+            isLocked = false;
 			if (spitMode) {
 				if (gooBar.DepleteGooBar (GooBar.Ammo.Spit))
 					Launch (gooPrefab, aimingDirection);
@@ -416,7 +422,7 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (isDying)
+        if (isInvulnerable)
             return;
 
         if (col.tag == "Killer")
@@ -427,6 +433,7 @@ public class PlayerController : MonoBehaviour
         if (col.tag == "PlayerDamager")
         {
             SetHealth(currHealth - 1);
+            Recoil(col);
         }
 
         if (col.tag == "Checkpoint")
@@ -445,6 +452,24 @@ public class PlayerController : MonoBehaviour
 		}
     }
 
+    void Recoil(Collider2D col)
+    {
+        IEnumerator coroutine = lockMotion(.4f);
+        StartCoroutine(coroutine);
+        coroutine = makeInvulnerable(invulnerabilityTime);
+        StartCoroutine(coroutine);
+
+        int xDirection;
+        if (transform.position.x > col.transform.position.x)
+            xDirection = 1;
+        else
+            xDirection = -1;
+
+        Vector3 recoilVelocity = new Vector3 (xDirection*2, Mathf.Sqrt(2f * hopHeight * -gravity), 0);
+        _controller.move(recoilVelocity * Time.deltaTime);
+        SetAnimationState(animState.idle);
+
+    }
 
     void SetHealth(int newHealth)
     {
@@ -478,18 +503,37 @@ public class PlayerController : MonoBehaviour
         // Kill if necessary
         if (currHealth <= 0)
         {
-            isDying = true;
+            isInvulnerable = true;
+            isLocked = true;
             SetAnimationState(animState.death);
             StartCoroutine("delayedDeath");
         }
 
     }
+
+    IEnumerator lockMotion(float time)
+    {
+        isLocked = true;
+        yield return new WaitForSeconds(time);
+        isLocked = false;
+        yield break;
+    }
+
+    IEnumerator makeInvulnerable(float time)
+    {
+        isInvulnerable = true;
+        yield return new WaitForSeconds(time);
+        isInvulnerable = false;
+        yield break;
+    }
+
     IEnumerator delayedDeath()
     {
         yield return new WaitForSeconds(1);
         Launch(gooPrefab, Vector3.zero);
         KillPlayer();
-        isDying = false;
+        isInvulnerable = false;
+        isLocked = false;
         yield break;
     }
 
