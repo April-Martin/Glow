@@ -291,7 +291,7 @@ public class PlayerController : MonoBehaviour
 		}
 
 
-        if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKey(KeyCode.S))
             isPickingUpSpit = true;
         else
             isPickingUpSpit = false;
