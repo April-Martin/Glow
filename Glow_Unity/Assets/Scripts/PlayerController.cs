@@ -311,34 +311,38 @@ public class PlayerController : MonoBehaviour
 
     Collider2D FindSpit()
     {
-        Debug.Log("trying to find spit");
-        bool found = false;
+        // Set up ray tracing origins, directions, and lengths
+        float[] lengths = new float[] { 0.7f, 0.5f };
+        Vector3[] directions = new Vector3[] { Vector2.down, Vector2.up, Vector2.left, Vector2.right };
+        Vector3[] rayOrigin = new Vector3[4];
+        rayOrigin[0] = new Vector2(transform.position.x - (sprite.bounds.size.x / 6), transform.position.y);    // Vertical raycast origins
+        rayOrigin[1] = new Vector2(transform.position.x + (sprite.bounds.size.x / 6), transform.position.y);
+        rayOrigin[2] = new Vector2(transform.position.x, transform.position.y - (sprite.bounds.size.y / 6));    // Horizontal raycast origins
+        rayOrigin[3] = new Vector2(transform.position.x, transform.position.y + (sprite.bounds.size.y / 6));
 
-        // Set up two ray tracing points
-        Vector3 rayOrigin1 = new Vector2(transform.position.x - (sprite.bounds.size.x / 6), transform.position.y);
-        Vector3 rayOrigin2 = new Vector2(transform.position.x + (sprite.bounds.size.x / 6), transform.position.y);
+        Collider2D goo = null;
+        for (int i = 0; i < directions.Length; i++)
+        {
+            if (goo != null) break;
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin[i/2*2], directions[i],lengths[i/2], 1 << gooLayerNumber);
 
-        RaycastHit2D hit = Physics2D.Raycast(rayOrigin1, Vector2.down, 0.7f, 1 << gooLayerNumber);
-        if (hit.collider != null)
-        {
-            found = true;
-        }
-        else
-        {
-            hit = Physics2D.Raycast(rayOrigin2, Vector2.down, 0.7f, 1 << gooLayerNumber);
             if (hit.collider != null)
             {
-                found = true;
+                goo = hit.collider;
             }
+            else
+            {
+                hit = Physics2D.Raycast(rayOrigin[i/2*2 + 1], directions[i], lengths[i/2], 1 << gooLayerNumber);
+                if (hit.collider != null)
+                {
+                    goo = hit.collider;
+                }
+            }
+
         }
 
-        if (found)
-        {
-            Debug.Log("Found goo!");
-            return hit.collider;
-            // Increase goo bar
-        }
-        return null;
+
+        return goo;
     }
 
 
