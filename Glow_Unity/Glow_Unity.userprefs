@@ -1,6 +1,14 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/GooBar.cs">
+    <Files>
+      <File FileName="Assets/Scripts/PlayerController.cs" Line="319" Column="42" />
+      <File FileName="Assets/Scripts/FlyingEnemyController.cs" Line="42" Column="1" />
+      <File FileName="Assets/Scripts/ComplexMovingPlatform.cs" Line="55" Column="19" />
+      <File FileName="Assets/Scripts/GameManager.cs" Line="40" Column="20" />
+      <File FileName="Assets/Scripts/GooBar.cs" Line="35" Column="76" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>

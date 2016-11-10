@@ -13,6 +13,8 @@ public class GooBar : MonoBehaviour
     public Transform spitMarker;
     public Camera cam;
 
+	private float scale;
+
     [HideInInspector]
     public int curr;
 
@@ -23,17 +25,20 @@ public class GooBar : MonoBehaviour
     // Use this for initialization
     void Start()
     {
+		scale = transform.parent.transform.localScale.x;
+
+		SpriteRenderer sprite = GetComponent<SpriteRenderer>();
         curr = maxLevel;
-        maxHeight = GetComponent<SpriteRenderer>().bounds.size.y;
-        Debug.Log("maxheight: " + maxHeight);
-        bombOffset = new Vector3(0, (float)bombCost / maxLevel * maxHeight);
-        spitOffset = new Vector3(0, (float)spitCost / maxLevel * maxHeight);
+		maxHeight = sprite.bounds.size.y / scale;
+		Debug.Log ("maxHeight = " + maxHeight);
+        bombOffset = new Vector3(0, (float)bombCost / maxLevel * maxHeight );
+        spitOffset = new Vector3(0, (float)spitCost / maxLevel * maxHeight );
 
         bombMarker.transform.localPosition += new Vector3(0, (maxHeight / 2) - bombOffset.y);
         spitMarker.transform.localPosition += new Vector3(0, (maxHeight / 2) - spitOffset.y);
 
         // Set goo bar to current position depending on screen size
-        SpriteRenderer sprite = GetComponent<SpriteRenderer>();
+
         float topMargin = 50;
         float sideMargin = 100;
         Debug.Log("Sprite size: " + sprite.bounds.size.x + " x " + sprite.bounds.size.y);
