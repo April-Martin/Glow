@@ -277,6 +277,7 @@ public class PlayerController : MonoBehaviour
 
             isThrowing = true;
             isLocked = true;
+			_controller.velocity = Vector3.zero;
             PreviewTrajectory();
             SetAnimationState(animState.spitStart);
         }
