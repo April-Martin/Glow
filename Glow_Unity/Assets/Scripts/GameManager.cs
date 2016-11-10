@@ -6,6 +6,10 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject gameOverPanel;
 
+	[HideInInspector] 
+	public bool isPaused = false;
+
+
 	// Use this for initialization
 	void Start () {
 	
@@ -17,7 +21,7 @@ public class GameManager : MonoBehaviour {
 		{
 			Time.timeScale = 0;
 			gameOverPanel.SetActive(true);
-
+			isPaused = true;
 		}
 	}
 
@@ -33,6 +37,7 @@ public class GameManager : MonoBehaviour {
 	public void ContinueLevel(){
 		Time.timeScale = 1;
 		gameOverPanel.SetActive (false);
+		isPaused = false;
 	}
 
 	public void Play(){

@@ -69,8 +69,10 @@ public class PlayerController : MonoBehaviour
     private int currHealth;
     private Vector3 respawnPoint;
     private bool isPickingUpSpit = false;
-    private bool isInvulnerable = false;
-    private bool isLocked = false;
+	[HideInInspector]
+    public bool isInvulnerable = false;
+	[HideInInspector]
+    public bool isLocked = false;
 
 
 
@@ -95,6 +97,9 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+		if (gm.isPaused)
+			return;
+
         // Move sprite
         HandleMotion();
         // Execute actions
@@ -283,7 +288,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // If the user just released a mouse button
-        else if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
+        else if (isThrowing && Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
         {
             isThrowing = false;
             isLocked = false;
