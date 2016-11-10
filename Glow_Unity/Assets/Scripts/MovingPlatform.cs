@@ -44,6 +44,7 @@ public class MovingPlatform : MonoBehaviour {
 	
 	}
 
+    // SO COOL!
 	void OnDrawGizmos (){
 		Gizmos.color = Color.red;
 		Gizmos.DrawLine (this.transform.position, endPosition + this.transform.position);
