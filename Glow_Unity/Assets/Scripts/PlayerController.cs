@@ -626,6 +626,7 @@ public class PlayerController : MonoBehaviour
         transform.position = respawnPoint;
         SetHealth(maxHealth);
         GetComponent<SpriteRenderer>().color = Color.white;
+		jumpCounter = 0;
         isHopping = false;
         isJumping = false;
         SetAnimationState(animState.idle);
