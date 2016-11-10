@@ -49,9 +49,13 @@ public class FlyingEnemyController : EnemyController {
             {
                 prevIndex = nextIndex;
                 nextIndex = (nextIndex + 1) % waypoints.Length;
-                SetPathToNext();
+            //    SetPathToNext();
             }
         }
+
+		// Calculate direction to next waypoint
+		SetPathToNext();
+
 
         // Apply velocity
         _controller.move(currVelocity * Time.deltaTime);

@@ -37,19 +37,22 @@ public class ComplexMovingPlatform : MonoBehaviour {
 	
 	void Update () {
         
-        // If we are at the target waypoint, move on to the next
-        float fudgeRoom = .1f;
-        if ((transform.position.x > waypoints[nextIndex].x - fudgeRoom && transform.position.x < waypoints[nextIndex].x + fudgeRoom)
-            && (transform.position.y > waypoints[nextIndex].y - fudgeRoom && transform.position.y < waypoints[nextIndex].y + fudgeRoom))
-        {
-            // But we don't want to get stuck at one waypoint.
-            if (distSqrToNext <= distSqrToPrev)
-            {
-                prevIndex = nextIndex;
-                nextIndex = (nextIndex + 1) % waypoints.Length;
-                SetPathToNext();
-            }
-        }
+		// If we are at the target waypoint, move on to the next
+		float fudgeRoom = .1f;
+		if ((transform.position.x > waypoints[nextIndex].x - fudgeRoom && transform.position.x < waypoints[nextIndex].x + fudgeRoom)
+			&& (transform.position.y > waypoints[nextIndex].y - fudgeRoom && transform.position.y < waypoints[nextIndex].y + fudgeRoom))
+		{
+			// But we don't want to get stuck at one waypoint.
+			if (distSqrToNext <= distSqrToPrev)
+			{
+				prevIndex = nextIndex;
+				nextIndex = (nextIndex + 1) % waypoints.Length;
+				//    SetPathToNext();
+			}
+		}
+
+		// Calculate direction to next waypoint
+		SetPathToNext();
 
         // Apply velocity
         transform.position += (currVelocity * Time.deltaTime);
