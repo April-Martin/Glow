@@ -501,7 +501,7 @@ public class PlayerController : MonoBehaviour
 
         if (col.tag == "Killer")
         {
-            KillPlayer();
+            RespawnPlayer();
         }
 
         if (col.tag == "PlayerDamager")
@@ -528,21 +528,25 @@ public class PlayerController : MonoBehaviour
 
     void Recoil(Collider2D col)
     {
+        // Lock the character
         IEnumerator coroutine = lockMotion(.4f);
         StartCoroutine(coroutine);
         coroutine = makeInvulnerable(invulnerabilityTime);
         StartCoroutine(coroutine);
 
+        // Apply new velocity
         int xDirection;
         if (transform.position.x > col.transform.position.x)
             xDirection = 1;
         else
             xDirection = -1;
-
         Vector3 recoilVelocity = new Vector3(xDirection * 2, Mathf.Sqrt(2f * hopHeight * -gravity), 0);
         _controller.move(recoilVelocity * Time.deltaTime);
-        SetAnimationState(animState.idle);
 
+        // Make sure animations are doing right thing
+        SetAnimationState(animState.idle);
+        isJumping = false;
+        isHopping = false;
     }
 
     void SetHealth(int newHealth)
@@ -578,9 +582,6 @@ public class PlayerController : MonoBehaviour
         // Kill if necessary
         if (currHealth <= 0)
         {
-            isInvulnerable = true;
-            isLocked = true;
-            SetAnimationState(animState.death);
             StartCoroutine("delayedDeath");
         }
 
@@ -606,20 +607,27 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator delayedDeath()
     {
+        isInvulnerable = true;
+        isLocked = true;
+        SetAnimationState(animState.death);
+
         yield return new WaitForSeconds(1);
+
         Launch(gooPrefab, Vector3.zero);
-        KillPlayer();
+        RespawnPlayer();
         isInvulnerable = false;
         isLocked = false;
         yield break;
     }
 
 
-    void KillPlayer()
+    void RespawnPlayer()
     {
         transform.position = respawnPoint;
         SetHealth(maxHealth);
         GetComponent<SpriteRenderer>().color = Color.white;
+        isHopping = false;
+        isJumping = false;
         SetAnimationState(animState.idle);
     }
 
