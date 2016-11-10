@@ -36,16 +36,16 @@ public class GooBar : MonoBehaviour
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
         float topMargin = 50;
         float sideMargin = 100;
-        Debug.Log("Sprite size: " + sprite.bounds.size.x +" x " + sprite.bounds.size.y );
+        Debug.Log("Sprite size: " + sprite.bounds.size.x + " x " + sprite.bounds.size.y);
 
         Vector3 worldOrigin = cam.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2));
         Vector3 worldDest = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
         worldDest.x -= (sprite.bounds.size.x / 2 * 3.5f);
         worldDest.y -= (sprite.bounds.size.y / 2 * 1.3f);
         Vector3 relativeWorldPos = worldDest - worldOrigin;
-       /// Vector3 relativeWorldPos = new Vector3(0, 0, 10);
+        /// Vector3 relativeWorldPos = new Vector3(0, 0, 10);
         relativeWorldPos.z = 10;
-        transform.parent.transform.localPosition = relativeWorldPos ;
+        transform.parent.transform.localPosition = relativeWorldPos;
 
     }
 
@@ -69,10 +69,12 @@ public class GooBar : MonoBehaviour
             return false;
     }
 
-    public void RecoverSpit()
+    public void RecoverSpit(int quantity)
     {
-        updateGooBar(spitCost);
+        updateGooBar(spitCost * quantity);
     }
+
+
 
     private bool updateGooBar(int diff)
     {
@@ -87,7 +89,7 @@ public class GooBar : MonoBehaviour
 
     private bool updateData(int diff)
     {
-        if (curr+diff >= 0 && curr+diff <= maxLevel)
+        if (curr + diff >= 0 && curr + diff <= maxLevel)
         {
             curr += diff;
             return true;

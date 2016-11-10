@@ -55,8 +55,8 @@ public class PlayerController : MonoBehaviour
 
 
     // Throwing + aiming variables
-	private bool bombMode = false;
-	private bool spitMode = false;
+    private bool bombMode = false;
+    private bool spitMode = false;
     private Vector3 aimingDirection;
     public float aimingIconInterval = 0.4f;
     public float aimingScaler = .1f;
@@ -225,36 +225,43 @@ public class PlayerController : MonoBehaviour
 
     void HandleActions()
     {
-		// PROCESS KEYBOARD INPUT
+        // PROCESS KEYBOARD INPUT
 
-		// If the user just entered bomb mode or spit mode:
-		if (!(isThrowing) && Input.GetKeyDown (KeyCode.Q) || Input.GetKeyDown (KeyCode.E)) {
-			if (Input.GetKeyDown (KeyCode.Q) && gooBar.curr >= gooBar.spitCost) {
-				spitMode = true;
-				bombMode = false;
-			} else if (Input.GetKeyDown (KeyCode.E) && gooBar.curr >= gooBar.bombCost) {
-				bombMode = true;
-				spitMode = false;
-			} else
-				return;
-		} 
+        // If the user just entered bomb mode or spit mode:
+        if (!(isThrowing) && Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E))
+        {
+            if (Input.GetKeyDown(KeyCode.Q) && gooBar.curr >= gooBar.spitCost)
+            {
+                spitMode = true;
+                bombMode = false;
+            }
+            else if (Input.GetKeyDown(KeyCode.E) && gooBar.curr >= gooBar.bombCost)
+            {
+                bombMode = true;
+                spitMode = false;
+            }
+            else
+                return;
+        }
 
-		// If the user just left bomb mode or spit mode:
-		else if (Input.GetKeyUp (KeyCode.Q)) {
-			spitMode = false;
-			isThrowing = false;
-		} 
-		else if (Input.GetKeyUp (KeyCode.E)) {
-			bombMode = false;
-			isThrowing = false;
-		}
+        // If the user just left bomb mode or spit mode:
+        else if (Input.GetKeyUp(KeyCode.Q))
+        {
+            spitMode = false;
+            isThrowing = false;
+        }
+        else if (Input.GetKeyUp(KeyCode.E))
+        {
+            bombMode = false;
+            isThrowing = false;
+        }
 
         // if the user just clicked a mouse button:
         if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
         {
             // If they're using the keyboard to determine spit mode / bomb mode, don't change that.
             // But if they're not, infer it from the mouse button.
-            if (! (Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E)) )
+            if (!(Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E)))
             {
                 if (Input.GetMouseButtonDown(0))
                 {
@@ -277,16 +284,18 @@ public class PlayerController : MonoBehaviour
         // If the user just released a mouse button
         else if (Input.GetMouseButtonUp(0) || Input.GetMouseButtonUp(1))
         {
-            			isThrowing = false;
+            isThrowing = false;
             isLocked = false;
-			if (spitMode) {
-				if (gooBar.DepleteGooBar (GooBar.Ammo.Spit))
-					Launch (gooPrefab, aimingDirection);
-			} 
-			else {
-				if (gooBar.DepleteGooBar (GooBar.Ammo.Bomb))
-					Launch (bombPrefab, aimingDirection);
-			}
+            if (spitMode)
+            {
+                if (gooBar.DepleteGooBar(GooBar.Ammo.Spit))
+                    Launch(gooPrefab, aimingDirection);
+            }
+            else
+            {
+                if (gooBar.DepleteGooBar(GooBar.Ammo.Bomb))
+                    Launch(bombPrefab, aimingDirection);
+            }
             SetAnimationState(animState.spitEnd);
         }
 
@@ -326,10 +335,11 @@ public class PlayerController : MonoBehaviour
 
         */
 
-		// IMPLEMENT ACTIONS
-		if (isThrowing && ((Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0))) {
-			PreviewTrajectory ();
-		}
+        // IMPLEMENT ACTIONS
+        if (isThrowing && ((Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0)))
+        {
+            PreviewTrajectory();
+        }
 
 
         if (Input.GetKey(KeyCode.S))
@@ -342,11 +352,11 @@ public class PlayerController : MonoBehaviour
             Collider2D spit = FindSpit();
             if (spit != null)
             {
-                gooBar.RecoverSpit();
+                gooBar.RecoverSpit(1);
                 Destroy(spit.gameObject);
             }
         }
-           
+
     }
 
 
@@ -365,7 +375,7 @@ public class PlayerController : MonoBehaviour
         for (int i = 0; i < directions.Length; i++)
         {
             if (goo != null) break;
-            RaycastHit2D hit = Physics2D.Raycast(rayOrigin[i/2*2], directions[i],lengths[i/2], 1 << gooLayerNumber);
+            RaycastHit2D hit = Physics2D.Raycast(rayOrigin[i / 2 * 2], directions[i], lengths[i / 2], 1 << gooLayerNumber);
 
             if (hit.collider != null)
             {
@@ -373,7 +383,7 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                hit = Physics2D.Raycast(rayOrigin[i/2*2 + 1], directions[i], lengths[i/2], 1 << gooLayerNumber);
+                hit = Physics2D.Raycast(rayOrigin[i / 2 * 2 + 1], directions[i], lengths[i / 2], 1 << gooLayerNumber);
                 if (hit.collider != null)
                 {
                     goo = hit.collider;
@@ -410,13 +420,13 @@ public class PlayerController : MonoBehaviour
         }
 
         // Calculate new aiming vector
-		UpdateAimingDirection ();
+        UpdateAimingDirection();
 
-		// Make sure sprite is facing right direction for throw
-		if (aimingDirection.x > 0)
-			transform.localRotation = Quaternion.Euler(0, 0, 0);
-		else
-			transform.localRotation = Quaternion.Euler(0, 180, 0);
+        // Make sure sprite is facing right direction for throw
+        if (aimingDirection.x > 0)
+            transform.localRotation = Quaternion.Euler(0, 0, 0);
+        else
+            transform.localRotation = Quaternion.Euler(0, 180, 0);
 
 
         // Draw a series of dots marking the trajectory
@@ -427,19 +437,19 @@ public class PlayerController : MonoBehaviour
         Vector3 currVelocity = aimingDirection;
 
         while (worldScreenLocation.x >= 0 && worldScreenLocation.x <= Screen.width &&
-            worldScreenLocation.y >=0 && worldScreenLocation.y <= Screen.height)
+            worldScreenLocation.y >= 0 && worldScreenLocation.y <= Screen.height)
         {
             // Move to next location
             Vector3 prevLocation = worldDrawLocation;
             float elapsed = 0;
-            while ((worldDrawLocation-prevLocation).sqrMagnitude < aimingIconInterval)
+            while ((worldDrawLocation - prevLocation).sqrMagnitude < aimingIconInterval)
             {
                 currVelocity += Physics.gravity * timestep;
                 worldDrawLocation += currVelocity * timestep;
                 elapsed += timestep;
             }
             // Draw aiming icon and add it to the list
-            GameObject node = (GameObject) Instantiate(aimingIconPrefab, worldDrawLocation, Quaternion.identity);
+            GameObject node = (GameObject)Instantiate(aimingIconPrefab, worldDrawLocation, Quaternion.identity);
             aimingIcons.AddLast(node);
             // Update worldScreenLocation
             worldScreenLocation = gameCamera.WorldToScreenPoint(worldDrawLocation);
@@ -448,27 +458,46 @@ public class PlayerController : MonoBehaviour
 
     }
 
-	void UpdateAimingDirection()
-	{
-		// Get vector between player and mouse
-		Vector3 diff = Input.mousePosition - gameCamera.WorldToScreenPoint(transform.position);
+    void UpdateAimingDirection()
+    {
+        // Get vector between player and mouse
+        Vector3 diff = Input.mousePosition - gameCamera.WorldToScreenPoint(transform.position);
 
-		// Scale by screen size
-		diff /= (Screen.width*aimingScaler);
+        // Scale by screen size
+        diff /= (Screen.width * aimingScaler);
 
-		if (diff.sqrMagnitude > maxThrow * maxThrow) {
-			diff.Normalize ();
-			diff *= maxThrow;
-		}
+        if (diff.sqrMagnitude > maxThrow * maxThrow)
+        {
+            diff.Normalize();
+            diff *= maxThrow;
+        }
 
-		aimingDirection = diff;
-	}
+        aimingDirection = diff;
+    }
 
 
     void OnTriggerEnter2D(Collider2D col)
     {
         if (isInvulnerable)
             return;
+
+        if (col.tag == "Pickup")
+        {
+            Pickup pickup = col.GetComponent<Pickup>();
+
+            if (pickup.type == Pickup.pickupType.goo)
+            {
+                Debug.Log("Hit goo pickup");
+                gooBar.RecoverSpit(pickup.amount);
+            }
+            else
+            {
+                Debug.Log("Hit health pickup");
+                if (currHealth + pickup.amount <= maxHealth)
+                    SetHealth(currHealth + pickup.amount);
+            }
+            Destroy(pickup.gameObject);
+        }
 
         if (col.tag == "Killer")
         {
@@ -488,13 +517,13 @@ public class PlayerController : MonoBehaviour
 
         if (col.tag == "tutorialDoor")
         {
-			SceneManager.LoadScene (2);
+            SceneManager.LoadScene(2);
         }
 
-		if (col.tag == "Level01Door")
-		{
-			SceneManager.LoadScene (0);
-		}
+        if (col.tag == "Level01Door")
+        {
+            SceneManager.LoadScene(0);
+        }
     }
 
     void Recoil(Collider2D col)
@@ -510,7 +539,7 @@ public class PlayerController : MonoBehaviour
         else
             xDirection = -1;
 
-        Vector3 recoilVelocity = new Vector3 (xDirection*2, Mathf.Sqrt(2f * hopHeight * -gravity), 0);
+        Vector3 recoilVelocity = new Vector3(xDirection * 2, Mathf.Sqrt(2f * hopHeight * -gravity), 0);
         _controller.move(recoilVelocity * Time.deltaTime);
         SetAnimationState(animState.idle);
 
@@ -526,11 +555,9 @@ public class PlayerController : MonoBehaviour
 
         // Set health
         currHealth = newHealth;
+        Debug.Log("Curr health = " + currHealth);
+        currGlowSize = maxGlowSize - maxGlowSize * ( maxHealth - currHealth) * glowPenalty;
 
-        Vector3 diff = maxGlowSize;
-        diff.x *= glowPenalty;
-        diff.y *= glowPenalty;
-        currGlowSize -= diff;
         /*
         // Adjust glow
         float healthPercent = (float)currHealth / maxHealth;
@@ -541,7 +568,10 @@ public class PlayerController : MonoBehaviour
 
         // Adjust sprite brightness
         currSpriteBrightness = sprite.color;
-        currSpriteBrightness -= new Vector4(.2f, .2f, .2f, 0);
+        float dec = (1 / (float) maxHealth) / 2;
+        float curr = 1 - (maxHealth - currHealth) * dec;
+        Debug.Log("dec = " + dec + ", curr = " + curr);
+        currSpriteBrightness = new Vector4(curr, curr, curr, 1);
         sprite.color = currSpriteBrightness;
 
 
@@ -560,7 +590,8 @@ public class PlayerController : MonoBehaviour
     {
         isLocked = true;
         yield return new WaitForSeconds(time);
-        isLocked = false;
+        if (currHealth > 0)     // Don't overwrite death access to locks
+            isLocked = false;
         yield break;
     }
 
@@ -568,7 +599,8 @@ public class PlayerController : MonoBehaviour
     {
         isInvulnerable = true;
         yield return new WaitForSeconds(time);
-        isInvulnerable = false;
+        if (currHealth > 0)      // Don't overwrite death access to locks
+            isInvulnerable = false;
         yield break;
     }
 
