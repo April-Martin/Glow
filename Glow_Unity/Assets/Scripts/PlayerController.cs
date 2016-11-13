@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
     public Camera gameCamera;
     public Transform startPos;
     public GooBar gooBar;
+    public HealthUI healthUI;
     public GameObject gooPrefab;
     public GameObject bombPrefab;
     public GameObject aimingIconPrefab;
@@ -562,6 +563,9 @@ public class PlayerController : MonoBehaviour
         SetAnimationState(animState.idle);
         isJumping = false;
         isHopping = false;
+
+        // Restore their jumps, so as to err on the side of kindness
+        jumpCounter = 0;
     }
 
     void SetHealth(int newHealth)
@@ -576,7 +580,7 @@ public class PlayerController : MonoBehaviour
         currHealth = newHealth;
         Debug.Log("Curr health = " + currHealth);
         currGlowSize = maxGlowSize - maxGlowSize * ( maxHealth - currHealth) * glowPenalty;
-
+        healthUI.SetHealthTo(currHealth);
         /*
         // Adjust glow
         float healthPercent = (float)currHealth / maxHealth;
