@@ -64,6 +64,9 @@ public class PlayerController : MonoBehaviour
     public bool isThrowing = false;
     private LinkedList<GameObject> aimingIcons;
 
+    // Sound variables
+    public AudioClip[] landingSounds;
+    private AudioSource src;
 
     // Misc variables
     private int currHealth;
@@ -84,6 +87,7 @@ public class PlayerController : MonoBehaviour
         transform.position = startPos.position;
         respawnPoint = startPos.position;
         animator = GetComponent<Animator>();
+        src = GetComponent<AudioSource>();
 
         gameCamera.GetComponent<CameraFollow2D>().startCameraFollow(this.gameObject);
 
@@ -151,7 +155,10 @@ public class PlayerController : MonoBehaviour
             {
                 velocity.y = Mathf.Sqrt(2f * hopHeight * -gravity);
                 if (!firstHop)
+                {
                     SetAnimationState(animState.hopEnd);
+                    PlayRandomLandingSound();
+                }
             }
             else if (!isJumping)
             {
@@ -182,6 +189,7 @@ public class PlayerController : MonoBehaviour
             {
                 isHopping = false;
                 SetAnimationState(animState.hopEnd);
+                PlayRandomLandingSound();
             }
         }
 
@@ -191,6 +199,7 @@ public class PlayerController : MonoBehaviour
             jumpCounter = 0;
             isJumping = false;
             SetAnimationState(animState.jumpEnd);
+            PlayRandomLandingSound();
         }
 
 
@@ -652,6 +661,12 @@ public class PlayerController : MonoBehaviour
             newSpriteBrightness -= new Vector4(.01f, .01f, .01f, 0);
             sprite.color = newSpriteBrightness;
         }
+    }
+
+    void PlayRandomLandingSound()
+    {
+        System.Random rn = new System.Random();
+        src.PlayOneShot(landingSounds[rn.Next(3)], 1);
     }
 
     void SetAnimationState(animState anim)
