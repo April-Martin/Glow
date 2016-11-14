@@ -538,8 +538,18 @@ public class PlayerController : MonoBehaviour
 
         if (col.tag == "Level01Door")
         {
-            SceneManager.LoadScene(0);
+            SceneManager.LoadScene(3);
         }
+
+		if (col.tag == "Level02Door")
+		{
+			SceneManager.LoadScene(4);
+		}
+
+		if (col.tag == "Level03Door")
+		{
+			SceneManager.LoadScene(0);
+		}
     }
 
     void Recoil(Collider2D col)
