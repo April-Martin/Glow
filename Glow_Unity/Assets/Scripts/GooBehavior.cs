@@ -13,6 +13,7 @@ public class GooBehavior : MonoBehaviour
 
     public SpriteRenderer mask;
     public Sprite splattedGoo;
+	public AudioSource src;
 
     private SpriteRenderer goo;
     private Rigidbody2D rb;
@@ -29,6 +30,7 @@ public class GooBehavior : MonoBehaviour
     {
         goo = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
+		src = GetComponent<AudioSource> ();
         RectMask2D test = GetComponent<RectMask2D>();
         test.rectTransform.position = transform.position;
         test.rectTransform.sizeDelta = new Vector2(.01f, 01f);
@@ -102,6 +104,9 @@ public class GooBehavior : MonoBehaviour
         hasCollided = true;
         impactRotation = transform.eulerAngles;
         impactPos = transform.position;
+
+		// Play splat sound
+		src.Play();
 
     }
     

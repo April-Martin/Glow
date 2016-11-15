@@ -3,8 +3,8 @@
 -nowarn:0169
 -out:'Temp/Assembly-CSharp.dll'
 -r:'/Users/Shared/Unity/Applications/Unity/Unity.app/Contents/Managed/UnityEngine.dll'
--r:'/Users/Shared/Unity/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll'
 -r:'/Users/Shared/Unity/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll'
+-r:'/Users/Shared/Unity/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll'
 -r:'/Users/Shared/Unity/Applications/Unity/Unity.app/Contents/Managed/UnityEditor.dll'
 -r:'/Users/Shared/Unity/Applications/Unity/PlaybackEngines/AppleTVSupport/UnityEditor.iOS.Extensions.Common.dll'
 -r:'/Users/Shared/Unity/Applications/Unity/PlaybackEngines/AppleTVSupport/UnityEditor.iOS.Extensions.Xcode.dll'
@@ -101,6 +101,7 @@
 'Assets/Scripts/GooBehavior.cs'
 'Assets/Scripts/HealthUI.cs'
 'Assets/Scripts/LightProjector.cs'
+'Assets/Scripts/MeanderingEnemyController.cs'
 'Assets/Scripts/MovingPlatform.cs'
 'Assets/Scripts/PatrollingEnemyController.cs'
 'Assets/Scripts/Pickup.cs'
