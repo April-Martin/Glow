@@ -60,6 +60,7 @@
      <Compile Include="Assets\Scripts\GooBehavior.cs" />
      <Compile Include="Assets\Scripts\HealthUI.cs" />
      <Compile Include="Assets\Scripts\LightProjector.cs" />
+     <Compile Include="Assets\Scripts\MeanderingEnemyController.cs" />
      <Compile Include="Assets\Scripts\MovingPlatform.cs" />
      <Compile Include="Assets\Scripts\PatrollingEnemyController.cs" />
      <Compile Include="Assets\Scripts\Pickup.cs" />
@@ -67,11 +68,11 @@
      <None Include="Assets\Shaders\LMS_Visible.shader" />
      <None Include="Assets\Shaders\LMS_Tester.shader" />
      <None Include="Assets\Shaders\LightmappedSpriteShader.shader" />
- <Reference Include="UnityEngine.UI">
- <HintPath>/Users/Shared/Unity/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
- </Reference>
  <Reference Include="UnityEngine.Networking">
  <HintPath>/Users/Shared/Unity/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/Networking/UnityEngine.Networking.dll</HintPath>
+ </Reference>
+ <Reference Include="UnityEngine.UI">
+ <HintPath>/Users/Shared/Unity/Applications/Unity/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
