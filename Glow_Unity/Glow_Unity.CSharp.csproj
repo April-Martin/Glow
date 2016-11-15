@@ -69,6 +69,7 @@
     <Compile Include="Assets\Scripts\BombBehavior.cs" />
     <Compile Include="Assets\Scripts\CameraFollow2D.cs" />
     <Compile Include="Assets\Scripts\CharacterController2D.cs" />
+    <Compile Include="Assets\Scripts\Checkpoint.cs" />
     <Compile Include="Assets\Scripts\ComplexMovingPlatform.cs" />
     <Compile Include="Assets\Scripts\EnemyController.cs" />
     <Compile Include="Assets\Scripts\FlyingEnemyController.cs" />

@@ -529,6 +529,7 @@ public class PlayerController : MonoBehaviour
         if (col.tag == "Checkpoint")
         {
             respawnPoint = col.transform.position;
+            col.GetComponent<Checkpoint>().ChangeColor();
         }
 
         if (col.tag == "tutorialDoor")
