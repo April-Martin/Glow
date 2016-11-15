@@ -494,9 +494,6 @@ public class PlayerController : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (isInvulnerable)
-            return;
-
         if (col.tag == "Pickup")
         {
             Pickup pickup = col.GetComponent<Pickup>();
@@ -522,6 +519,9 @@ public class PlayerController : MonoBehaviour
 
         if (col.tag == "PlayerDamager")
         {
+			if (isInvulnerable)
+				return;
+			
             SetHealth(currHealth - 1);
             Recoil(col);
         }
