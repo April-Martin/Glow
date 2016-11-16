@@ -5,22 +5,17 @@ using System.Collections;
 public class GooBehavior : MonoBehaviour
 {
 
-    /* NOTE:
-     * This code is predicated on the mask and the goo being the SAME SIZE.
-     * If we change the goo, update the mask!
-     * I know that's a drag, but for the time being, this is the solution.
-     */
-
-    public SpriteRenderer mask;
     public Sprite splattedGoo;
 	public AudioSource src;
+    public int platformLayerNumber = 9;
 
     private SpriteRenderer goo;
     private Rigidbody2D rb;
     private Vector3 impactVelocity;
     private Vector3 impactPos;
     private Vector3 impactRotation;
-    private bool isVerticalCollision = false;
+    private enum collisionType { vert_right, vert_left, horiz_bottom, horiz_top };
+    private collisionType colType;
     private bool hasCollided = false;
     private bool hasSplatted = false;
 
@@ -45,6 +40,8 @@ public class GooBehavior : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        rb.isKinematic = true;
+
         // Handle moving platforms
         if (collision.collider.tag == "MovingPlatform")
         {
@@ -69,32 +66,34 @@ public class GooBehavior : MonoBehaviour
 
         if (cps[0].point.x < cps[1].point.x + fudgeRoom && cps[0].point.x > cps[1].point.x - fudgeRoom)
         {
-            isVerticalCollision = true;
             Vector3 offset = new Vector3((oldGooWidth + goo.bounds.size.y) / 2, 0, 0);
             if (impactVelocity.x > 0)
             {
                 transform.eulerAngles = new Vector3(0, 0, 90);
                 transform.position += offset;
+                colType = collisionType.vert_right;
             }
             else
             {
                 transform.eulerAngles = new Vector3(0, 0, -90);
                 transform.position -= offset;
+                colType = collisionType.vert_left;
             }
         }
         else if (cps[0].point.y < cps[1].point.y + fudgeRoom && cps[0].point.y > cps[1].point.y - fudgeRoom)
         {
-            isVerticalCollision = false;
             Vector3 offset = new Vector3(0, (oldGooHeight + goo.bounds.size.y) / 2, 0);
             if (impactVelocity.y > 0)
             {
                 transform.eulerAngles = new Vector3(0, 0, 180);
                 transform.position += offset;
+                colType = collisionType.horiz_top;
             }
             else
             {
                 transform.eulerAngles = new Vector3(0, 0, 0);
                 transform.position -= offset;
+                colType = collisionType.horiz_bottom;
             }
         }
         else
@@ -108,8 +107,129 @@ public class GooBehavior : MonoBehaviour
 		// Play splat sound
 		src.Play();
 
+        CropExcess();
     }
     
+
+    void CropExcess()
+    {
+        // Set up variables for projection calculation
+        RectMask2D mask = GetComponent<RectMask2D>();
+        Sprite croppedSprite;
+        Vector3 minSP, maxSP, minCP, maxCP;
+
+        // --- Vertical collisions ---
+        if (colType == collisionType.vert_left || colType == collisionType.vert_right)
+        {
+            // Use the midpoints of the goo's top and bottom boundaries as sample points.
+            // Ray cast from each sample point to find the contact platform(s) 
+            Vector3 rayDirection;
+            if (colType == collisionType.vert_left)
+                rayDirection = Vector3.left;
+            else
+                rayDirection = Vector3.right;
+            Collider2D botPlatform = Physics2D.Raycast(new Vector2(transform.position.x, goo.bounds.min.y), 
+                rayDirection, goo.bounds.size.x, 1 << platformLayerNumber).collider;
+            Collider2D topPlatform = Physics2D.Raycast(new Vector2(transform.position.x, goo.bounds.max.y),
+                rayDirection, goo.bounds.size.x, 1 << platformLayerNumber).collider;
+
+            // If either is null, then just use the non-null result.
+            if (botPlatform == null)
+                botPlatform = topPlatform;
+            else if (topPlatform == null)
+                topPlatform = botPlatform;
+
+            // Find the closest points on the platform to those sample points.
+            minSP = new Vector3(transform.position.x, goo.bounds.min.y);
+            maxSP = new Vector3(transform.position.x, goo.bounds.max.y);
+            minCP = botPlatform.bounds.ClosestPoint(minSP);
+            maxCP = topPlatform.bounds.ClosestPoint(maxSP);
+
+            float overlapPercentage = (maxCP.y - minCP.y) / goo.bounds.size.y;
+
+            if (overlapPercentage < 1)
+            {
+                // If there's a projection:
+                croppedSprite = Sprite.Create(splattedGoo.texture,
+                    new Rect(0, 0, splattedGoo.texture.width * overlapPercentage, splattedGoo.texture.height),
+                    new Vector2(.5f, .5f), 200);
+                goo.sprite = croppedSprite;
+
+                float projection = goo.bounds.size.x - (maxCP.x - minCP.x);
+
+                // excess is above
+                if (minSP.y < minCP.y)
+                {
+                    transform.position += new Vector3(0, projection / 2, 0);
+                }
+                // excess is below
+                else
+                {
+                    transform.position -= new Vector3(0, projection / 2, 0);
+                }
+
+            }
+
+        }
+        // --- Horizontal collisions ---
+        else
+        {
+            // Do the same with the side boundaries.
+
+            Vector3 rayDirection;
+            if (colType == collisionType.horiz_bottom)
+                rayDirection = Vector3.down;
+            else
+                rayDirection = Vector3.up;
+            Collider2D leftPlatform = Physics2D.Raycast(new Vector2(transform.position.y, goo.bounds.min.x),
+                rayDirection, goo.bounds.size.y, 1 << platformLayerNumber).collider;
+            Collider2D rightPlatform = Physics2D.Raycast(new Vector2(transform.position.x, goo.bounds.max.x),
+                rayDirection, goo.bounds.size.y, 1 << platformLayerNumber).collider;
+
+            if (leftPlatform == null)
+                leftPlatform = rightPlatform;
+            else if (rightPlatform == null)
+                rightPlatform = leftPlatform;
+
+            minSP = new Vector3(goo.bounds.min.x, transform.position.x);
+            maxSP = new Vector3(goo.bounds.max.x, transform.position.x);
+            minCP = leftPlatform.bounds.ClosestPoint(minSP);
+            maxCP = rightPlatform.bounds.ClosestPoint(maxSP);
+
+            float overlapPercentage = (maxCP.x - minCP.x) / goo.bounds.size.x;
+
+            // If there's a projection:
+            if (overlapPercentage < 1)
+            {
+                float projection = goo.bounds.size.x - (maxCP.x - minCP.x);
+                float croppedWidth = splattedGoo.texture.width * overlapPercentage;
+
+                // excess is to the right
+                if (maxSP.x > maxCP.x)
+                {
+                    // Keep the left side of the goo sprite
+                    croppedSprite = Sprite.Create(splattedGoo.texture,
+                    new Rect(0, 0, croppedWidth, splattedGoo.texture.height),
+                    new Vector2(.5f, .5f), 200);
+                    transform.position -= new Vector3(projection / 2, 0, 0);
+
+                }
+                // excess is to the left
+                else
+                {
+                    // Keep the right side of the goo sprite
+                    croppedSprite = Sprite.Create(splattedGoo.texture,
+                    new Rect(splattedGoo.texture.width - croppedWidth, 0, croppedWidth, splattedGoo.texture.height),
+                    new Vector2(.5f, .5f), 200);
+                    transform.position += new Vector3(projection / 2, 0, 0);
+                }
+                goo.sprite = croppedSprite;
+
+            }
+        }
+
+    }
+    /*
     
     void OnCollisionStay2D(Collision2D collision)
     {
@@ -203,5 +323,6 @@ public class GooBehavior : MonoBehaviour
 
             }
         }
-    }
+     * 
+    }*/
 }
