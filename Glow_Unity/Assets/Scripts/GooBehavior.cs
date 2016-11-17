@@ -199,8 +199,8 @@ public class GooBehavior : MonoBehaviour
 
 			}
 
-            minSP = new Vector3(goo.bounds.min.x, transform.position.x);
-            maxSP = new Vector3(goo.bounds.max.x, transform.position.x);
+            minSP = new Vector3(goo.bounds.min.x, transform.position.y);
+            maxSP = new Vector3(goo.bounds.max.x, transform.position.y);
             minCP = leftPlatform.bounds.ClosestPoint(minSP);
             maxCP = rightPlatform.bounds.ClosestPoint(maxSP);
 

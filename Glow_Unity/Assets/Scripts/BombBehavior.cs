@@ -3,15 +3,9 @@ using System.Collections;
 
 public class BombBehavior : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+	public AudioSource src;
+	public AudioClip splat;
+
 
     void OnCollisionEnter2D()
     {
@@ -20,6 +14,8 @@ public class BombBehavior : MonoBehaviour {
 
     public void ExplodeBomb()
     {
+		Debug.Log ("should play");
+		src.PlayOneShot (splat, .2f);
         Destroy(gameObject);
     }
 }

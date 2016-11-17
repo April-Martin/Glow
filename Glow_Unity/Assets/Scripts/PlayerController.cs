@@ -421,6 +421,11 @@ public class PlayerController : MonoBehaviour
         if (transform.parent != null)
             obj.transform.parent = transform.parent;
         obj.GetComponent<Rigidbody2D>().velocity = velocity;
+
+		// Note: if it's a bomb, we need to attach the player's audio source to it.
+		if (obj.GetComponent<BombBehavior> () != null) {
+			obj.GetComponent<BombBehavior>().src = src;
+		}
     }
 
 
