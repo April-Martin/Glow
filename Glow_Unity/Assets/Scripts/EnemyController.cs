@@ -6,6 +6,7 @@ public class EnemyController : MonoBehaviour {
 
 	public float gravity = -35;
     public int health = 1;
+	public Color damageColor;
 
 	protected CharacterController2D _controller;
     protected PlayerController player;
@@ -61,10 +62,12 @@ public class EnemyController : MonoBehaviour {
 
     void DamageEnemy(int dmg)
     {
-        if (currHealth >= dmg)
-            KillEnemy();
-        else
-            currHealth -= dmg;
+		if (currHealth <= dmg)
+			KillEnemy ();
+		else {
+			currHealth -= dmg;
+			StartCoroutine ("FlashRed");
+		}
 
     }
 
@@ -72,5 +75,19 @@ public class EnemyController : MonoBehaviour {
     {
         Destroy(gameObject);
     }
+
+	IEnumerator FlashRed()
+	{
+		Debug.Log ("HELLO");
+		SpriteRenderer sprite = GetComponent<SpriteRenderer> ();
+		Color originalColor = sprite.color;
+		sprite.color = damageColor;
+		yield return new WaitForSeconds (.2f);
+		sprite.color = originalColor;
+		yield return new WaitForSeconds (.25f);
+		sprite.color = damageColor;
+		yield return new WaitForSeconds (.2f);
+		sprite.color = originalColor;
+	}
 
 }
