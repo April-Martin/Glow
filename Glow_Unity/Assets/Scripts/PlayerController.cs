@@ -31,6 +31,7 @@ public class PlayerController : MonoBehaviour
     public float maxThrow = 6;
     public float glowPenalty = .1f;
     public float invulnerabilityTime = 1.5f;
+	public float recoilForce = 2;
 
 
     // General variables
@@ -567,7 +568,7 @@ public class PlayerController : MonoBehaviour
             xDirection = 1;
         else
             xDirection = -1;
-        Vector3 recoilVelocity = new Vector3(xDirection * 2, Mathf.Sqrt(2f * hopHeight * -gravity), 0);
+        Vector3 recoilVelocity = new Vector3(xDirection * recoilForce, Mathf.Sqrt(2f * hopHeight * -gravity), 0);
         _controller.move(recoilVelocity * Time.deltaTime);
 
         // Make sure animations are doing right thing
