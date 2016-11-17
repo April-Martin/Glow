@@ -53,7 +53,8 @@ public class EnemyController : MonoBehaviour {
     {
        if (other.tag == "EnemyDamager")
        {
-           DamageEnemy(1);
+           	DamageEnemy(1);
+			other.GetComponent<BombBehavior> ().ExplodeBomb ();
        }
 
     }

@@ -18,7 +18,7 @@ public class BombBehavior : MonoBehaviour {
         ExplodeBomb();
     }
 
-    void ExplodeBomb()
+    public void ExplodeBomb()
     {
         Destroy(gameObject);
     }
