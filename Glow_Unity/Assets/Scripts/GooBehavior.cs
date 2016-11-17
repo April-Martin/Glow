@@ -181,15 +181,23 @@ public class GooBehavior : MonoBehaviour
                 rayDirection = Vector3.down;
             else
                 rayDirection = Vector3.up;
-            Collider2D leftPlatform = Physics2D.Raycast(new Vector2(transform.position.y, goo.bounds.min.x),
+			
+			Collider2D leftPlatform = Physics2D.Raycast(new Vector2(goo.bounds.min.x, transform.position.y),
                 rayDirection, goo.bounds.size.y, 1 << platformLayerNumber).collider;
-            Collider2D rightPlatform = Physics2D.Raycast(new Vector2(transform.position.x, goo.bounds.max.x),
+			Collider2D rightPlatform = Physics2D.Raycast(new Vector2(goo.bounds.max.x, transform.position.y),
                 rayDirection, goo.bounds.size.y, 1 << platformLayerNumber).collider;
 
-            if (leftPlatform == null)
-                leftPlatform = rightPlatform;
-            else if (rightPlatform == null)
-                rightPlatform = leftPlatform;
+
+
+			if (leftPlatform == null) {
+				leftPlatform = rightPlatform;
+				Debug.Log ("left is null");
+			}
+			if (rightPlatform == null) {
+				rightPlatform = leftPlatform;
+				Debug.Log ("right is null");
+
+			}
 
             minSP = new Vector3(goo.bounds.min.x, transform.position.x);
             maxSP = new Vector3(goo.bounds.max.x, transform.position.x);
