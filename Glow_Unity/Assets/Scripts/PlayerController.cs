@@ -515,7 +515,8 @@ public class PlayerController : MonoBehaviour
                 if (currHealth + pickup.amount <= maxHealth)
                     SetHealth(currHealth + pickup.amount);
             }
-            Destroy(pickup.gameObject);
+            //Destroy(pickup.gameObject);
+            pickup.PickupAnimation();
         }
 
         if (col.tag == "Killer")
