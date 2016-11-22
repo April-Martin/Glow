@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 8b9f38ab1c9614d0d8a9a39aaecdbbac
-timeCreated: 1479793354
+guid: a122da224e885d84fbd2ed48018a604b
+timeCreated: 1479793418
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: bombThrowTxt_0
-    21300002: bombThrowTxt_1
+    21300000: pickUpGooText_0
+    21300002: pickUpGooText_1
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -46,7 +46,7 @@ TextureImporter:
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 105
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
   textureType: 8
@@ -55,26 +55,26 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bombThrowTxt_0
+      name: pickUpGooText_0
       rect:
         serializedVersion: 2
-        x: 424
-        y: 0
-        width: 446
-        height: 98
+        x: 29
+        y: 12
+        width: 390
+        height: 82
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 255, y: 0, z: 0, w: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: bombThrowTxt_1
+      name: pickUpGooText_1
       rect:
         serializedVersion: 2
-        x: 1
-        y: 0
-        width: 423
-        height: 100
+        x: 419
+        y: 11
+        width: 315
+        height: 83
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
