@@ -11,7 +11,8 @@ public class Pickup : MonoBehaviour {
 
     public enum pickupType { goo, health };
 
-    void Start()
+
+    public void PickupAnimation()
     {
         Camera cam = FindObjectOfType<Camera>();
 
@@ -24,14 +25,11 @@ public class Pickup : MonoBehaviour {
             dest = cam.ScreenToWorldPoint(new Vector3(0, Screen.height));
         }
 
-        Debug.Log("dest = " + dest);
-    }
-
-    public void PickupAnimation()
-    {
-        IEnumerator coroutine = ShrinkAndMove(Time.time);
         GetComponent<SpriteRenderer>().sortingOrder = 100;
+
+        IEnumerator coroutine = ShrinkAndMove(Time.time);
         StartCoroutine(coroutine);
+
     }
 
 
