@@ -6,8 +6,11 @@ public class LightProjector : MonoBehaviour {
 
     public Camera lightCam;
     public RawImage renderImage;
-    public Material mat;
+    public Material mat1;
+    public Material mat2;
+    [HideInInspector]
     public int screenWidth;
+    [HideInInspector]
     public int screenHeight;
 
     private RenderTexture rt_light;
@@ -20,10 +23,14 @@ public class LightProjector : MonoBehaviour {
 
 		rt_light = new RenderTexture(screenWidth, screenHeight, 16);
         lightCam.targetTexture = rt_light;
-        mat.SetTexture("_LightTex", rt_light);
 
-		mat.SetFloat("_ScreenWidth", screenWidth);
-        mat.SetFloat("_ScreenHeight", screenHeight);
+        mat1.SetTexture("_LightTex", rt_light);
+		mat1.SetFloat("_ScreenWidth", screenWidth);
+        mat1.SetFloat("_ScreenHeight", screenHeight);
+
+        mat2.SetTexture("_LightTex", rt_light);
+        mat2.SetFloat("_ScreenWidth", screenWidth);
+        mat2.SetFloat("_ScreenHeight", screenHeight);
 
 	}
 
