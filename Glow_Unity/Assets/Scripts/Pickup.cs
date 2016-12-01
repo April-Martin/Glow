@@ -5,7 +5,6 @@ public class Pickup : MonoBehaviour {
 
     public int amount;
     public pickupType type;
-
     private float hangOutTime = .3f;
     private Vector3 dest;
 

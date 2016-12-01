@@ -3,8 +3,11 @@ using System.Collections;
 
 public class BombBehavior : MonoBehaviour {
 
-	public AudioSource src;
 	public AudioClip splat;
+	public ParticleSystem explosionPrefab;
+	[HideInInspector]
+	public AudioSource src;
+
 
 
     void OnCollisionEnter2D()
@@ -14,7 +17,7 @@ public class BombBehavior : MonoBehaviour {
 
     public void ExplodeBomb()
     {
-		Debug.Log ("should play");
+		ParticleSystem partSys = (ParticleSystem) Instantiate(explosionPrefab, transform.position, Quaternion.identity);
 		src.PlayOneShot (splat, .2f);
         Destroy(gameObject);
     }
