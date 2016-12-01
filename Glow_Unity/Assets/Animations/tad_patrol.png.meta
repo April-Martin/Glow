@@ -1,0 +1,311 @@
+fileFormatVersion: 2
+guid: e32074376882f4e99b90ec5bf824d2d7
+timeCreated: 1480561883
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: tad_patrol_0
+    21300002: tad_patrol_1
+    21300004: tad_patrol_2
+    21300006: tad_patrol_3
+    21300008: tad_patrol_4
+    21300010: tad_patrol_5
+    21300012: tad_patrol_6
+    21300014: tad_patrol_7
+    21300016: tad_patrol_8
+    21300018: tad_patrol_9
+    21300020: tad_patrol_10
+    21300022: tad_patrol_11
+    21300024: tad_patrol_12
+    21300026: tad_patrol_13
+    21300028: tad_patrol_14
+    21300030: tad_patrol_15
+    21300032: tad_patrol_16
+    21300034: tad_patrol_17
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 200
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: tad_patrol_0
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 22
+        width: 289
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_1
+      rect:
+        serializedVersion: 2
+        x: 354
+        y: 22
+        width: 289
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_2
+      rect:
+        serializedVersion: 2
+        x: 678
+        y: 22
+        width: 292
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_3
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 22
+        width: 292
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_4
+      rect:
+        serializedVersion: 2
+        x: 1332
+        y: 22
+        width: 297
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_5
+      rect:
+        serializedVersion: 2
+        x: 1661
+        y: 22
+        width: 298
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_6
+      rect:
+        serializedVersion: 2
+        x: 1994
+        y: 22
+        width: 292
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_7
+      rect:
+        serializedVersion: 2
+        x: 2323
+        y: 22
+        width: 292
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_8
+      rect:
+        serializedVersion: 2
+        x: 2656
+        y: 22
+        width: 289
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_9
+      rect:
+        serializedVersion: 2
+        x: 2986
+        y: 22
+        width: 289
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_10
+      rect:
+        serializedVersion: 2
+        x: 3318
+        y: 22
+        width: 286
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_11
+      rect:
+        serializedVersion: 2
+        x: 3645
+        y: 22
+        width: 286
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_12
+      rect:
+        serializedVersion: 2
+        x: 3975
+        y: 22
+        width: 286
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_13
+      rect:
+        serializedVersion: 2
+        x: 4304
+        y: 22
+        width: 286
+        height: 106
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_14
+      rect:
+        serializedVersion: 2
+        x: 4631
+        y: 22
+        width: 289
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_15
+      rect:
+        serializedVersion: 2
+        x: 4961
+        y: 22
+        width: 286
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_16
+      rect:
+        serializedVersion: 2
+        x: 5288
+        y: 22
+        width: 288
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: tad_patrol_17
+      rect:
+        serializedVersion: 2
+        x: 5617
+        y: 22
+        width: 289
+        height: 109
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
