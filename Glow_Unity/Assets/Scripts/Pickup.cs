@@ -12,8 +12,17 @@ public class Pickup : MonoBehaviour {
     public enum pickupType { goo, health };
 
 
+
+
     public void PickupAnimation()
     {
+		// Kill the particle effect
+
+		ParticleSystem ps = GetComponent<ParticleSystem> ();
+		ps.Stop ();
+		ps.Clear ();
+
+		// Set the destination it's flying toward
         Camera cam = FindObjectOfType<Camera>();
 
         if (type == pickupType.goo)
@@ -27,6 +36,7 @@ public class Pickup : MonoBehaviour {
 
         GetComponent<SpriteRenderer>().sortingOrder = 100;
 
+		// Send it off on its merry way
         IEnumerator coroutine = ShrinkAndMove(Time.time);
         StartCoroutine(coroutine);
 

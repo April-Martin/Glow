@@ -13,6 +13,10 @@ public class PatrollingEnemyController : EnemyController {
 			isFacingRight = true;
 		else
 			isFacingRight = false;
+
+		Animator anim = GetComponent<Animator> ();
+		int state = anim.GetCurrentAnimatorStateInfo (0).fullPathHash;
+		anim.Play(state, -1, Random.Range(0f,1f));
 	}
 
     protected override void HandleMovement()
