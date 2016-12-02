@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: b77d590b7d5194f878310949274604a5
-timeCreated: 1479691911
+timeCreated: 1480645414
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -57,10 +57,10 @@ TextureImporter:
       name: block_corner_bottom_right_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 5
         y: 3
-        width: 91
-        height: 95
+        width: 90
+        height: 94
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}

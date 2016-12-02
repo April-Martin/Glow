@@ -556,6 +556,11 @@ public class PlayerController : MonoBehaviour
 
 		if (col.tag == "Level03Door")
 		{
+			SceneManager.LoadScene(5);
+		}
+
+		if (col.tag == "Level04Door")
+		{
 			SceneManager.LoadScene(0);
 		}
     }
