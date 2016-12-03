@@ -502,21 +502,32 @@ public class PlayerController : MonoBehaviour
     {
         if (col.tag == "Pickup")
         {
+            bool used = false;
             Pickup pickup = col.GetComponent<Pickup>();
-
             if (pickup.type == Pickup.pickupType.goo)
             {
-                Debug.Log("Hit goo pickup");
-                gooBar.RecoverSpit(pickup.amount);
+                if (gooBar.curr < gooBar.maxLevel)
+                {
+                    used = true;
+                    gooBar.RecoverSpit(pickup.amount);
+                }
             }
             else
             {
                 Debug.Log("Hit health pickup");
-                if (currHealth + pickup.amount <= maxHealth)
+                if (currHealth < maxHealth)
+                {
                     SetHealth(currHealth + pickup.amount);
+                    used = true;
+                    if (currHealth > maxHealth)
+                        SetHealth(maxHealth);
+                }
             }
-            //Destroy(pickup.gameObject);
-            pickup.PickupAnimation();
+            if (used)
+            {
+                Destroy(pickup.gameObject);
+                pickup.PickupAnimation();
+            } 
         }
 
         if (col.tag == "Killer")

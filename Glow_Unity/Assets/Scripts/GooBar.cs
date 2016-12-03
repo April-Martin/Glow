@@ -74,9 +74,9 @@ public class GooBar : MonoBehaviour
             return false;
     }
 
-    public void RecoverSpit(int quantity)
+    public bool RecoverSpit(int quantity)
     {
-        updateGooBar(spitCost * quantity);
+        return updateGooBar(spitCost * quantity);
     }
 
 
