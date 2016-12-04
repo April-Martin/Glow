@@ -10,7 +10,19 @@ public class Pickup : MonoBehaviour {
 
     public enum pickupType { goo, health };
 
+    public IEnumerator GrowPickup()
+    {
+        transform.localScale = new Vector3(0.1f, 0.1f, 1);
 
+        while (transform.localScale.x < 1)
+        {
+            transform.localScale += new Vector3(0.02f, 0.02f);
+            transform.position += new Vector3(0, 0.008f);
+            yield return null;
+        }
+
+        yield break;
+    }
 
 
     public void PickupAnimation()

@@ -5,6 +5,7 @@ public class PatrollingEnemyController : EnemyController {
 
     public float speed = 1;
 	private bool isFacingRight;
+    public GameObject pickupPrefab;
 
 	protected override void Start ()
 	{
@@ -53,5 +54,22 @@ public class PatrollingEnemyController : EnemyController {
 		// Move
 		_controller.move (velocity * Time.deltaTime);
 
+    }
+
+    protected override void KillEnemy()
+    {
+       // float rnd = Random.Range(0, 1);
+        //if (rnd > .5f)
+            spawnPickup();
+        base.KillEnemy();
+    }
+
+    private void spawnPickup()
+    {
+        Vector3 startPos = new Vector3(transform.position.x, GetComponent<SpriteRenderer>().bounds.min.y);
+        GameObject pickup = (GameObject) Instantiate(pickupPrefab, startPos, Quaternion.identity);
+        pickup.transform.localScale = new Vector3(0.1f, 0.1f, 1);
+
+        pickup.GetComponent<Pickup>().StartCoroutine("GrowPickup");
     }
 }

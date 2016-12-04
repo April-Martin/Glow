@@ -71,7 +71,7 @@ public class EnemyController : MonoBehaviour {
 
     }
 
-    void KillEnemy()
+    protected virtual void KillEnemy()
     {
         Destroy(gameObject);
     }
