@@ -41,7 +41,7 @@ public class GooBehavior : MonoBehaviour
     void OnCollisionEnter2D(Collision2D collision)
     {
         rb.isKinematic = true;
-
+        GetComponent<ParticleSystem>().Play();
         // Handle moving platforms
         if (collision.collider.tag == "MovingPlatform")
         {
@@ -63,37 +63,35 @@ public class GooBehavior : MonoBehaviour
         ContactPoint2D[] cps = collision.contacts;
         impactPos = transform.position;
         float fudgeRoom = 0.005f;
-
+        float offset = goo.bounds.size.y / 2;
         
         if (cps[0].point.x < cps[1].point.x + fudgeRoom && cps[0].point.x > cps[1].point.x - fudgeRoom)
         {
-            Vector3 offset = new Vector3((oldGooWidth + goo.bounds.size.y) / 2, 0, 0);
             if (impactVelocity.x > 0)
             {
                 transform.eulerAngles = new Vector3(0, 0, 90);
-                transform.position += offset;
+                transform.position = new Vector3(collision.collider.bounds.min.x + offset, transform.position.y);
                 colType = collisionType.vert_right;
             }
             else
             {
                 transform.eulerAngles = new Vector3(0, 0, -90);
-                transform.position -= offset;
+                transform.position = new Vector3(collision.collider.bounds.max.x - offset, transform.position.y);
                 colType = collisionType.vert_left;
             }
         }
         else if (cps[0].point.y < cps[1].point.y + fudgeRoom && cps[0].point.y > cps[1].point.y - fudgeRoom)
         {
-            Vector3 offset = new Vector3(0, (oldGooHeight + goo.bounds.size.y) / 2, 0);
             if (impactVelocity.y > 0)
             {
                 transform.eulerAngles = new Vector3(0, 0, 180);
-                transform.position += offset;
+                transform.position = new Vector3(transform.position.x, collision.collider.bounds.min.y + offset);
                 colType = collisionType.horiz_top;
             }
             else
             {
                 transform.eulerAngles = new Vector3(0, 0, 0);
-                transform.position -= offset;
+                transform.position = new Vector3(transform.position.x, collision.collider.bounds.max.y - offset);
                 colType = collisionType.horiz_bottom;
             }
         }
@@ -139,7 +137,7 @@ public class GooBehavior : MonoBehaviour
                 Destroy(gameObject);
             else if (botPlatform == null)
                 botPlatform = topPlatform;
-            else
+            else if (topPlatform == null)
                 topPlatform = botPlatform;
 
             // Find the closest points on the platform to those sample points.
@@ -195,7 +193,7 @@ public class GooBehavior : MonoBehaviour
                 Destroy(gameObject);
 			else if (leftPlatform == null) 
 				leftPlatform = rightPlatform;
-			else 
+			else if (rightPlatform == null)
 				rightPlatform = leftPlatform;
 
             minSP = new Vector3(goo.bounds.min.x, transform.position.y);

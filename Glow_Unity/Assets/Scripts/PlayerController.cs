@@ -316,44 +316,8 @@ public class PlayerController : MonoBehaviour
             SetAnimationState(animState.spitEnd);
         }
 
-        /*
-		// If the user just clicked the left mouse:]
-		if (Input.GetMouseButtonDown (0)) {
-			
-			// Exit if they're not in bomb mode or spit mode
-			if (!(spitMode || bombMode))
-				return;
-			
-			isThrowing = true;
-            isLocked = true;
-            PreviewTrajectory();
-            SetAnimationState(animState.spitStart);
-		} 
-
-		// If the user just released it:
-		else if (Input.GetMouseButtonUp (0)) {
-			
-			// Exit if they're not in bomb mode or spit mode
-			if (!(spitMode || bombMode))
-				return;
-			
-			isThrowing = false;
-            isLocked = false;
-			if (spitMode) {
-				if (gooBar.DepleteGooBar (GooBar.Ammo.Spit))
-					Launch (gooPrefab, aimingDirection);
-			} 
-			else {
-				if (gooBar.DepleteGooBar (GooBar.Ammo.Bomb))
-					Launch (bombPrefab, aimingDirection);
-			}
-            SetAnimationState(animState.spitEnd);
-		}
-
-        */
-
         // IMPLEMENT ACTIONS
-        if (isThrowing && ((Input.GetAxis("Mouse X") != 0) || (Input.GetAxis("Mouse Y") != 0)))
+        if (isThrowing)
         {
             PreviewTrajectory();
         }
@@ -408,7 +372,6 @@ public class PlayerController : MonoBehaviour
             }
 
         }
-
 
         return goo;
     }
