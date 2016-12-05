@@ -12,8 +12,9 @@ public class GooBehavior2 : MonoBehaviour
     private Rigidbody2D rb;
     private ParticleSystem partSys;
     private Vector3 impactVelocity;
-    private bool hasCollided = false;
 
+    private bool hasCollided = false;
+    private bool hasSplatted = false;
 
     // Use this for initialization
     void Start()
@@ -32,13 +33,46 @@ public class GooBehavior2 : MonoBehaviour
     {
         if (!(hasCollided))
             impactVelocity = rb.velocity;
+
+    }
+
+    void LateUpdate()
+    {
+        if (!hasSplatted && hasCollided)
+        {
+            hasSplatted = true;
+            float coneSize = 2f;
+
+            ParticleSystem.Particle[] particles = new ParticleSystem.Particle[partSys.particleCount];
+            partSys.GetParticles(particles);
+            for (int i = 0; i < partSys.particleCount; i++)
+            {
+                particles[i].velocity += impactVelocity;
+                particles[i].velocity += new Vector3(Random.Range(-coneSize, coneSize), Random.Range(-coneSize, coneSize), 0);
+            }
+
+            partSys.SetParticles(particles, partSys.particleCount);
+        }
+    }
+
+    void OnParticleCollision(GameObject collider)
+    {
+        Debug.Log("hey");
+        ParticleCollisionEvent[] collisions = new ParticleCollisionEvent[ParticlePhysicsExtensions.GetSafeCollisionEventSize(partSys)];
+        ParticlePhysicsExtensions.GetCollisionEvents(partSys, collider, collisions);
+        for (int i = 0; i < collisions.Length; i++)
+        {
+            Debug.Log("normal = " + collisions[i].normal);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
-        partSys.Play();
+        hasCollided = true;
 
+        partSys.Play();
         rb.isKinematic = true;
+        goo.enabled = false;
 
         // Handle moving platforms
         if (collision.collider.tag == "MovingPlatform")
@@ -112,3 +146,4 @@ public class GooBehavior2 : MonoBehaviour
 
 
 }
+

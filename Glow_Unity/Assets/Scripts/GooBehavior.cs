@@ -64,6 +64,7 @@ public class GooBehavior : MonoBehaviour
         impactPos = transform.position;
         float fudgeRoom = 0.005f;
 
+        
         if (cps[0].point.x < cps[1].point.x + fudgeRoom && cps[0].point.x > cps[1].point.x - fudgeRoom)
         {
             Vector3 offset = new Vector3((oldGooWidth + goo.bounds.size.y) / 2, 0, 0);
@@ -134,9 +135,11 @@ public class GooBehavior : MonoBehaviour
                 rayDirection, goo.bounds.size.x, 1 << platformLayerNumber).collider;
 
             // If either is null, then just use the non-null result.
-            if (botPlatform == null)
+            if (botPlatform == null && topPlatform == null)
+                Destroy(gameObject);
+            else if (botPlatform == null)
                 botPlatform = topPlatform;
-            else if (topPlatform == null)
+            else
                 topPlatform = botPlatform;
 
             // Find the closest points on the platform to those sample points.
@@ -188,16 +191,12 @@ public class GooBehavior : MonoBehaviour
                 rayDirection, goo.bounds.size.y, 1 << platformLayerNumber).collider;
 
 
-
-			if (leftPlatform == null) {
+            if (leftPlatform == null && rightPlatform == null)
+                Destroy(gameObject);
+			else if (leftPlatform == null) 
 				leftPlatform = rightPlatform;
-				Debug.Log ("left is null");
-			}
-			if (rightPlatform == null) {
+			else 
 				rightPlatform = leftPlatform;
-				Debug.Log ("right is null");
-
-			}
 
             minSP = new Vector3(goo.bounds.min.x, transform.position.y);
             maxSP = new Vector3(goo.bounds.max.x, transform.position.y);
