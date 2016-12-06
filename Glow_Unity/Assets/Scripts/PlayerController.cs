@@ -628,7 +628,7 @@ public class PlayerController : MonoBehaviour
         Launch(gooPrefab, Vector3.zero);
 
 
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(1.5f);
 
         RespawnPlayer();
         isInvulnerable = false;
