@@ -504,7 +504,9 @@ public class PlayerController : MonoBehaviour
 				return;
 			
             SetHealth(currHealth - 1);
-            Recoil(col);
+            if (currHealth > 0)
+                Recoil(col);
+
         }
 
         if (col.tag == "Checkpoint")
@@ -567,24 +569,13 @@ public class PlayerController : MonoBehaviour
 
     void SetHealth(int newHealth)
     {
-        /*
-        if (newHealth > currHealth) {
-            glowDecreasing = true;
-        }
-        */
 
         // Set health
         currHealth = newHealth;
         Debug.Log("Curr health = " + currHealth);
         currGlowSize = maxGlowSize - maxGlowSize * ( maxHealth - currHealth) * glowPenalty;
         healthUI.SetHealthTo(currHealth);
-        /*
-        // Adjust glow
-        float healthPercent = (float)currHealth / maxHealth;
-        currGlowSize = maxGlowSize;
-        currGlowSize.Scale(new Vector3(healthPercent, healthPercent, 1));
-        glow.transform.localScale = currGlowSize;
-       */
+
 
         // Adjust sprite brightness
         currSpriteBrightness = sprite.color;
@@ -625,11 +616,20 @@ public class PlayerController : MonoBehaviour
     {
         isInvulnerable = true;
         isLocked = true;
+        _controller.move(Vector3.zero);
+
         SetAnimationState(animState.death);
-
-        yield return new WaitForSeconds(1);
-
+        ParticleSystem partSys = GetComponent<ParticleSystem>();
+        yield return new WaitForSeconds(.3f);
+        partSys.Play();
+        yield return new WaitForSeconds(.2f);
+        partSys.Stop();
+        partSys.Clear();
         Launch(gooPrefab, Vector3.zero);
+
+
+        yield return new WaitForSeconds(.5f);
+
         RespawnPlayer();
         isInvulnerable = false;
         isLocked = false;
