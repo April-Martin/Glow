@@ -624,7 +624,7 @@ public class PlayerController : MonoBehaviour
         partSys.Play();
         yield return new WaitForSeconds(.2f);
         partSys.Stop();
-        partSys.Clear();
+        //partSys.Clear();
         Launch(gooPrefab, Vector3.zero);
 
 
