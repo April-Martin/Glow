@@ -4,6 +4,7 @@ using System.Collections;
 public class PatrollingEnemyController : EnemyController {
 
     public float speed = 1;
+	public float dropRate;
 	private bool isFacingRight;
     public GameObject pickupPrefab;
 
@@ -55,8 +56,8 @@ public class PatrollingEnemyController : EnemyController {
 
     protected override void KillEnemy()
     {
-       // float rnd = Random.Range(0, 1);
-        //if (rnd > .5f)
+        float rnd = Random.Range(0, 1);
+        if (rnd < dropRate)
             spawnPickup();
         base.KillEnemy();
     }
