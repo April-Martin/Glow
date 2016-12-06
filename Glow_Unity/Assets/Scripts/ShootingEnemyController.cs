@@ -11,6 +11,8 @@ public class ShootingEnemyController : MonoBehaviour {
     public GameObject projectilePrefab;
     private Animator anim;
 
+	private bool test; 
+
 	void Start () 
     {
         StartCoroutine("FireProjectile");
@@ -24,6 +26,7 @@ public class ShootingEnemyController : MonoBehaviour {
             Instantiate (projectilePrefab, transform.position, Quaternion.identity, transform);
             yield return new WaitForSeconds(firingInterval);
         }
+		yield break;
     }
 
     void OnDrawGizmos()
