@@ -67,6 +67,12 @@ public class PatrollingEnemyController : EnemyController {
         GameObject pickup = (GameObject) Instantiate(pickupPrefab, startPos, Quaternion.identity);
         pickup.transform.localScale = new Vector3(0.1f, 0.1f, 1);
 
+        // Make sure it sticks to moving platforms
+        if (transform.parent != null)
+        {
+            pickup.transform.SetParent(transform.parent);
+        }
+
         pickup.GetComponent<Pickup>().StartCoroutine("GrowPickup");
     }
 }

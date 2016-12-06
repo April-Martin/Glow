@@ -54,7 +54,7 @@ public class EnemyController : MonoBehaviour {
 
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    protected virtual void OnTriggerEnter2D(Collider2D other)
     {
        if (other.tag == "EnemyDamager")
        {
@@ -82,7 +82,6 @@ public class EnemyController : MonoBehaviour {
 
 	IEnumerator FlashRed()
 	{
-		Debug.Log ("HELLO");
 		SpriteRenderer sprite = GetComponent<SpriteRenderer> ();
 		Color originalColor = sprite.color;
 		sprite.color = damageColor;

@@ -29,7 +29,6 @@ public class FlyingEnemyController : EnemyController {
         for (int i=0; i<path.childCount; i++)
         {
             waypoints[i] = path.GetChild(i).transform.position;
-            Debug.Log("Waypoint @ (" + waypoints[i].x + ", " + waypoints[i].y + ")");
         }
         transform.position = waypoints[0];
 

@@ -30,7 +30,6 @@ public class GooBar : MonoBehaviour
 		SpriteRenderer sprite = GetComponent<SpriteRenderer>();
         curr = maxLevel;
 		maxHeight = sprite.bounds.size.y / scale;
-		Debug.Log ("maxHeight = " + maxHeight);
         bombOffset = new Vector3(0, (float)bombCost / maxLevel * maxHeight );
         spitOffset = new Vector3(0, (float)spitCost / maxLevel * maxHeight );
 
@@ -41,7 +40,6 @@ public class GooBar : MonoBehaviour
 
         float topMargin = 50;
         float sideMargin = 100;
-        Debug.Log("Sprite size: " + sprite.bounds.size.x + " x " + sprite.bounds.size.y);
 
         Vector3 worldOrigin = cam.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2));
         Vector3 worldDest = cam.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height));
