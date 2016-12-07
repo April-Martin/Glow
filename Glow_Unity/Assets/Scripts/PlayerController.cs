@@ -213,7 +213,8 @@ public class PlayerController : MonoBehaviour
 
 
         // If the user just pushed jump
-        if (Input.GetAxis("Jump") > 0 && !isHoldingDownJump && (jumpCounter < jumpsAllowed))
+        if ((Input.GetAxis("Jump") > 0 || Input.GetKeyDown(KeyCode.UpArrow)) && 
+                !isHoldingDownJump && (jumpCounter < jumpsAllowed))
         {
             if (canStartJumpInMidair || _controller.isGrounded || isHopping || (jumpCounter > 0))
             {
@@ -226,7 +227,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetAxis("Jump") <= 0)
+        if (Input.GetAxis("Jump") <= 0 && !Input.GetKey(KeyCode.UpArrow))
         {
             isHoldingDownJump = false;
         }
@@ -635,10 +636,10 @@ public class PlayerController : MonoBehaviour
         sprite.enabled = false;
         _controller.move(Vector3.zero);
 
-        src.PlayOneShot(fallDeathSound, .7f);
-        yield return new WaitForSeconds(1f);
+        src.PlayOneShot(fallDeathSound, .1f);
+        PlayRandomDamageSound();
+        yield return new WaitForSeconds(.25f);
         RespawnPlayer();
-
         isInvulnerable = false;
         isLocked = false;
         sprite.enabled = true;
