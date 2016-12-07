@@ -56,8 +56,8 @@ public class PatrollingEnemyController : EnemyController {
 
     protected override void KillEnemy()
     {
-        float rnd = Random.Range(0, 1);
-        if (rnd < dropRate)
+        float rnd = Random.Range(0, 100);
+        if (rnd < dropRate*100)
             spawnPickup();
         base.KillEnemy();
     }
