@@ -34,6 +34,14 @@ public class GameManager : MonoBehaviour {
 		SceneManager.LoadScene ("mainMenu");
 	}
 
+	public void ControlsScreen(){
+		SceneManager.LoadScene (6);
+	}
+
+	public void ControlsScreen2(){
+		SceneManager.LoadScene (6);
+	}
+
 	public void ContinueLevel(){
 		Time.timeScale = 1;
 		gameOverPanel.SetActive (false);
