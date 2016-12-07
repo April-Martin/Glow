@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿ using UnityEngine;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -61,14 +61,21 @@ public class PlayerController : MonoBehaviour
     private bool spitMode = false;
     private Vector3 aimingDirection;
     public float aimingIconInterval = 0.4f;
-    public float aimingScaler = .1f;
+    public float aimingScaler = .01f;
     [HideInInspector]
     public bool isThrowing = false;
     private LinkedList<GameObject> aimingIcons;
 
     // Sound variables
     public AudioClip[] landingSounds;
+    public AudioClip[] damageSounds;
+    public AudioClip smallSpitSound;
+    public AudioClip bigSpitSound;
+    public AudioClip pickupSound;
+    public AudioClip slurpSound;
+    public AudioClip fallDeathSound;
     private AudioSource src;
+    private int lastDmgSndPlayed = -1;
 
     // Misc variables
     private int currHealth;
@@ -306,12 +313,18 @@ public class PlayerController : MonoBehaviour
             if (spitMode)
             {
                 if (gooBar.DepleteGooBar(GooBar.Ammo.Spit))
+                {
                     Launch(gooPrefab, aimingDirection);
+                    src.PlayOneShot(smallSpitSound, 2f);
+                }
             }
             else
             {
                 if (gooBar.DepleteGooBar(GooBar.Ammo.Bomb))
+                {
                     Launch(bombPrefab, aimingDirection);
+                    src.PlayOneShot(bigSpitSound, 1.5f);
+                }
             }
             SetAnimationState(animState.spitEnd);
         }
@@ -335,6 +348,7 @@ public class PlayerController : MonoBehaviour
             {
                 gooBar.RecoverSpit(1);
                 Destroy(spit.gameObject);
+                src.PlayOneShot(slurpSound);
             }
         }
 
@@ -429,7 +443,7 @@ public class PlayerController : MonoBehaviour
             float elapsed = 0;
             while ((worldDrawLocation - prevLocation).sqrMagnitude < aimingIconInterval)
             {
-                currVelocity += Physics.gravity * timestep;
+                currVelocity += 2 * Physics.gravity * timestep;     // *2 because we double gravity for the projectiles
                 worldDrawLocation += currVelocity * timestep;
                 elapsed += timestep;
             }
@@ -488,6 +502,7 @@ public class PlayerController : MonoBehaviour
             }
             if (used)
             {
+                src.PlayOneShot(pickupSound, 3.5f);
                 Destroy(pickup.gameObject);
                 pickup.PickupAnimation();
             } 
@@ -495,7 +510,7 @@ public class PlayerController : MonoBehaviour
 
         if (col.tag == "Killer")
         {
-            RespawnPlayer();
+            StartCoroutine("delayedFallDeath");
         }
 
         if (col.tag == "PlayerDamager")
@@ -504,6 +519,7 @@ public class PlayerController : MonoBehaviour
 				return;
 			
             SetHealth(currHealth - 1);
+            PlayRandomDamageSound();
             if (currHealth > 0)
                 Recoil(col);
 
@@ -612,6 +628,22 @@ public class PlayerController : MonoBehaviour
         yield break;
     }
 
+    IEnumerator delayedFallDeath()
+    {
+        isInvulnerable = true;
+        isLocked = true;
+        sprite.enabled = false;
+        _controller.move(Vector3.zero);
+
+        src.PlayOneShot(fallDeathSound, .7f);
+        yield return new WaitForSeconds(1f);
+        RespawnPlayer();
+
+        isInvulnerable = false;
+        isLocked = false;
+        sprite.enabled = true;
+    }
+
     IEnumerator delayedDeath()
     {
         isInvulnerable = true;
@@ -666,7 +698,18 @@ public class PlayerController : MonoBehaviour
     void PlayRandomLandingSound()
     {
         System.Random rn = new System.Random();
-        src.PlayOneShot(landingSounds[rn.Next(3)], 1);
+        src.PlayOneShot(landingSounds[rn.Next(landingSounds.Length)], 1);
+    }
+
+    void PlayRandomDamageSound()
+    {
+        System.Random rn = new System.Random();
+        int index = rn.Next(damageSounds.Length);
+        while (index == lastDmgSndPlayed)
+            index = rn.Next(damageSounds.Length);
+        src.PlayOneShot(damageSounds[index], 3.5f);
+
+        lastDmgSndPlayed = index;
     }
 
     void SetAnimationState(animState anim)
