@@ -59,7 +59,7 @@ public class Credits : MonoBehaviour {
         assets[3].transform.position = destinations[3];     // Special thanks
         yield return new WaitForSeconds(.4f);
         isMoving[4] = true;                                 // Alex
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(2.2f);
         assets[5].transform.position = destinations[5];     // and 
         yield return new WaitForSeconds(.4f);
         isMoving[6] = true;                                 // Indy

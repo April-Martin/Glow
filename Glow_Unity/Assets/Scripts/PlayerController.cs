@@ -532,30 +532,16 @@ public class PlayerController : MonoBehaviour
             col.GetComponent<Checkpoint>().ChangeColor();
         }
 
-        if (col.tag == "tutorialDoor")
+        BabyBunBehavior bun = col.GetComponent<BabyBunBehavior>();
+        if (bun != null)
         {
-            SceneManager.LoadScene(2);
+            _controller.move(Vector3.zero);
+            SetAnimationState(animState.idle);
+            isLocked = true;
+            isInvulnerable = true;
+            bun.PlayWinAnimation();
         }
 
-        if (col.tag == "Level01Door")
-        {
-            SceneManager.LoadScene(3);
-        }
-
-		if (col.tag == "Level02Door")
-		{
-			SceneManager.LoadScene(4);
-		}
-
-		if (col.tag == "Level03Door")
-		{
-			SceneManager.LoadScene(5);
-		}
-
-		if (col.tag == "Level04Door")
-		{
-			SceneManager.LoadScene(7);
-		}
     }
 
     void Recoil(Collider2D col)
