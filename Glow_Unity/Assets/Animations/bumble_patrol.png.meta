@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e79353ece034e44679af7767d3327654
-timeCreated: 1480972038
+timeCreated: 1481184746
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -74,12 +74,12 @@ TextureImporter:
       name: bumble_patrol_0
       rect:
         serializedVersion: 2
-        x: 18
-        y: 2
-        width: 208
-        height: 248
+        x: 0
+        y: 0
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -87,12 +87,12 @@ TextureImporter:
       name: bumble_patrol_1
       rect:
         serializedVersion: 2
-        x: 261
+        x: 243
         y: 0
-        width: 204
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -100,12 +100,12 @@ TextureImporter:
       name: bumble_patrol_2
       rect:
         serializedVersion: 2
-        x: 491
+        x: 486
         y: 0
-        width: 236
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -113,12 +113,12 @@ TextureImporter:
       name: bumble_patrol_3
       rect:
         serializedVersion: 2
-        x: 739
+        x: 729
         y: 0
-        width: 226
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -126,12 +126,12 @@ TextureImporter:
       name: bumble_patrol_4
       rect:
         serializedVersion: 2
-        x: 990
+        x: 972
         y: 0
-        width: 211
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -139,12 +139,12 @@ TextureImporter:
       name: bumble_patrol_5
       rect:
         serializedVersion: 2
-        x: 1233
+        x: 1215
         y: 0
-        width: 209
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -152,12 +152,12 @@ TextureImporter:
       name: bumble_patrol_6
       rect:
         serializedVersion: 2
-        x: 1472
+        x: 1458
         y: 0
-        width: 214
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -165,12 +165,12 @@ TextureImporter:
       name: bumble_patrol_7
       rect:
         serializedVersion: 2
-        x: 1720
+        x: 1701
         y: 0
-        width: 208
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -178,12 +178,12 @@ TextureImporter:
       name: bumble_patrol_8
       rect:
         serializedVersion: 2
-        x: 1949
+        x: 1944
         y: 0
-        width: 229
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -191,12 +191,12 @@ TextureImporter:
       name: bumble_patrol_9
       rect:
         serializedVersion: 2
-        x: 2191
+        x: 2187
         y: 0
-        width: 233
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -204,12 +204,12 @@ TextureImporter:
       name: bumble_patrol_10
       rect:
         serializedVersion: 2
-        x: 2452
+        x: 2430
         y: 0
-        width: 218
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -217,12 +217,12 @@ TextureImporter:
       name: bumble_patrol_11
       rect:
         serializedVersion: 2
-        x: 2695
+        x: 2673
         y: 0
-        width: 206
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -230,12 +230,12 @@ TextureImporter:
       name: bumble_patrol_12
       rect:
         serializedVersion: 2
-        x: 2932
+        x: 2916
         y: 0
-        width: 214
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -243,12 +243,12 @@ TextureImporter:
       name: bumble_patrol_13
       rect:
         serializedVersion: 2
-        x: 3177
+        x: 3159
         y: 0
-        width: 201
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -256,12 +256,12 @@ TextureImporter:
       name: bumble_patrol_14
       rect:
         serializedVersion: 2
-        x: 3414
+        x: 3402
         y: 0
-        width: 226
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -269,12 +269,12 @@ TextureImporter:
       name: bumble_patrol_15
       rect:
         serializedVersion: 2
-        x: 3653
+        x: 3645
         y: 0
-        width: 234
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -282,12 +282,12 @@ TextureImporter:
       name: bumble_patrol_16
       rect:
         serializedVersion: 2
-        x: 3908
+        x: 3888
         y: 0
-        width: 207
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
@@ -295,12 +295,12 @@ TextureImporter:
       name: bumble_patrol_17
       rect:
         serializedVersion: 2
-        x: 4150
+        x: 4131
         y: 0
-        width: 213
-        height: 248
+        width: 243
+        height: 253
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0

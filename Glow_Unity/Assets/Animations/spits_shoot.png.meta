@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: e49bf4d624ba549abb0e3fd945d8b104
-timeCreated: 1481162450
+timeCreated: 1481184252
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -74,10 +74,10 @@ TextureImporter:
       name: spits_shoot_0
       rect:
         serializedVersion: 2
-        x: 27
-        y: 0
-        width: 184
-        height: 384
+        x: 31
+        y: 10
+        width: 175
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -87,10 +87,10 @@ TextureImporter:
       name: spits_shoot_1
       rect:
         serializedVersion: 2
-        x: 269
-        y: 0
-        width: 183
-        height: 382
+        x: 274
+        y: 10
+        width: 173
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -100,10 +100,10 @@ TextureImporter:
       name: spits_shoot_2
       rect:
         serializedVersion: 2
-        x: 513
-        y: 0
-        width: 183
-        height: 384
+        x: 517
+        y: 10
+        width: 174
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -113,10 +113,10 @@ TextureImporter:
       name: spits_shoot_3
       rect:
         serializedVersion: 2
-        x: 756
-        y: 0
-        width: 182
-        height: 384
+        x: 759
+        y: 10
+        width: 175
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -126,10 +126,10 @@ TextureImporter:
       name: spits_shoot_4
       rect:
         serializedVersion: 2
-        x: 997
-        y: 0
-        width: 185
-        height: 384
+        x: 1003
+        y: 10
+        width: 175
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -139,10 +139,10 @@ TextureImporter:
       name: spits_shoot_5
       rect:
         serializedVersion: 2
-        x: 1236
-        y: 0
-        width: 187
-        height: 384
+        x: 1246
+        y: 10
+        width: 173
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -152,10 +152,10 @@ TextureImporter:
       name: spits_shoot_6
       rect:
         serializedVersion: 2
-        x: 1479
-        y: 0
-        width: 191
-        height: 384
+        x: 1490
+        y: 10
+        width: 173
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -165,10 +165,10 @@ TextureImporter:
       name: spits_shoot_7
       rect:
         serializedVersion: 2
-        x: 1722
-        y: 0
-        width: 189
-        height: 384
+        x: 1731
+        y: 10
+        width: 175
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,10 +178,10 @@ TextureImporter:
       name: spits_shoot_8
       rect:
         serializedVersion: 2
-        x: 1964
-        y: 0
-        width: 192
-        height: 384
+        x: 1975
+        y: 10
+        width: 175
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,10 +191,10 @@ TextureImporter:
       name: spits_shoot_9
       rect:
         serializedVersion: 2
-        x: 2206
-        y: 0
-        width: 196
-        height: 384
+        x: 2218
+        y: 10
+        width: 175
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -204,10 +204,10 @@ TextureImporter:
       name: spits_shoot_10
       rect:
         serializedVersion: 2
-        x: 2450
-        y: 0
-        width: 193
-        height: 384
+        x: 2461
+        y: 10
+        width: 173
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -217,10 +217,10 @@ TextureImporter:
       name: spits_shoot_11
       rect:
         serializedVersion: 2
-        x: 2694
-        y: 0
-        width: 192
-        height: 384
+        x: 2704
+        y: 10
+        width: 174
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -230,10 +230,10 @@ TextureImporter:
       name: spits_shoot_12
       rect:
         serializedVersion: 2
-        x: 2939
-        y: 0
-        width: 196
-        height: 384
+        x: 2946
+        y: 10
+        width: 175
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -243,10 +243,10 @@ TextureImporter:
       name: spits_shoot_13
       rect:
         serializedVersion: 2
-        x: 3182
-        y: 0
-        width: 191
-        height: 384
+        x: 3190
+        y: 10
+        width: 175
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -256,10 +256,10 @@ TextureImporter:
       name: spits_shoot_14
       rect:
         serializedVersion: 2
-        x: 3422
-        y: 0
-        width: 202
-        height: 384
+        x: 3433
+        y: 10
+        width: 173
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -269,10 +269,10 @@ TextureImporter:
       name: spits_shoot_15
       rect:
         serializedVersion: 2
-        x: 3666
-        y: 0
-        width: 188
-        height: 384
+        x: 3677
+        y: 10
+        width: 173
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -282,10 +282,10 @@ TextureImporter:
       name: spits_shoot_16
       rect:
         serializedVersion: 2
-        x: 3912
-        y: 0
-        width: 185
-        height: 384
+        x: 3918
+        y: 10
+        width: 175
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -295,10 +295,10 @@ TextureImporter:
       name: spits_shoot_17
       rect:
         serializedVersion: 2
-        x: 4153
-        y: 0
-        width: 188
-        height: 384
+        x: 4162
+        y: 10
+        width: 175
+        height: 358
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
