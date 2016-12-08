@@ -3,9 +3,13 @@ using System.Collections;
 
 public class Checkpoint : MonoBehaviour {
 
+	public AudioClip chime;
+
 	private SpriteRenderer gooSprite;
 	private SpriteRenderer glowSprite;
 	private SpriteRenderer lightSprite;
+	private AudioSource src;
+	private bool isActive = false;
 
 	float glowAlphaDiff;
 	Color gooColorDiff;
@@ -22,11 +26,14 @@ public class Checkpoint : MonoBehaviour {
 		gooSprite = transform.GetChild(0).GetComponent<SpriteRenderer>();
 		glowSprite = transform.GetChild(1).GetComponent<SpriteRenderer>();
 		lightSprite = transform.GetChild(2).GetComponent<SpriteRenderer>();
+		src = GetComponent<AudioSource> ();
 	}
 
 
 	public void ChangeColor()
 	{
+		if (isActive)
+			return;
 		/*
         gooSprite.color = new Color32(0xc8, 0xe8, 0xff, 0xff);
         lightSprite.color = new Color32(0x72, 0xCB, 0xff, 0xff);
@@ -39,8 +46,8 @@ public class Checkpoint : MonoBehaviour {
 		lightColorDiff -= lightSprite.color;
 		lightScaleDiff = new Vector3(1.5f, 1.5f, 1) - lightSprite.transform.localScale;
 
-
-		Debug.Log ("glowSprite.color = " + glowSprite.color);
+		src.PlayOneShot (chime);
+		isActive = true;
 		StartCoroutine("GradualChange");
 
 	}
