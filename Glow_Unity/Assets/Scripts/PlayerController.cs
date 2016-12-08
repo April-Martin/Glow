@@ -625,6 +625,7 @@ public class PlayerController : MonoBehaviour
         src.PlayOneShot(fallDeathSound, .1f);
         PlayRandomDamageSound();
         yield return new WaitForSeconds(.25f);
+		Debug.Log ("HIHIHHI");
         RespawnPlayer();
         isInvulnerable = false;
         isLocked = false;
