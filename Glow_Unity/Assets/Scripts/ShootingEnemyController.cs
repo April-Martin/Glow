@@ -15,15 +15,21 @@ public class ShootingEnemyController : MonoBehaviour {
 
 	void Start () 
     {
+        anim = GetComponent<Animator>();
         StartCoroutine("FireProjectile");
 	}
 
 
     IEnumerator FireProjectile()
     {
+        // Randomize start time
+        yield return new WaitForSeconds(Random.Range(0, firingInterval));
+        anim.SetTrigger("shoot");
+
         while (true)
         {
             Instantiate (projectilePrefab, transform.position, Quaternion.identity, transform);
+            anim.SetTrigger("shoot");
             yield return new WaitForSeconds(firingInterval);
         }
 		yield break;
