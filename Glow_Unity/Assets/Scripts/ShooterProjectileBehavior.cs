@@ -23,6 +23,9 @@ public class ShooterProjectileBehavior : MonoBehaviour {
         float dist = Vector3.Distance(startPos, endPos);
         if (dist != 0)
             speed = speed / dist;
+
+        transform.localRotation = Quaternion.Euler(0, 0, 180);
+
 	}
 	
 	// Update is called once per frame
