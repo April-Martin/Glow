@@ -66,7 +66,7 @@ public class Credits : MonoBehaviour {
         yield return new WaitForSeconds(1.6f);
         assets[7].transform.position = destinations[7];     // Duck
         yield return new WaitForSeconds(.2f);
-        src.PlayOneShot(quack);
+        src.PlayOneShot(quack, .2f);
 
         yield return new WaitForSeconds(1.6f);
         gm.ExitLevel();
