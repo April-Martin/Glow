@@ -13,6 +13,8 @@ public class Credits : MonoBehaviour {
     public float speed;
     public AudioClip quack;
 
+    public GameManager gm;
+
 	void Start () {
 
         src = GetComponent<AudioSource>();
@@ -28,6 +30,7 @@ public class Credits : MonoBehaviour {
             isMoving[i] = false;
 
             assets[i].transform.position = new Vector3(destinations[i].x, offScreenPos.y);
+            
         }
 
         StartCoroutine("rollCredits");
@@ -41,25 +44,33 @@ public class Credits : MonoBehaviour {
 	
     IEnumerator rollCredits()
     {
-        yield return new WaitForSeconds(1);
-        isMoving[0] = true;
-        yield return new WaitForSeconds(1.5f);
-        isMoving[1] = true;
-        yield return new WaitForSeconds(1.5f);
-        isMoving[2] = true;
-        yield return new WaitForSeconds(2);
-
+        
+        yield return new WaitForSeconds(.5f);
+        isMoving[0] = true;                                 // Artist
+        yield return new WaitForSeconds(1.8f);
+        isMoving[1] = true;                                 // Designer
+        yield return new WaitForSeconds(1.8f);
+        isMoving[2] = true;                                 // Programmer
+        yield return new WaitForSeconds(2.2f);
         for (int i = 0; i < 3; i++)
             assets[i].transform.position = offScreenPos;
+        
 
-        assets[3].transform.position = destinations[3];
-        yield return new WaitForSeconds(.5f);
-        isMoving[4] = true;
-        yield return new WaitForSeconds(.5f);
-        isMoving[5] = true;
-        isMoving[6] = true;
-        yield return new WaitForSeconds(.5f);
+        assets[3].transform.position = destinations[3];     // Special thanks
+        yield return new WaitForSeconds(.4f);
+        isMoving[4] = true;                                 // Alex
+        yield return new WaitForSeconds(1.5f);
+        assets[5].transform.position = destinations[5];     // and 
+        yield return new WaitForSeconds(.4f);
+        isMoving[6] = true;                                 // Indy
+        yield return new WaitForSeconds(1.6f);
+        assets[7].transform.position = destinations[7];     // Duck
+        yield return new WaitForSeconds(.2f);
         src.PlayOneShot(quack);
+
+        yield return new WaitForSeconds(1.6f);
+        gm.ExitLevel();
+
     }
 
 	void Update () 
