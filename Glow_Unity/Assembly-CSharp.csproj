@@ -53,6 +53,7 @@
      <Compile Include="Assets\Scripts\CharacterController2D.cs" />
      <Compile Include="Assets\Scripts\Checkpoint.cs" />
      <Compile Include="Assets\Scripts\ComplexMovingPlatform.cs" />
+     <Compile Include="Assets\Scripts\Credits.cs" />
      <Compile Include="Assets\Scripts\EnemyController.cs" />
      <Compile Include="Assets\Scripts\FlyingEnemyController.cs" />
      <Compile Include="Assets\Scripts\GameManager.cs" />
