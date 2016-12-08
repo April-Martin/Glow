@@ -1,0 +1,311 @@
+fileFormatVersion: 2
+guid: e49bf4d624ba549abb0e3fd945d8b104
+timeCreated: 1481162450
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: spits_shoot_0
+    21300002: spits_shoot_1
+    21300004: spits_shoot_2
+    21300006: spits_shoot_3
+    21300008: spits_shoot_4
+    21300010: spits_shoot_5
+    21300012: spits_shoot_6
+    21300014: spits_shoot_7
+    21300016: spits_shoot_8
+    21300018: spits_shoot_9
+    21300020: spits_shoot_10
+    21300022: spits_shoot_11
+    21300024: spits_shoot_12
+    21300026: spits_shoot_13
+    21300028: spits_shoot_14
+    21300030: spits_shoot_15
+    21300032: spits_shoot_16
+    21300034: spits_shoot_17
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 7
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 200
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: spits_shoot_0
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 0
+        width: 184
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_1
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 0
+        width: 183
+        height: 382
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_2
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 0
+        width: 183
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_3
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 0
+        width: 182
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_4
+      rect:
+        serializedVersion: 2
+        x: 997
+        y: 0
+        width: 185
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_5
+      rect:
+        serializedVersion: 2
+        x: 1236
+        y: 0
+        width: 187
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_6
+      rect:
+        serializedVersion: 2
+        x: 1479
+        y: 0
+        width: 191
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_7
+      rect:
+        serializedVersion: 2
+        x: 1722
+        y: 0
+        width: 189
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_8
+      rect:
+        serializedVersion: 2
+        x: 1964
+        y: 0
+        width: 192
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_9
+      rect:
+        serializedVersion: 2
+        x: 2206
+        y: 0
+        width: 196
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_10
+      rect:
+        serializedVersion: 2
+        x: 2450
+        y: 0
+        width: 193
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_11
+      rect:
+        serializedVersion: 2
+        x: 2694
+        y: 0
+        width: 192
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_12
+      rect:
+        serializedVersion: 2
+        x: 2939
+        y: 0
+        width: 196
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_13
+      rect:
+        serializedVersion: 2
+        x: 3182
+        y: 0
+        width: 191
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_14
+      rect:
+        serializedVersion: 2
+        x: 3422
+        y: 0
+        width: 202
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_15
+      rect:
+        serializedVersion: 2
+        x: 3666
+        y: 0
+        width: 188
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_16
+      rect:
+        serializedVersion: 2
+        x: 3912
+        y: 0
+        width: 185
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: spits_shoot_17
+      rect:
+        serializedVersion: 2
+        x: 4153
+        y: 0
+        width: 188
+        height: 384
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    outline: []
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
