@@ -63,15 +63,12 @@ public class GooBehavior : MonoBehaviour
         float oldGooHeight = goo.bounds.size.y;
         if (isMovingPlat)
         {
-          //  splattedGoo = splattedSprites_moving[Random.Range(0, splattedSprites_moving.Length)];
-            splattedGoo = splattedSprites_moving[0];
+            splattedGoo = splattedSprites_moving[Random.Range(0, splattedSprites_moving.Length)];
 
         }
         else
         {
-            //splattedGoo = splattedSprites_static[Random.Range(0, splattedSprites_static.Length)];
-            splattedGoo = splattedSprites_static[6];
-
+            splattedGoo = splattedSprites_static[Random.Range(0, splattedSprites_static.Length)];
         }
         goo.sprite = splattedGoo;
         GetComponent<BoxCollider2D>().size = goo.bounds.size;
@@ -82,6 +79,7 @@ public class GooBehavior : MonoBehaviour
         impactPos = transform.position;
         float fudgeRoom = 0.005f;
         float offset = goo.bounds.size.y / 2;
+        SpriteRenderer platformSprite = collision.collider.GetComponent<SpriteRenderer>();
         
         // Vertical collisions
         if (cps[0].point.x < cps[1].point.x + fudgeRoom && cps[0].point.x > cps[1].point.x - fudgeRoom)
@@ -89,7 +87,7 @@ public class GooBehavior : MonoBehaviour
             if (impactVelocity.x > 0)
             {
                 transform.eulerAngles = new Vector3(0, 0, 90);
-                transform.position = new Vector3(collision.collider.bounds.min.x + offset, transform.position.y);
+                transform.position = new Vector3(platformSprite.bounds.min.x + offset, transform.position.y);
                 colType = collisionType.vert_right;
                 if (impactVelocity.y > 0)
                     transform.localScale = new Vector3(-1, 1, 1);
@@ -97,7 +95,7 @@ public class GooBehavior : MonoBehaviour
             else
             {
                 transform.eulerAngles = new Vector3(0, 0, -90);
-                transform.position = new Vector3(collision.collider.bounds.max.x - offset, transform.position.y);
+                transform.position = new Vector3(platformSprite.bounds.max.x - offset, transform.position.y);
                 colType = collisionType.vert_left;
                 if (impactVelocity.y < 0)
                     transform.localScale = new Vector3(-1, 1, 1);
@@ -110,7 +108,7 @@ public class GooBehavior : MonoBehaviour
             if (impactVelocity.y > 0)
             {
                 transform.eulerAngles = new Vector3(0, 0, 180);
-                transform.position = new Vector3(transform.position.x, collision.collider.bounds.min.y + offset);
+                transform.position = new Vector3(transform.position.x, platformSprite.bounds.min.y + offset);
                 colType = collisionType.horiz_top;
                 if (impactVelocity.x < 0)
                     transform.localScale = new Vector3(-1, 1, 1);
@@ -118,7 +116,7 @@ public class GooBehavior : MonoBehaviour
             else
             {
                 transform.eulerAngles = new Vector3(0, 0, 0);
-                transform.position = new Vector3(transform.position.x, collision.collider.bounds.max.y - offset);
+                transform.position = new Vector3(transform.position.x, platformSprite.bounds.max.y - offset);
                 colType = collisionType.horiz_bottom;
                 if (impactVelocity.x > 0)
                     transform.localScale = new Vector3(-1, 1, 1);
