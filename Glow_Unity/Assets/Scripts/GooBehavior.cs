@@ -5,7 +5,10 @@ using System.Collections;
 public class GooBehavior : MonoBehaviour
 {
 
-    public Sprite splattedGoo;
+//    public Sprite splattedGoo;
+    public Sprite[] splattedSprites_static;
+    public Sprite[] splattedSprites_moving;
+    [HideInInspector]
 	public AudioSource src;
     public int platformLayerNumber = 9;
 
@@ -19,6 +22,8 @@ public class GooBehavior : MonoBehaviour
     private bool hasCollided = false;
     private bool hasSplatted = false;
 
+    private Sprite splattedGoo;
+    private bool isMovingPlat = false;
 
     // Use this for initialization
     void Start()
@@ -46,6 +51,7 @@ public class GooBehavior : MonoBehaviour
         if (collision.collider.tag == "MovingPlatform")
         {
             this.transform.SetParent(collision.collider.transform);
+            isMovingPlat = true;
         }
         else
         {
@@ -55,6 +61,18 @@ public class GooBehavior : MonoBehaviour
         // Change to splatted form
         float oldGooWidth = goo.bounds.size.x;
         float oldGooHeight = goo.bounds.size.y;
+        if (isMovingPlat)
+        {
+          //  splattedGoo = splattedSprites_moving[Random.Range(0, splattedSprites_moving.Length)];
+            splattedGoo = splattedSprites_moving[0];
+
+        }
+        else
+        {
+            //splattedGoo = splattedSprites_static[Random.Range(0, splattedSprites_static.Length)];
+            splattedGoo = splattedSprites_static[6];
+
+        }
         goo.sprite = splattedGoo;
         GetComponent<BoxCollider2D>().size = goo.bounds.size;
 
@@ -65,6 +83,7 @@ public class GooBehavior : MonoBehaviour
         float fudgeRoom = 0.005f;
         float offset = goo.bounds.size.y / 2;
         
+        // Vertical collisions
         if (cps[0].point.x < cps[1].point.x + fudgeRoom && cps[0].point.x > cps[1].point.x - fudgeRoom)
         {
             if (impactVelocity.x > 0)
@@ -72,14 +91,20 @@ public class GooBehavior : MonoBehaviour
                 transform.eulerAngles = new Vector3(0, 0, 90);
                 transform.position = new Vector3(collision.collider.bounds.min.x + offset, transform.position.y);
                 colType = collisionType.vert_right;
+                if (impactVelocity.y > 0)
+                    transform.localScale = new Vector3(-1, 1, 1);
             }
             else
             {
                 transform.eulerAngles = new Vector3(0, 0, -90);
                 transform.position = new Vector3(collision.collider.bounds.max.x - offset, transform.position.y);
                 colType = collisionType.vert_left;
+                if (impactVelocity.y < 0)
+                    transform.localScale = new Vector3(-1, 1, 1);
+
             }
         }
+        // Horizontal collisions
         else if (cps[0].point.y < cps[1].point.y + fudgeRoom && cps[0].point.y > cps[1].point.y - fudgeRoom)
         {
             if (impactVelocity.y > 0)
@@ -87,12 +112,16 @@ public class GooBehavior : MonoBehaviour
                 transform.eulerAngles = new Vector3(0, 0, 180);
                 transform.position = new Vector3(transform.position.x, collision.collider.bounds.min.y + offset);
                 colType = collisionType.horiz_top;
+                if (impactVelocity.x < 0)
+                    transform.localScale = new Vector3(-1, 1, 1);
             }
             else
             {
                 transform.eulerAngles = new Vector3(0, 0, 0);
                 transform.position = new Vector3(transform.position.x, collision.collider.bounds.max.y - offset);
                 colType = collisionType.horiz_bottom;
+                if (impactVelocity.x > 0)
+                    transform.localScale = new Vector3(-1, 1, 1);
             }
         }
         else
@@ -153,7 +182,7 @@ public class GooBehavior : MonoBehaviour
                 // If there's a projection:
                 croppedSprite = Sprite.Create(splattedGoo.texture,
                     new Rect(0, 0, splattedGoo.texture.width * overlapPercentage, splattedGoo.texture.height),
-                    new Vector2(.5f, .5f), 200);
+                    new Vector2(.5f, .5f), 400);
                 goo.sprite = croppedSprite;
 
                 float projection = goo.bounds.size.x - (maxCP.x - minCP.x);
@@ -182,7 +211,9 @@ public class GooBehavior : MonoBehaviour
                 rayDirection = Vector3.down;
             else
                 rayDirection = Vector3.up;
-			
+
+            Debug.Log("min = " + goo.bounds.min.x + ", max = " + goo.bounds.max.x);
+
 			Collider2D leftPlatform = Physics2D.Raycast(new Vector2(goo.bounds.min.x, transform.position.y),
                 rayDirection, goo.bounds.size.y, 1 << platformLayerNumber).collider;
 			Collider2D rightPlatform = Physics2D.Raycast(new Vector2(goo.bounds.max.x, transform.position.y),
@@ -210,13 +241,15 @@ public class GooBehavior : MonoBehaviour
                 float croppedWidth = splattedGoo.texture.width * overlapPercentage;
 
                 // excess is to the right
-                if (maxSP.x > maxCP.x)
+                if ( (maxSP.x > maxCP.x && transform.localScale.x>0) ||
+                     (maxSP.x <= maxCP.x && transform.localScale.x<0) )
+
                 {
                     // Keep the left side of the goo sprite
                     croppedSprite = Sprite.Create(splattedGoo.texture,
                     new Rect(0, 0, croppedWidth, splattedGoo.texture.height),
-                    new Vector2(.5f, .5f), 200);
-                    transform.position -= new Vector3(projection / 2, 0, 0);
+                    new Vector2(.5f, .5f), 400);
+                    transform.position -= (new Vector3(projection / 2, 0, 0) * transform.localScale.x);
 
                 }
                 // excess is to the left
@@ -225,10 +258,11 @@ public class GooBehavior : MonoBehaviour
                     // Keep the right side of the goo sprite
                     croppedSprite = Sprite.Create(splattedGoo.texture,
                     new Rect(splattedGoo.texture.width - croppedWidth, 0, croppedWidth, splattedGoo.texture.height),
-                    new Vector2(.5f, .5f), 200);
-                    transform.position += new Vector3(projection / 2, 0, 0);
+                    new Vector2(.5f, .5f), 400);
+                    transform.position += (new Vector3(projection / 2, 0, 0) * transform.localScale.x);
                 }
                 goo.sprite = croppedSprite;
+
 
             }
         }
