@@ -30,8 +30,10 @@ public class Credits : MonoBehaviour {
             isMoving[i] = false;
 
             assets[i].transform.position = new Vector3(destinations[i].x, offScreenPos.y);
-            
         }
+
+        // Outlier:
+        assets[7].transform.position -= (destinations[6] - destinations[7]);
 
         StartCoroutine("rollCredits");
 	}
@@ -51,24 +53,29 @@ public class Credits : MonoBehaviour {
         isMoving[1] = true;                                 // Designer
         yield return new WaitForSeconds(1.8f);
         isMoving[2] = true;                                 // Programmer
-        yield return new WaitForSeconds(2.2f);
+        yield return new WaitForSeconds(2.5f);
         for (int i = 0; i < 3; i++)
             assets[i].transform.position = offScreenPos;
         
 
-        assets[3].transform.position = destinations[3];     // Special thanks
+        assets[3].transform.position = destinations[3];     // Guest art 
         yield return new WaitForSeconds(.4f);
-        isMoving[4] = true;                                 // Alex
-        yield return new WaitForSeconds(2.2f);
-        assets[5].transform.position = destinations[5];     // and 
-        yield return new WaitForSeconds(.4f);
-        isMoving[6] = true;                                 // Indy
-        yield return new WaitForSeconds(1.6f);
-        assets[7].transform.position = destinations[7];     // Duck
+        isMoving[4] = true;                                 // Indy Price
+        yield return new WaitForSeconds(2.5f);
+        assets[5].transform.position = destinations[5];     // Duck
         yield return new WaitForSeconds(.2f);
         src.PlayOneShot(quack, .2f);
 
-        yield return new WaitForSeconds(1.6f);
+
+        yield return new WaitForSeconds(1f);
+        for (int i = 3; i < 6; i++)
+            assets[i].transform.position = offScreenPos;
+
+        yield return new WaitForSeconds(.4f);
+        isMoving[6] = true;                                 // Special thanks
+        isMoving[7] = true;                                 // to Alex
+        yield return new WaitForSeconds(3f);
+
         gm.ExitLevel();
 
     }
