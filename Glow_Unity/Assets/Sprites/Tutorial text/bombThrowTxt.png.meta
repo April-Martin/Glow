@@ -1,11 +1,9 @@
 fileFormatVersion: 2
 guid: 8b9f38ab1c9614d0d8a9a39aaecdbbac
-timeCreated: 1479793354
+timeCreated: 1481420324
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName:
-    21300000: bombThrowTxt_0
-    21300002: bombThrowTxt_1
+  fileIDToRecycleName: {}
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -32,7 +30,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
-    aniso: 16
+    aniso: -1
     mipBias: -1
     wrapMode: 1
   nPOTScale: 0
@@ -40,7 +38,7 @@ TextureImporter:
   rGBM: 0
   compressionQuality: 50
   allowsAlphaSplitting: 0
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -53,33 +51,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: bombThrowTxt_0
-      rect:
-        serializedVersion: 2
-        x: 424
-        y: 0
-        width: 446
-        height: 98
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 255, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: bombThrowTxt_1
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 0
-        width: 423
-        height: 100
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
+    sprites: []
     outline: []
   spritePackingTag: 
   userData: 
