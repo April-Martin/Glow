@@ -38,10 +38,6 @@ public class GameManager : MonoBehaviour {
 		SceneManager.LoadScene (6);
 	}
 
-	public void ControlsScreen2(){
-		SceneManager.LoadScene (6);
-	}
-
 	public void ContinueLevel(){
 		Time.timeScale = 1;
 		gameOverPanel.SetActive (false);
@@ -51,6 +47,31 @@ public class GameManager : MonoBehaviour {
 	public void Play(){
 		Time.timeScale = 1;
 		SceneManager.LoadScene (1);
+	}
+
+	public void Level01(){
+		Time.timeScale = 1;
+		SceneManager.LoadScene (2);
+	}
+
+	public void Level02 (){
+		Time.timeScale = 1;
+		SceneManager.LoadScene (3);
+	}
+
+	public void Level03(){
+		Time.timeScale = 1;
+		SceneManager.LoadScene (4);
+	}
+
+	public void Level04(){
+		Time.timeScale = 1;
+		SceneManager.LoadScene (5);
+	}
+
+	public void levelSelect(){
+		Time.timeScale = 1;
+		SceneManager.LoadScene (8);
 	}
 
 	public void ExitGame(){
