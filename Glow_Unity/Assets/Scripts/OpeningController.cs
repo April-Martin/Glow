@@ -6,8 +6,7 @@ using UnityEngine.UI;
 public class OpeningController : MonoBehaviour
 {
 
-    private GameObject[] assets;
-    private Vector3[] destinations;
+    private Image[] images;
     private bool[] isMoving;
     private AudioSource src;
 
@@ -15,17 +14,19 @@ public class OpeningController : MonoBehaviour
 
     void Start()
     {
+        gm.pauseDisabled = true;
 
       //  src = GetComponent<AudioSource>();
-        assets = new GameObject[transform.childCount];
+        images = new Image[transform.childCount];
 
-        for (int i = 0; i < assets.Length; i++)
+        for (int i = 0; i < images.Length; i++)
         {
-            assets[i] = transform.GetChild(i).gameObject;
+            images[i] = transform.GetChild(i).GetComponent<Image>();
         }
 
-        assets[0].GetComponent<Image>().enabled = true;
-        assets[1].GetComponent<Image>().enabled = false;
+        images[0].enabled = true;
+        images[0].color = new Color(0, 0, 0, 1);
+        images[1].enabled = false;
 
         StartCoroutine("cutscene");
     }
@@ -33,10 +34,37 @@ public class OpeningController : MonoBehaviour
 
     IEnumerator cutscene()
     {
-        yield return new WaitForSeconds(3f);
-        assets[0].GetComponent<Image>().enabled = false;
-        assets[1].GetComponent<Image>().enabled = true; 
-        yield return new WaitForSeconds(1.5f);
+        while (images[0].color.r < 1)
+        {
+            images[0].color += new Color(.02f, .02f, .02f, 0);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(2.5f);
+
+        while (images[0].color.r > 0)
+        {
+            images[0].color -= new Color(.1f, .1f, .1f, 0);
+            yield return null;
+        }
+
+        images[0].GetComponent<Image>().enabled = false;
+        images[1].enabled = true;
+        images[1].color = new Color(0, 0, 0, 1);
+
+        while (images[1].color.r < 1f)
+        {
+            images[1].color += new Color(.1f, .1f, .1f, 0);
+            yield return null;
+        }
+
+        yield return new WaitForSeconds(2.2f);
+
+        while (images[1].color.r > 0f)
+        {
+            images[1].color -= new Color(.05f, .05f, .05f, 0);
+            yield return null;
+        }
 
         gm.Tutorial();
 

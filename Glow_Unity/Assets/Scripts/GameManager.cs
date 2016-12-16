@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour {
 
 	[HideInInspector] 
 	public bool isPaused = false;
-
+    public bool pauseDisabled = false;
 
 	// Use this for initialization
 	void Start () {
@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour {
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.P) || Input.GetKeyDown(KeyCode.Escape))
 		{
+            if (pauseDisabled) return;
 			Time.timeScale = 0;
 			gameOverPanel.SetActive(true);
 			isPaused = true;

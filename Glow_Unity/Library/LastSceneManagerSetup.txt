@@ -1,4 +1,4 @@
 sceneSetups:
-- path: Assets/Levels/Opening.unity
+- path: Assets/Levels/Controls.unity
   isLoaded: 1
   isActive: 1

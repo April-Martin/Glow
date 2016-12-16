@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 
 public class Credits : MonoBehaviour {
 
@@ -14,6 +14,7 @@ public class Credits : MonoBehaviour {
     public AudioClip quack;
 
     public GameManager gm;
+    public Image happySlugbuns;
 
 	void Start () {
 
@@ -22,6 +23,8 @@ public class Credits : MonoBehaviour {
         assets = new GameObject[transform.childCount];
         destinations = new Vector3[transform.childCount];
         isMoving = new bool[transform.childCount];
+
+        happySlugbuns.enabled = false;
 
         for (int i=0; i<assets.Length; i++)
         {
@@ -46,10 +49,19 @@ public class Credits : MonoBehaviour {
 	
     IEnumerator rollCredits()
     {
-        
+        happySlugbuns.enabled = true;
+        yield return new WaitForSeconds(3f);                 // Slugbuns!
+        while (happySlugbuns.color.r > 0)
+        {
+            happySlugbuns.color -= new Color(.03f, .03f, .03f, .03f);
+            yield return null;
+        }
+        happySlugbuns.enabled = false;
+
+
         yield return new WaitForSeconds(.5f);
         isMoving[0] = true;                                 // Artist
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(2.1f);
         isMoving[1] = true;                                 // Designer
         yield return new WaitForSeconds(1.8f);
         isMoving[2] = true;                                 // Programmer
@@ -79,6 +91,7 @@ public class Credits : MonoBehaviour {
         gm.ExitLevel();
 
     }
+
 
 	void Update () 
     {

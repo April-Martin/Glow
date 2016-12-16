@@ -1,2 +1,10 @@
 Base path: C:/Program Files/Unity/Editor/Data
 Cmd: getPlatforms
+Cmd: compileSnippet
+  error: 2 plat 1 at (48): invalid input semantic 'POSITION': Legal indices are in [1,15] invalid ps_3_0 input semantic 'POSITION'\nCompiling Fragment program with PIXELSNAP_ON
+Platform defines: UNITY_ENABLE_REFLECTION_BUFFERS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING
+  api=1 type=1 insize=1980 outsize=0 kw=PIXELSNAP_ON pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING ok=0
+Cmd: compileSnippet
+  error: 2 plat 1 at (48): invalid input semantic 'POSITION': Legal indices are in [1,15] invalid ps_3_0 input semantic 'POSITION'\nCompiling Fragment program
+Platform defines: UNITY_ENABLE_REFLECTION_BUFFERS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING
+  api=1 type=1 insize=1980 outsize=0 kw= pd=UNITY_ENABLE_REFLECTION_BUFFERS UNITY_PBS_USE_BRDF1 UNITY_SPECCUBE_BOX_PROJECTION UNITY_SPECCUBE_BLENDING ok=0
