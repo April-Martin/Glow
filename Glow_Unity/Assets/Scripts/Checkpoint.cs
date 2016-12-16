@@ -46,7 +46,7 @@ public class Checkpoint : MonoBehaviour {
 		lightColorDiff -= lightSprite.color;
 		lightScaleDiff = new Vector3(1.5f, 1.5f, 1) - lightSprite.transform.localScale;
 
-		src.PlayOneShot (chime);
+		src.PlayOneShot (chime, .5f);
 		isActive = true;
 		StartCoroutine("GradualChange");
 

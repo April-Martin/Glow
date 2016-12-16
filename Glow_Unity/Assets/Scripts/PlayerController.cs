@@ -316,7 +316,7 @@ public class PlayerController : MonoBehaviour
                 if (gooBar.DepleteGooBar(GooBar.Ammo.Spit))
                 {
                     Launch(gooPrefab, aimingDirection);
-                    src.PlayOneShot(smallSpitSound, 2f);
+                    src.PlayOneShot(smallSpitSound, 4f);
                 }
             }
             else
@@ -324,7 +324,7 @@ public class PlayerController : MonoBehaviour
                 if (gooBar.DepleteGooBar(GooBar.Ammo.Bomb))
                 {
                     Launch(bombPrefab, aimingDirection);
-                    src.PlayOneShot(bigSpitSound, 1.5f);
+                    src.PlayOneShot(bigSpitSound, 2f);
                 }
             }
             SetAnimationState(animState.spitEnd);
@@ -503,7 +503,7 @@ public class PlayerController : MonoBehaviour
             }
             if (used)
             {
-                src.PlayOneShot(pickupSound, 3.5f);
+                src.PlayOneShot(pickupSound, 4f);
                 Destroy(pickup.gameObject);
                 pickup.PickupAnimation();
             } 
@@ -695,7 +695,7 @@ public class PlayerController : MonoBehaviour
         int index = rn.Next(damageSounds.Length);
         while (index == lastDmgSndPlayed)
             index = rn.Next(damageSounds.Length);
-        src.PlayOneShot(damageSounds[index], 3.5f);
+        src.PlayOneShot(damageSounds[index], 5.5f);
 
         lastDmgSndPlayed = index;
     }
