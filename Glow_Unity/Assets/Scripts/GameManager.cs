@@ -46,8 +46,15 @@ public class GameManager : MonoBehaviour {
 
 	public void Play(){
 		Time.timeScale = 1;
-		SceneManager.LoadScene (1);
+		SceneManager.LoadScene (9);
 	}
+
+    public void Tutorial()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(1);
+    }
+
 
 	public void Level01(){
 		Time.timeScale = 1;

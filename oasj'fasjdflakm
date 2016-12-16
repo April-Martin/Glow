@@ -1,0 +1,285 @@
+[33mcommit 18687e02e908944eaf8f62fecfa1f93ddf10a5db[m
+Author: inkitemily <inkitemily@gmail.com>
+Date:   Thu Dec 15 17:31:44 2016 -0700
+
+    Added cutscene images (cutscene1,cutscene2) and a folder for them (Cutscene Images)
+
+[33mcommit 45c1045f918d10c3f3c05a007ef1167f108d44f6[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Tue Dec 13 13:12:28 2016 -0700
+
+    Fixed something
+
+[33mcommit 0b04756cedaeb738e14b4d9fa69664b00fd28501[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Mon Dec 12 11:17:45 2016 -0700
+
+    Moved moving platform on level 4
+
+[33mcommit cf8663ea0a5a119f3fef23a2ddd640a14aeeb92f[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Mon Dec 12 11:13:32 2016 -0700
+
+    Added a level select
+    
+    I also changed a few things and fixed the return button on the controls
+    screen.
+
+[33mcommit c0a9227fd197bf687346db9e41b902255b32fda3[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Sun Dec 11 21:01:42 2016 -0700
+
+    Fixed up the goo collider issues
+
+[33mcommit 8c24bb561ce7474c29f4d9dfeb25535eb1cdff94[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Sat Dec 10 22:58:41 2016 -0700
+
+    redid the colliders
+
+[33mcommit 788c493a5752fb20e4a3d4f37082f5f5c7b9ea5b[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Fri Dec 9 11:02:35 2016 -0700
+
+    PC build
+
+[33mcommit dbb97509583ead59d2a56087d5f071412b57522c[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Fri Dec 9 10:52:38 2016 -0700
+
+    Made new Mac build
+
+[33mcommit 1b216efa352f521056050976f274906b790b49f7[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Fri Dec 9 10:40:07 2016 -0700
+
+    Fixed the control screen
+
+[33mcommit 98830511e38e81cf8acc4d63c9853b17b11278e0[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Fri Dec 9 01:39:35 2016 -0700
+
+    Goo is WORKING! Also, I added the safety platform. -__-
+
+[33mcommit 90475ff843bcca2394b9df09cf09f5de70cb9fad[m
+Author: inkitemily <inkitemily@gmail.com>
+Date:   Fri Dec 9 01:16:15 2016 -0700
+
+    Updated moving platform guides
+
+[33mcommit 75e38cc603a65ca499e7ce5304483fe6cdb4a773[m
+Author: inkitemily <inkitemily@gmail.com>
+Date:   Fri Dec 9 01:08:32 2016 -0700
+
+    Working on updating moving platform guides
+
+[33mcommit 9a4dd80c4fe79f651271e6b7e6b16e7033a33627[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Fri Dec 9 00:56:23 2016 -0700
+
+    Working on incorporating Indy's goo sprites
+
+[33mcommit c2c6a6787ac3de65d1ac1783a3ab0e0c8b398ab2[m
+Author: inkitemily <inkitemily@gmail.com>
+Date:   Thu Dec 8 22:31:59 2016 -0700
+
+    Updated baby_sad animation
+    
+    hopefully less twitchy now?
+
+[33mcommit fb2caaddbac8a0d381bfe589612bd9dbb7c4014a[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Thu Dec 8 21:58:35 2016 -0700
+
+    Synced up platforms, added more credits for Indy
+
+[33mcommit aba0e9fc2ad07312c54d23d2e8eb6a8671c8c90c[m
+Author: April-Martin <u0891819@1110-mac-03.lib.utah.edu>
+Date:   Thu Dec 8 13:52:01 2016 -0700
+
+    a;slkdfjasdf
+
+[33mcommit 032c9d650212a158d0818a8529a5979dcec35907[m
+Author: BHaven89 <u0558460@1110-mac-01.lib.utah.edu>
+Date:   Thu Dec 8 13:23:27 2016 -0700
+
+    bug fix on level 4
+
+[33mcommit 1a01f3d4c891e105710110e284c707181185ef5e[m
+Author: BHaven89 <u0558460@1110-mac-01.lib.utah.edu>
+Date:   Thu Dec 8 12:52:53 2016 -0700
+
+    Try this One!!!!
+
+[33mcommit 888892743198798eabf402209f761d994a9c8e2d[m
+Author: BHaven89 <u0558460@1110-mac-01.lib.utah.edu>
+Date:   Thu Dec 8 12:48:27 2016 -0700
+
+    Changed a few things
+
+[33mcommit 0d50566c357a22b9bfa89fb6e6ed4c345ed54536[m
+Author: April-Martin <u0891819@1110-mac-03.lib.utah.edu>
+Date:   Thu Dec 8 12:45:14 2016 -0700
+
+    Added checkpoint sound
+
+[33mcommit de3347f75223b98267e5c1514102b4ec1f666f82[m
+Author: BHaven89 <u0558460@1110-mac-01.lib.utah.edu>
+Date:   Thu Dec 8 12:36:34 2016 -0700
+
+    Changed some firing rates
+
+[33mcommit 236069311d7e0aac3c0ebf083e70f1fd1362c5c4[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Thu Dec 8 11:52:54 2016 -0700
+
+    By golly this build better be good
+
+[33mcommit 449d18dabfadadeaf466df823709c573948fbcbf[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Thu Dec 8 11:40:22 2016 -0700
+
+    Different Build
+
+[33mcommit dd55709314bbc1499f1c4d8428b94e487d92c364[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Thu Dec 8 11:23:10 2016 -0700
+
+    Created Build
+
+[33mcommit 06768e135faf8d2a37e296e8ea789c8783e9ea7a[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Thu Dec 8 10:45:42 2016 -0700
+
+    Added Envirooms
+
+[33mcommit dd26600415024ab40c12abee087f647fd66a5f97[m
+Author: inkitemily <inkitemily@gmail.com>
+Date:   Thu Dec 8 08:25:49 2016 -0700
+
+    Added mushroom environmental asset (enviromushroom1)
+    
+    Sorry that I don’t have time for more ;~;
+
+[33mcommit bb49ee9ce3bbe01a39d6210a878bd3bbe2b841c8[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Thu Dec 8 04:31:45 2016 -0700
+
+    YAY
+
+[33mcommit fda1d5b601b9eed5d5c6c104e114ba6049d0031d[m
+Author: inkitemily <inkitemily@gmail.com>
+Date:   Thu Dec 8 02:58:20 2016 -0700
+
+    Added baby animations (baby_sad, baby_happy)
+
+[33mcommit 018ac7382efc158c6ec6d2961cfcd6f6f39dd74a[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Thu Dec 8 02:00:32 2016 -0700
+
+    tweaked animations
+
+[33mcommit bd6ff1f1cc656ddd114ced0b7b45e305a64ed406[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Wed Dec 7 22:38:18 2016 -0700
+
+    Fixed shooting enemies
+
+[33mcommit c7feeead0ab5764b4cb46c61e53bcd4fa4db8995[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Wed Dec 7 21:20:02 2016 -0700
+
+    Now its fixed
+
+[33mcommit 7fccf2156bc97ad5794a2e5b815395493106392f[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Wed Dec 7 21:12:20 2016 -0700
+
+    Changed Control Text
+
+[33mcommit 79c26f556ae052cf44c9e91c1b256c06c36a9678[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Wed Dec 7 21:04:50 2016 -0700
+
+    Corrected projectile orientation
+
+[33mcommit c319977789e5043c414842318adf34877ffb47c5[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Wed Dec 7 20:56:34 2016 -0700
+
+    Fixed shooter animation speed, updated projectile sprite
+
+[33mcommit 6a0f402497d26c84313eac514edf118a5de3bca1[m
+Author: inkitemily <inkitemily@gmail.com>
+Date:   Wed Dec 7 20:50:12 2016 -0700
+
+    Added enemy projectile assets (enemy_glowglobule, enemy_glowsplat)
+
+[33mcommit 10b2ea6ea6a98ec0745823ed14e9a580b7312f14[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Wed Dec 7 20:38:28 2016 -0700
+
+    Rearranged tutorial text
+
+[33mcommit 8d75c42a687e59f9e1464c3aacb82d61c7364f21[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Wed Dec 7 20:18:56 2016 -0700
+
+    Added shooter animations!
+
+[33mcommit 2011d2f432cda6ad70314cfb239345f6a5503906[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Wed Dec 7 19:44:38 2016 -0700
+
+    Rubber duck quack =D
+
+[33mcommit fb5cf564a5b4b0b4d1bef46aa98a6320598371c0[m
+Merge: 9c9f662 9126b48
+Author: April Martin <nandra001@gmail.com>
+Date:   Wed Dec 7 19:39:07 2016 -0700
+
+    Credits
+
+[33mcommit 9c9f662f9e0a3d76406d242ea7c78c4722a61e48[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Wed Dec 7 19:37:46 2016 -0700
+
+    Added credits
+
+[33mcommit 9126b4897be2d962c8fb56abd3342984e839748e[m
+Author: inkitemily <inkitemily@gmail.com>
+Date:   Wed Dec 7 19:04:43 2016 -0700
+
+    Added shooting enemy animation (spits_shoot, spits_idle)
+    
+    note: spits_idle is technically two static frames, I’m short on time
+
+[33mcommit 8923d538e219dbdb2310195cc8e4fbcc94183d00[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Wed Dec 7 18:51:57 2016 -0700
+
+    Working on credits]
+
+[33mcommit 6ac54d362038d3792ee95ee3e08502cb69a79c15[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Wed Dec 7 16:57:41 2016 -0700
+
+    Small tweaks to a number of things
+
+[33mcommit cf31a8f21ba28b9e97fa2a9dfb7fc2b0b08ec8de[m
+Author: April Martin <nandra001@gmail.com>
+Date:   Wed Dec 7 16:19:08 2016 -0700
+
+    Changed fall death delay
+
+[33mcommit 954c73bb492e9648700aeb46bb5e22190b5ad083[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Wed Dec 7 14:16:51 2016 -0700
+
+    added a control screen to the main menu
+
+[33mcommit de90b41aaff24005b836f05a9110a9237bfba0f2[m
+Author: BHaven89 <haven4521@gmail.com>
+Date:   Wed Dec 7 11:27:05 2016 -0700
+
+    Readju
